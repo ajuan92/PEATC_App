@@ -1,21 +1,22 @@
 import Xillybus
+import struct
 
 '''!
 Ruta para el arvhivo que transmite del host
 al sistema GS_AS
 '''
-#GS_START_PATH = '/dev/xillybus_gs_start_test'
+# GS_START_PATH = '/dev/xillybus_gs_start_test'
 GS_START_PATH = 'E:\\ARCHIVOS_Y_DOCUMENTOS\\01_Tesis_Local\\PEATC_App\\Low_Drivers\\dev\\xillybus_gs_start_test'
-#GS_START_PATH = 'dev\\xillybus_gs_start_test'
+# GS_START_PATH = 'dev\\xillybus_gs_start_test'
 
 
 '''!
 Ruta para el arvhivo que contiene los datos
 crudos transmitido del sistema GS_AS al host
 '''
-#GS_RAW_PATH = '/dev/xillybus_gs_raw_signal'
+# GS_RAW_PATH = '/dev/xillybus_gs_raw_signal'
 GS_RAW_PATH = 'E:\\ARCHIVOS_Y_DOCUMENTOS\\01_Tesis_Local\\PEATC_App\\Low_Drivers\\dev\\xillybus_gs_raw_signal'
-#GS_RAW_PATH = 'dev\\xillybus_gs_raw_signal'
+# GS_RAW_PATH = 'dev\\xillybus_gs_raw_signal'
 
 
 TestParamsLimits = {
@@ -86,8 +87,11 @@ class PEATC_Gs_As:
         '''
         with open(Temp_file, 'w') as TempFile:
             # convertir y justificar constante
-            ReadCheck = Xillybus.stream_read(GS_RAW_PATH, 100)
-            ReadGenData = next(ReadCheck)
-            print(ReadGenData)
-            for ReadGenData in ReadCheck:
-                TempFile.write(''.join(ReadGenData))
+            ReadGenData = Xillybus.stream_read(GS_RAW_PATH)
+            ReadData = next(ReadGenData)
+            Index = 0
+            Byte2Word = 0
+            while Index < (len(ReadData) - 1):
+                Byte2Word = (ReadData[Index] * 256) + ReadData[Index + 1]
+                Index += 2
+                TempFile.write(str(Byte2Word) + " ")

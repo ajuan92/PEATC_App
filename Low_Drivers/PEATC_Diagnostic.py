@@ -19,7 +19,7 @@ RN_RESULT_PATH = 'E:\\ARCHIVOS_Y_DOCUMENTOS\\01_Tesis_Local\\PEATC_App\\Low_Driv
 
 class PEATC_Diagnostic:
     '''!
-    Driver para el sistema Generate Signal, Analog Signal
+    Driver para el sistema donde se implementa la red neuronal.
     '''
 
     IsSingleton = None
@@ -30,13 +30,13 @@ class PEATC_Diagnostic:
         ya que se debe resguardar la manipulación de los
         archivos del Xillybus, ya que el manipular dichos
         archivos influye en señales de Hw generadas por el
-        core del Xillibus
+        core del Xillybus
         '''
         if self.IsSingleton is None:
             self.IsSingleton = super(PEATC_Diagnostic, self).__new__(self)
         return self.IsSingleton
 
-    def SetMatrix(self, *MatrixParams, PatientAge):
+    def SetMatrix(self, PatientAge: int, MatrixParams: list):
         '''!
         Establece en formato la matriz con los resultados
         de la prueba de PEATC para ser enviados como
@@ -55,25 +55,32 @@ class PEATC_Diagnostic:
         '''
         Asignación de trama para el comando enviado al sistema RN
         '''
-
         MatrixStream = [PatientAge]
-        for TestIndex in range(len(MatrixParams)):
-            MatrixStream.Extend(MatrixParams[TestIndex])
+        MatrixStream.extend(MatrixParams)
+        ByteSplit = [0, 0]
+        ByteStream = []
 
-        Xillybus.stream_write(RN_PARAM_PATH, MatrixStream)
+        for IndexMatrix in range(len(MatrixStream)):
 
-    def GetDiagnostic(self, Temp_file: str):
+            if MatrixStream[IndexMatrix] <= 0xFF:
+                ByteSplit[0] = 0x0
+                ByteSplit[1] = MatrixStream[IndexMatrix]
+            elif MatrixStream[IndexMatrix] <= 0xFFFF:
+                ByteSplit[0] = int((0xFF00 & MatrixStream[IndexMatrix]) / 256)
+                ByteSplit[1] = 0xFF & MatrixStream[IndexMatrix]
+
+            ByteStream.extend(ByteSplit)
+
+        Xillybus.memory_write(RN_PARAM_PATH, ByteStream)
+
+    def GetDiagnostic(self) -> int:
         '''!
-        Crea un archivo con la señal cruda resultante de
-        la lectura analogica de PEATC
+        Lee el archivo de Xillybus donde se encientra el diagnostico retornado
+        por la red neuronal.
 
-        @param Temp_file  Ruta del archivo temporal donde
-        se almacenara la señal cruda de PEATC
+        @return Codigo de diagnostico
         '''
-        with open(Temp_file, 'w') as TempFile:
-            # convertir y justificar constante
-            ReadCheck = Xillybus.stream_read(GS_RAW_PATH, 100)
-            ReadGenData = next(ReadCheck)
-            print(ReadGenData)
-            for ReadGenData in ReadCheck:
-                TempFile.write(''.join(ReadGenData))
+        ReadDiagData = Xillybus.memory_read(RN_RESULT_PATH, 4)
+
+        print(ReadDiagData)
+        return ReadDiagData

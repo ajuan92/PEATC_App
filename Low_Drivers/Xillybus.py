@@ -45,7 +45,7 @@ def memory_read(dev_file: str, length=1) -> tuple:
         return struct.unpack('B' * length, data)
 
 
-def stream_read(dev_file: str, length=-1, chunk_size=2 ** 12):
+def stream_read(dev_file: str, length=2 ** 12, chunk_size=2 ** 12):
     """!
     reads data from the device into an array of chuck_size bytes and yields it
     @param dev_file: the target device
@@ -55,10 +55,9 @@ def stream_read(dev_file: str, length=-1, chunk_size=2 ** 12):
     with open(dev_file, 'rb') as fifo:
         read = 0
         while length < 0 or read < length:
-            data = array.array('b')
+            data = array.array('B')
             try:
-                #Checj = data.fromfile(fifo, min(length - read, chunk_size))
-                Checj = data.fromfile(fifo, length)
+                Checj = data.fromfile(fifo, min(length - read, chunk_size))
                 yield abs(Checj)
                 read += len(data)
             except EOFError:

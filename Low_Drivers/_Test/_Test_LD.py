@@ -20,7 +20,6 @@ with open(TEST_GS_START_PATH, 'w') as FileGs_Start:
 
 with open(TEST_GS_RAW_PATH, 'wb') as FileGs_Raw:
     ByteSplit = [0, 0]
-    ByteStream = []
     Raw_Data_list = Test_AS_Raw_Data_12_month
     for i in range(len(Raw_Data_list)):
         RawStream = Raw_Data_list[i]
@@ -31,10 +30,7 @@ with open(TEST_GS_RAW_PATH, 'wb') as FileGs_Raw:
             ByteSplit[0] = int((0xFF00 & RawStream) / 256)
             ByteSplit[1] = 0xFF & RawStream
 
-        ByteStream.extend(ByteSplit)
-        print(RawStream)
-        print(ByteSplit)
-        FileGs_Raw.write(struct.pack('b' * 2, ByteStream[0], ByteStream[1]))
+        FileGs_Raw.write(struct.pack('B' * 2, ByteSplit[0], ByteSplit[1]))
 
 with open(TEST_RN_DIAG_PARAM, 'wb') as FileDiag_Param:
     pass
@@ -81,11 +77,11 @@ PATH_TestTempFile = '_TestTempFile.tmp'
 
 Sys_GS_AS.GetRawSignal(PATH_TestTempFile)
 
-with open(PATH_TestTempFile, 'rb') as FileGs_Raw:
+with open(PATH_TestTempFile, 'r') as FileGs_Raw:
     print(FileGs_Raw.read())
     pass
 
-with open(PATH_TestTempFile, 'w') as FileGs_Raw:
+with open(PATH_TestTempFile, 'r') as FileGs_Raw:
     pass
 
 print("----------Test_LD_3 End-----------")
@@ -125,14 +121,14 @@ print(DiagCode)
 print("----------Test_LD_6 End-----------")
 
 #-------------------------POST-TEST--------------------------------
-with open(TEST_GS_START_PATH, 'w') as FileGs_Start:
+with open(TEST_GS_START_PATH, 'r') as FileGs_Start:
     pass
 
 with open(TEST_GS_RAW_PATH, 'r') as FileGs_Raw:
     pass
 
-with open(TEST_RN_DIAG_PARAM, 'w') as FileDiag_Param:
+with open(TEST_RN_DIAG_PARAM, 'r') as FileDiag_Param:
     pass
 
-with open(TEST_RN_DIAG_RESULT, 'w') as FileDiag_Param:
+with open(TEST_RN_DIAG_RESULT, 'r') as FileDiag_Param:
     pass
