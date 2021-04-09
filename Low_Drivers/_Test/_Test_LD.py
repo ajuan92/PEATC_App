@@ -20,7 +20,7 @@ with open(TEST_GS_START_PATH, 'w') as FileGs_Start:
 
 with open(TEST_GS_RAW_PATH, 'wb') as FileGs_Raw:
     ByteSplit = [0, 0]
-    Raw_Data_list = Test_AS_Raw_Data_12_month
+    Raw_Data_list = Test_AS_Raw_Data_20_month
     for i in range(len(Raw_Data_list)):
         RawStream = Raw_Data_list[i]
         if RawStream <= 0xFF:

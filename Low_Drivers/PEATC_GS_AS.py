@@ -85,13 +85,10 @@ class PEATC_Gs_As:
         @param Temp_file  Ruta del archivo temporal donde
         se almacenara la señal cruda de PEATC
         '''
-        with open(Temp_file, 'w') as TempFile:
+        with open(Temp_file, 'wb') as TempFile:
             # convertir y justificar constante
             ReadGenData = Xillybus.stream_read(GS_RAW_PATH)
             ReadData = next(ReadGenData)
-            Index = 0
-            Byte2Word = 0
-            while Index < (len(ReadData) - 1):
-                Byte2Word = (ReadData[Index] * 256) + ReadData[Index + 1]
-                Index += 2
-                TempFile.write(str(Byte2Word) + " ")
+            print(ReadData)
+
+            TempFile.write(struct.pack('B' * len(ReadData), *ReadData))
