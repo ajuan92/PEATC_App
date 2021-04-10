@@ -56,17 +56,14 @@ def AnalyzeSignal(Signal_file: str):
     WaveCount = 0
 
     for i in range(len(DataCapture)):
-        print(DataCapture[i]) #problema al detectar bajada, no detecna negativos buscar otra forma de evaluar
-        if DataCapture[i] > PEATC_CONFIG_AMP_THRESHOLD:
-
+        if DataCapture[i] >= PEATC_CONFIG_AMP_THRESHOLD:
             RawWave[WaveCount].append(DataCapture[i])
             TimeWave[WaveCount].append(TimeCapture[i])
 
-            print(DataCapture[i + 1])
             if DataCapture[i + 1] < PEATC_CONFIG_AMP_THRESHOLD - 1:
                 WaveCount = WaveCount + 1
-        
 
+    print("--")
     print(WaveCount)
     print("--")
     print(RawWave)
