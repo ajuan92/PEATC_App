@@ -129,3 +129,4 @@ def AnalyzeSignal(Signal_file: str):
             FilterIndex = FilterIndex + 1
         i = i + 1
     print(WaveAmpLat)
+    return WaveAmpLat, DataCapture
