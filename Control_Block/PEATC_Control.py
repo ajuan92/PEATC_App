@@ -1,7 +1,6 @@
 import os
 import sys
 from time import time
-from multiprocessing import Process, Pipe
 
 CURR_PATH = os.path.dirname(os.path.realpath(__file__))
 LOW_DRIVE_PATH = CURR_PATH + "\\..\\Low_Drivers"
@@ -13,8 +12,8 @@ from PEATC_Analyze import AnalyzeSignal
 from PEATC_GS_AS import PEATC_Gs_As
 from PEATC_Diagnostic import PEATC_Diagnostic
 
-PEATC_CONFIG_SAMPLE_WAIT_TIME = 2
-PEATC_CONFIG_DIAG_WAIT_TIME = 2
+PEATC_CONFIG_SAMPLE_WAIT_TIME = 10
+PEATC_CONFIG_DIAG_WAIT_TIME = 10
 '''!
 Comandos
 '''
@@ -59,6 +58,20 @@ class PEATC_Control(PEATC_Gs_As, PEATC_Diagnostic):
         '''
         print("Inicialización del modulo PEATC_Control")
 
+    def __ReportState(self, Arg_State, CurrState):
+        '''!
+        Reporta el estado
+        '''
+
+        if Arg_State.empty() is True:
+            if Arg_State.full() is True:
+                Arg_State.get(block=True, timeout=1)
+
+        else:
+            if Arg_State.full() is False:
+                Arg_State.get(block=True, timeout=1)
+            Arg_State.put(CurrState,block=True, timeout=1)
+
     def ControlHandler(self, Arg_Cmd, Arg_Results, Arg_State):
         '''!
         Parte central de la tarea de control, maneja la maquina
@@ -74,7 +87,7 @@ class PEATC_Control(PEATC_Gs_As, PEATC_Diagnostic):
 
         @param Arg_State Conducto para enviar códigos de Estado
         '''
-        print("Inicio Tarea de Control")
+        #print("Inicio Tarea de Control")
         sys.stdout.flush()
 
         Control_GS_AS = PEATC_Gs_As()
@@ -86,6 +99,8 @@ class PEATC_Control(PEATC_Gs_As, PEATC_Diagnostic):
         FullWaveData = []
 
         while True:
+            Arg_State[0] = PeatcCurrState
+            #self.__ReportState(Arg_State, PeatcCurrState)
 
             if PeatcCurrState is STATE_STAND_BY:
 
@@ -103,9 +118,6 @@ class PEATC_Control(PEATC_Gs_As, PEATC_Diagnostic):
                     "Gs_Freq": CurrCmd["Gs_Freq"],
                 }
 
-                print(CurrParams)  # QUITAR TEST
-                sys.stdout.flush()
-
                 Control_GS_AS.InitTest(**CurrParams)
 
                 TimeStamp = time()
@@ -119,11 +131,6 @@ class PEATC_Control(PEATC_Gs_As, PEATC_Diagnostic):
             elif PeatcCurrState is STATE_ANALYZE_DATA:
 
                 Control_GS_AS.GetRawSignal("TempRawData.tmp")
-
-                with open("TempRawData.tmp", 'rb') as FileDiag_Param:
-                    print(FileDiag_Param.read())
-                    sys.stdout.flush()
-
                 PeatcWaves, FullWaveData = AnalyzeSignal("TempRawData.tmp")
 
                 PeatcCurrState = STATE_SEND_RESULT
@@ -140,7 +147,6 @@ class PEATC_Control(PEATC_Gs_As, PEATC_Diagnostic):
                 CurrCmd = Cmd_Template
                 PeatcWaves.clear()
                 FullWaveData = []
-            Arg_State.send(PeatcCurrState)
 
     def DiagHandler(self, Arg_PeatcTable, Arg_DiagResults, Arg_State):
         '''!
@@ -157,10 +163,10 @@ class PEATC_Control(PEATC_Gs_As, PEATC_Diagnostic):
 
         @param Arg_State Conducto para enviar códigos de Estado
         '''
-        print("Inicio Tarea de Diagnostico")
+        #print("Inicio Tarea de Diagnostico")
         sys.stdout.flush()
 
-        Diag_GS_AS = PEATC_Diagnostic()
+        Diag_Sys = PEATC_Diagnostic()
 
         TimeStamp = 0
         DiagCurrState = STATE_STAND_BY
@@ -173,11 +179,23 @@ class PEATC_Control(PEATC_Gs_As, PEATC_Diagnostic):
                 CurrTable = Arg_PeatcTable.recv()
 
                 if CurrTable is not None:
-                    DiagCurrState = STATE_INIT_TEST
+                    DiagCurrState = STATE_INIT_DIAGNOSTIC
 
             elif DiagCurrState is STATE_INIT_DIAGNOSTIC:
 
-                Diag_GS_AS.SetMatrix(,CurrTable)
+                MatrixParam = []
+
+                for IndexTable in range(len(CurrTable[1])):
+
+                    for IndexWaves in range(len(CurrTable[1][IndexTable])):
+
+                        if len(CurrTable[1][IndexTable][IndexWaves]) is not 0:
+                            MatrixParam.extend(
+                                CurrTable[1][IndexTable][IndexWaves])
+                        else:
+                            MatrixParam.extend([0, 0])
+
+                Diag_Sys.SetMatrix(CurrTable[0], MatrixParam)
 
                 TimeStamp = time()
                 DiagCurrState = STATE_WAIT_DIAGNOSTIC
@@ -185,13 +203,18 @@ class PEATC_Control(PEATC_Gs_As, PEATC_Diagnostic):
             elif DiagCurrState is STATE_WAIT_DIAGNOSTIC:
 
                 if (time() - TimeStamp) > PEATC_CONFIG_DIAG_WAIT_TIME:
-                    DiagCurrState = STATE_ANALYZE_DATA
+                    DiagCurrState = STATE_SEND_RESULT
 
             elif DiagCurrState is STATE_SEND_RESULT:
-                pass
-            elif DiagCurrState is STATE_SEND_RESULT:
-                pass
+
+                CurrDiagnostic = Diag_Sys.GetDiagnostic()
+                Arg_DiagResults.send(CurrDiagnostic)
+
+                DiagCurrState = STATE_RESET
+
             elif DiagCurrState is STATE_RESET:
-                pass
+                TimeStamp = 0
+                DiagCurrState = STATE_STAND_BY
+                CurrTable = None
 
-            Arg_State.send(DiagCurrState)
+            # Arg_State.send(DiagCurrState)

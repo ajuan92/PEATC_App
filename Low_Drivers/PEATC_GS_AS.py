@@ -1,12 +1,15 @@
+import os
 import Xillybus
 import struct
+
+PEATC_GS_AS_PATH = os.path.dirname(os.path.realpath(__file__))
 
 '''!
 Ruta para el arvhivo que transmite del host
 al sistema GS_AS
 '''
 # GS_START_PATH = '/dev/xillybus_gs_start_test'
-GS_START_PATH = 'E:\\ARCHIVOS_Y_DOCUMENTOS\\01_Tesis_Local\\PEATC_App\\Low_Drivers\\dev\\xillybus_gs_start_test'
+GS_START_PATH = PEATC_GS_AS_PATH + "\\dev\\xillybus_gs_start_test"
 # GS_START_PATH = 'dev\\xillybus_gs_start_test'
 
 
@@ -15,7 +18,7 @@ Ruta para el arvhivo que contiene los datos
 crudos transmitido del sistema GS_AS al host
 '''
 # GS_RAW_PATH = '/dev/xillybus_gs_raw_signal'
-GS_RAW_PATH = 'E:\\ARCHIVOS_Y_DOCUMENTOS\\01_Tesis_Local\\PEATC_App\\Low_Drivers\\dev\\xillybus_gs_raw_signal'
+GS_RAW_PATH = PEATC_GS_AS_PATH + "\\dev\\xillybus_gs_raw_signal"
 # GS_RAW_PATH = 'dev\\xillybus_gs_raw_signal'
 
 

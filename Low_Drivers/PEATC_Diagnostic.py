@@ -1,20 +1,22 @@
+import os
 import Xillybus
+PEATC_DIAGNOSTIC_PATH = os.path.dirname(os.path.realpath(__file__))
 
 '''!
 Ruta para el arvhivo que contiene los datos
 crudos transmitido del sistema RN al host
 '''
-#RN_PARAM_PATH = '/dev/xillybus_rn_diag_param'
-RN_PARAM_PATH = 'E:\\ARCHIVOS_Y_DOCUMENTOS\\01_Tesis_Local\\PEATC_App\\Low_Drivers\\dev\\xillybus_rn_diag_param'
-#RN_PARAM_PATH = 'dev\\xillybus_rn_diag_param'
+# RN_PARAM_PATH = '/dev/xillybus_rn_diag_param'
+RN_PARAM_PATH = PEATC_DIAGNOSTIC_PATH + "\\dev\\xillybus_rn_diag_param"
+# RN_PARAM_PATH = 'dev\\xillybus_rn_diag_param'
 
 '''!
 Ruta para el arvhivo que contiene los datos
 crudos transmitido del sistema RN al host
 '''
-#RN_RESULT_PATH = '/dev/xillybus_rn_diag_result'
-RN_RESULT_PATH = 'E:\\ARCHIVOS_Y_DOCUMENTOS\\01_Tesis_Local\\PEATC_App\\Low_Drivers\\dev\\xillybus_rn_diag_result'
-#RN_RESULT_PATH = 'dev\\xillybus_rn_diag_result'
+# RN_RESULT_PATH = '/dev/xillybus_rn_diag_result'
+RN_RESULT_PATH = PEATC_DIAGNOSTIC_PATH + "\\dev\\xillybus_rn_diag_result"
+# RN_RESULT_PATH = 'dev\\xillybus_rn_diag_result'
 
 
 class PEATC_Diagnostic:

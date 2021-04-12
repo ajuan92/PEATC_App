@@ -1,19 +1,27 @@
+import os
 import sys
+
+_TEST_PATH = os.getcwd()
+BASE_LD_PATH = _TEST_PATH + "\\.."
+
 sys.path.append(
-    "E:\\ARCHIVOS_Y_DOCUMENTOS\\01_Tesis_Local\\PEATC_App\\Low_Drivers")
+    BASE_LD_PATH)
+
+print(BASE_LD_PATH)
+
 from PEATC_GS_AS import PEATC_Gs_As
 from PEATC_Diagnostic import PEATC_Diagnostic
 from _Test_RawVal_PEATC import*
 import struct
 
-TEST_GS_START_PATH = 'E:\\ARCHIVOS_Y_DOCUMENTOS\\01_Tesis_Local\\PEATC_App\\Low_Drivers\\dev\\xillybus_gs_start_test'
-TEST_GS_RAW_PATH = 'E:\\ARCHIVOS_Y_DOCUMENTOS\\01_Tesis_Local\\PEATC_App\\Low_Drivers\\dev\\xillybus_gs_raw_signal'
+TEST_GS_START_PATH = BASE_LD_PATH + "\\dev\\xillybus_gs_start_test"
+TEST_GS_RAW_PATH = BASE_LD_PATH + "\\dev\\xillybus_gs_raw_signal"
 
-TEST_RN_DIAG_PARAM = 'E:\\ARCHIVOS_Y_DOCUMENTOS\\01_Tesis_Local\\PEATC_App\\Low_Drivers\\dev\\xillybus_rn_diag_param'
-TEST_RN_DIAG_RESULT = 'E:\\ARCHIVOS_Y_DOCUMENTOS\\01_Tesis_Local\\PEATC_App\\Low_Drivers\\dev\\xillybus_rn_diag_result'
+TEST_RN_DIAG_PARAM = BASE_LD_PATH + "\\dev\\xillybus_rn_diag_param"
+TEST_RN_DIAG_RESULT = BASE_LD_PATH + "\\dev\\xillybus_rn_diag_result"
 
 
-#-------------------------PRE-TEST---------------------------------
+# -------------------------PRE-TEST---------------------------------
 
 with open(TEST_GS_START_PATH, 'w') as FileGs_Start:
     pass
@@ -40,7 +48,7 @@ with open(TEST_RN_DIAG_RESULT, 'wb') as FileDiag_Raw:
     pass
 
 
-#-------------------------TEST---------------------------------
+# -------------------------TEST---------------------------------
 print("----------Test_LD_1 Start---------")
 
 Sys_GS_AS = PEATC_Gs_As()
@@ -120,7 +128,7 @@ print(DiagCode)
 
 print("----------Test_LD_6 End-----------")
 
-#-------------------------POST-TEST--------------------------------
+# -------------------------POST-TEST--------------------------------
 with open(TEST_GS_START_PATH, 'r') as FileGs_Start:
     pass
 
