@@ -5,7 +5,9 @@ from tkinter import *
 from tkinter.ttk import Combobox
 from tkinter import ttk
 
-from matplotlib.backends.backend import FigureCanvasTkAgg, NavigationToolbar2Tk
+from random import randint
+
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.figure import Figure
 
 Test_AS_Raw_Data_6_month = [5, 65533, 65532, 0, 3, 2, 65535, 65534, 65535, 0, 0, 2, 10, 25, 41, 46, 36, 13, 65524, 65507, 65500, 65502, 65508, 65517, 65529, 7, 21, 28, 27, 18, 8, 65533,
@@ -54,9 +56,64 @@ WindowFrame = Frame(Window)
 WindowFrame.pack(fill="both", expand=1)
 WindowFrame.config(bg="white")
 
+BtnFrame = Frame(WindowFrame)
+BtnFrame.pack(fill="both", side="right", expand=1)
+BtnFrame.config(bg="white")
+BtnFrame.config(width="400", height="400")
+
+
 GrafFrame = Frame(WindowFrame)
-GrafFrame.pack(expand=1)
-GrafFrame.config(bg="blue")
-GrafFrame.config(width="100", height="300")
+GrafFrame.pack(fill="both", side="left", expand=1)
+GrafFrame.config(bg="white")
+GrafFrame.config(width="600", height="400")
+
+Graf_Notebook = ttk.Notebook(GrafFrame, width="600", height="400")
+Graf_Notebook.place(x=10, y=1)
+GrafTab = ttk.Frame(Graf_Notebook)
+WaveTab = ttk.Frame(Graf_Notebook)
+Graf_Notebook.add(GrafTab, text='First')
+Graf_Notebook.add(WaveTab, text='Second')
+Graf_Notebook.pack(fill='both', expand=True)
+
+scroll_bar = Scrollbar(GrafTab)
+scroll_bar.pack(side=RIGHT, fill=Y)
+
+
+fig = Figure(figsize=(5, 4), dpi=100)
+fig.set_figheight(100)
+ax = fig.add_subplot(5, 1, 1)
+ax.legend(['Stock_Index_Price'])
+ax.set_xlabel('Interest Rate')
+ax.set_title('Interest Rate Vs. Stock Index Price')
+
+canvas = FigureCanvasTkAgg(fig, master=GrafTab)
+canvas.get_tk_widget().grid_propagate(0)
+canvas.get_tk_widget().config(bg='#FFFFFF', scrollregion=(0, 0, 500, 500))
+canvas.get_tk_widget().config(width=300, height=1000)
+canvas.get_tk_widget().config(xscrollcommand=scroll_bar.set)
+
+canvas.get_tk_widget().pack(side="top", fill="both")
+
+scroll_bar.config(command=canvas.get_tk_widget().yview)
+
+
+def clicked():
+    fig.clear()
+    fig.add_subplot(5, 1, 1).plot([randint(0, 10), randint(
+        0, 10), randint(0, 10), randint(0, 10)], [4, 3, 2, 1])
+    fig.add_subplot(5, 1, 2).plot([randint(0, 10), randint(
+        0, 10), randint(0, 10), randint(0, 10)], [4, 3, 2, 1])
+    fig.add_subplot(5, 1, 3).plot([randint(0, 10), randint(
+        0, 10), randint(0, 10), randint(0, 10)], [4, 3, 2, 1])
+    fig.add_subplot(5, 1, 4).plot([randint(0, 10), randint(
+        0, 10), randint(0, 10), randint(0, 10)], [4, 3, 2, 1])
+    fig.add_subplot(5, 1, 5).plot([randint(0, 10), randint(
+        0, 10), randint(0, 10), randint(0, 10)], [4, 3, 2, 1])
+    canvas.draw()
+
+
+btn = Button(BtnFrame, text="Click Me", command=clicked)
+btn.place(bordermode=OUTSIDE, height=80, width=200, x=100, y=200)
+
 
 Window.mainloop()

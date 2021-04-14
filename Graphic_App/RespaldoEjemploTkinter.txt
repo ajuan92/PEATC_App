@@ -33,3 +33,34 @@ combo.grid(column=0, row=3)
 
 
 window.mainloop()
+
+
+----------------------------
+
+GrafWindow = ttk.PanedWindow(GrafFrame, orient=VERTICAL)
+GrafWindow.pack(side=TOP, expand=Y, fill=BOTH,
+        pady=2, padx='2m')
+
+tab1 = ttk.Frame(pw)
+scrollbar = Scrollbar(tab1)
+scrollbar.pack(side=RIGHT, fill=Y)
+
+wnames = ('List of Tk Widgets',
+          'button', 'canvas', 'checkbutton', 'entry',
+          'frame', 'label', 'labelframe', 'listbox',
+          'menu', 'menubutton', 'message', 'panedwindow',
+          'radiobutton', 'scale', 'scrollbar', 'spinbox',
+          'text', 'toplevel')
+
+paneList = StringVar()  # use a Tkinter variable for list values
+paneList.set(wnames)    # add list of widget names to the variable
+
+lb = Listbox(tab1, listvariable=paneList)
+
+lb.itemconfigure(0, background=lb.cget('fg'), fg=lb.cget('bg'))
+
+# add a vertical scrollbar
+vscroll = ttk.Scrollbar(tab1, orient=VERTICAL, command=lb.yview)
+lb['yscrollcommand'] = vscroll.set
+vscroll.pack(side=RIGHT, fill=Y)
+lb.pack(fill=BOTH, expand=Y)
