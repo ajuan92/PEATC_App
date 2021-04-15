@@ -1,44 +1,101 @@
-#!/usr/bin/python
-
-from Tkinter import Tk, Frame, Canvas, Scrollbar, HORIZONTAL, VERTICAL, BOTH, X, Y, BOTTOM, RIGHT, LEFT, S, N, W, E
-from numpy import arange, sin
-from matplotlib.figure import Figure
+import tkinter as tk
+from tkinter import *
+import matplotlib
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.figure import Figure
 
-class Test(Tk):
-    def __init__(self):
-        Tk.__init__(self, None)
-        self.frame=Frame(None)
-        self.frame.columnconfigure(0,weight=1)
-        self.frame.rowconfigure(0,weight=1)
 
-        self.frame.grid(row=0,column=0, sticky=W+E+N+S)
+f = Figure(figsize=(1, 1), dpi=100)
 
-        fig = Figure()
+a = []
 
-        xval = arange(200)/10.
-        yval = sin(xval)
+for i in range(0, 20):
 
-        ax1 = fig.add_subplot(111)
-        ax1.plot(xval, yval)
+    a.append(f.add_subplot(20, 1, i + 1))
 
-        self.hbar=Scrollbar(self.frame,orient=HORIZONTAL)
-        self.vbar=Scrollbar(self.frame,orient=VERTICAL)
+f.set_figheight(60)
+f.set_figwidth(14)
 
-        self.canvas=FigureCanvasTkAgg(fig, master=self.frame)
-        self.canvas.get_tk_widget().config(bg='#FFFFFF',scrollregion=(0,0,500,500))
-        self.canvas.get_tk_widget().config(width=300,height=300)
-        self.canvas.get_tk_widget().config(xscrollcommand=self.hbar.set, yscrollcommand=self.vbar.set)
-        self.canvas.get_tk_widget().grid(row=0, column=0, sticky=W+E+N+S)
+for i in range(0, 20):
 
-        self.hbar.grid(row=1, column=0, sticky=W+E)
-        self.hbar.config(command=self.canvas.get_tk_widget().xview)
-        self.vbar.grid(row=0, column=1, sticky=N+S)
-        self.vbar.config(command=self.canvas.get_tk_widget().yview)
+    a[i].plot([1, 2, 3, 4, 5], [1, 2, 3, 4, 5])
+    a[i].set_title('Graph ' + str(i + 1))
 
-        self.frame.config(width=100, height=100) # this has no effect
 
-if __name__ == '__main__':
+class App(tk.Tk):
 
-    app = Test()
-    app.mainloop()
+    def __init__(self, *args, **kwargs):
+
+        tk.Tk.__init__(self, *args, **kwargs)
+        container = tk.Frame(self)
+
+        container.pack(side="top", fill="both", expand=True)
+        container.grid_columnconfigure(0, weight=1)
+        container.grid_rowconfigure(0, weight=1)
+
+        self.minsize(620, 400)
+
+        self.geometry(
+            "{0}x{1}+0+0".format(self.winfo_screenwidth(), self.winfo_screenheight()))
+
+        self.update_idletasks()
+
+        self.frames = {}
+
+        for F in (StartPage, PageTwo):
+
+            frame = F(container, self)
+
+            self.frames[F] = frame
+
+            frame.grid(row=0, column=0, sticky='nsew')
+
+        self.show_frame(StartPage)
+
+    def show_frame(self, cont):
+
+        frame = self.frames[cont]
+        frame.tkraise()
+
+
+class StartPage(tk.Frame):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+
+        button_p1 = tk.Button(self, text="PageTwo →",
+                              command=lambda: controller.show_frame(PageTwo))
+        button_p1.pack(side=TOP, fill=X)
+
+        label = tk.Label(self, text="Start Page")
+        label.pack(fill=X, expand=True)
+
+
+class PageTwo(tk.Frame):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+
+        button_1 = tk.Button(self, text="← Start Page",
+                             command=lambda: controller.show_frame(StartPage))
+        button_1.pack(side=LEFT, anchor=N)
+
+        label_p1 = tk.Label(self, text="PageTwo")
+        label_p1.pack()
+
+        canvas = FigureCanvasTkAgg(f, self)
+        canvas.draw()
+        canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.X, expand=True)
+
+        scroll = Scrollbar(canvas.get_tk_widget())
+        scroll.config(command=canvas.get_tk_widget().yview)
+        scroll.pack(side=RIGHT, fill=Y)
+        canvas.get_tk_widget().pack(side=LEFT, expand=YES, fill=BOTH)
+        canvas.get_tk_widget().config(yscrollcommand=scroll.set)
+
+        canvas.get_tk_widget().config(scrollregion=(0, 0, 1000, 10000), confine=True)
+
+
+app = App()
+
+app.mainloop()

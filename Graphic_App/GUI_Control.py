@@ -5,10 +5,14 @@ from tkinter import *
 from tkinter.ttk import Combobox
 from tkinter import ttk
 
+from time import sleep
+
 from random import randint
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.figure import Figure
+
+import matplotlib.pyplot as plt
 
 Test_AS_Raw_Data_6_month = [5, 65533, 65532, 0, 3, 2, 65535, 65534, 65535, 0, 0, 2, 10, 25, 41, 46, 36, 13, 65524, 65507, 65500, 65502, 65508, 65517, 65529, 7, 21, 28, 27, 18, 8, 65533,
                             65521, 65510, 65502, 65506, 65525, 18, 44, 56, 51, 32, 10, 65526, 65504, 65480, 65455, 65438, 65435, 65447, 65466, 65485, 65500, 65516, 0, 22, 38, 42, 36, 26, 23, 26, 31, 0, 18, 5]
@@ -75,41 +79,63 @@ Graf_Notebook.add(GrafTab, text='First')
 Graf_Notebook.add(WaveTab, text='Second')
 Graf_Notebook.pack(fill='both', expand=True)
 
-scroll_bar = Scrollbar(GrafTab)
-scroll_bar.pack(side=RIGHT, fill=Y)
-
-
-fig = Figure(figsize=(5, 4), dpi=100)
-fig.set_figheight(100)
-ax = fig.add_subplot(5, 1, 1)
-ax.legend(['Stock_Index_Price'])
-ax.set_xlabel('Interest Rate')
-ax.set_title('Interest Rate Vs. Stock Index Price')
+fig = Figure(figsize=[30, 30], dpi=100)
+#ax = fig.add_subplot(1, 1, 1)
+#fig = plt.subplots(ncols=1, nrows=10, figsize=(7.5, 25))
+# ax.legend(['Stock_Index_Price'])
+#ax.set_xlabel('Interest Rate')
+#ax.set_title('Interest Rate Vs. Stock Index Price')
 
 canvas = FigureCanvasTkAgg(fig, master=GrafTab)
+#canvas = FigureCanvas(fig, master=GrafTab)
 canvas.get_tk_widget().grid_propagate(0)
-canvas.get_tk_widget().config(bg='#FFFFFF', scrollregion=(0, 0, 500, 500))
+canvas.get_tk_widget().config(
+    bg='#FFFFFF', scrollregion=(0, 0, 0, 1000), confine=True)
 canvas.get_tk_widget().config(width=300, height=1000)
-canvas.get_tk_widget().config(xscrollcommand=scroll_bar.set)
 
-canvas.get_tk_widget().pack(side="top", fill="both")
-
+scroll_bar = Scrollbar(canvas.get_tk_widget())
 scroll_bar.config(command=canvas.get_tk_widget().yview)
+scroll_bar.pack(side=RIGHT, fill=Y)
+
+canvas.get_tk_widget().pack(side="top", fill="both", expand=True)
+canvas.get_tk_widget().config(yscrollcommand=scroll_bar.set)
 
 
 def clicked():
     fig.clear()
-    fig.add_subplot(5, 1, 1).plot([randint(0, 10), randint(
+    fig.add_subplot(10, 1, 1).plot([randint(0, 10), randint(
         0, 10), randint(0, 10), randint(0, 10)], [4, 3, 2, 1])
-    fig.add_subplot(5, 1, 2).plot([randint(0, 10), randint(
+
+    fig.add_subplot(10, 1, 2).plot([randint(0, 10), randint(
         0, 10), randint(0, 10), randint(0, 10)], [4, 3, 2, 1])
-    fig.add_subplot(5, 1, 3).plot([randint(0, 10), randint(
+
+    fig.add_subplot(10, 1, 3).plot([randint(0, 10), randint(
         0, 10), randint(0, 10), randint(0, 10)], [4, 3, 2, 1])
-    fig.add_subplot(5, 1, 4).plot([randint(0, 10), randint(
+
+    fig.add_subplot(10, 1, 4).plot([randint(0, 10), randint(
         0, 10), randint(0, 10), randint(0, 10)], [4, 3, 2, 1])
-    fig.add_subplot(5, 1, 5).plot([randint(0, 10), randint(
+
+    fig.add_subplot(10, 1, 5).plot([randint(0, 10), randint(
         0, 10), randint(0, 10), randint(0, 10)], [4, 3, 2, 1])
+
+    fig.add_subplot(10, 1, 6).plot([randint(0, 10), randint(
+        0, 10), randint(0, 10), randint(0, 10)], [4, 3, 2, 1])
+
+    fig.add_subplot(10, 1, 7).plot([randint(0, 10), randint(
+        0, 10), randint(0, 10), randint(0, 10)], [4, 3, 2, 1])
+
+    fig.add_subplot(10, 1, 8).plot([randint(0, 10), randint(
+        0, 10), randint(0, 10), randint(0, 10)], [4, 3, 2, 1])
+
+    fig.add_subplot(10, 1, 9).plot([randint(0, 10), randint(
+        0, 10), randint(0, 10), randint(0, 10)], [4, 3, 2, 1])
+
+    fig.add_subplot(10, 1, 10).plot([randint(0, 10), randint(
+        0, 10), randint(0, 10), randint(0, 10)], [4, 3, 2, 1])
+    fig.tight_layout()
     canvas.draw()
+    btn["state"] = "disabled"
+    btn["state"] = "normal"
 
 
 btn = Button(BtnFrame, text="Click Me", command=clicked)
