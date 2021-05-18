@@ -173,7 +173,7 @@ class PEATC_Control(PEATC_Gs_As, PEATC_Diagnostic):
         CurrTable = None
 
         while True:
-
+            Arg_State[0] = DiagCurrState
             if DiagCurrState is STATE_STAND_BY:
 
                 CurrTable = Arg_PeatcTable.recv()

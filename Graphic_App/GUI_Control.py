@@ -6,22 +6,18 @@ from tkinter.ttk import Combobox
 from tkinter import ttk
 
 from time import sleep
+import struct
 
-from random import randint
+import multiprocessing as mprocess
+from multiprocessing import Array
 
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
-from matplotlib.figure import Figure
+CURR_PATH = os.path.dirname(os.path.realpath(__file__))
+LOW_DRIVE_PATH = CURR_PATH + "\\..\\Control_Block"
 
-import matplotlib.pyplot as plt
+sys.path.append(
+    LOW_DRIVE_PATH)
 
-Test_AS_Raw_Data_6_month = [5, 65533, 65532, 0, 3, 2, 65535, 65534, 65535, 0, 0, 2, 10, 25, 41, 46, 36, 13, 65524, 65507, 65500, 65502, 65508, 65517, 65529, 7, 21, 28, 27, 18, 8, 65533,
-                            65521, 65510, 65502, 65506, 65525, 18, 44, 56, 51, 32, 10, 65526, 65504, 65480, 65455, 65438, 65435, 65447, 65466, 65485, 65500, 65516, 0, 22, 38, 42, 36, 26, 23, 26, 31, 0, 18, 5]
-
-Test_AS_Raw_Data_12_month = [2, 0, 1, 0, 65535, 1, 1, 65535, 65535, 1, 0, 65535, 6, 26, 43, 43, 27, 8, 65527, 65509, 65490, 65483, 65492, 65508, 65522, 65535, 14, 30, 35, 28, 14,
-                             65533, 65518, 65511, 65515, 65532, 18, 36, 43, 36, 18, 65534, 65517, 65502, 65483, 65463, 65452, 65456, 65474, 65494, 65511, 65527, 9, 30, 44, 41, 23, 8, 13, 33, 46, 37, 15, 2]
-
-Test_AS_Raw_Data_20_month = [4, 65535, 65535, 0, 1, 0, 65535, 0, 2, 1, 65534, 1, 17, 38, 50, 44, 25, 0, 65514, 65501, 65501, 65513, 65531, 13, 29, 39, 35, 20, 2, 65522, 65506, 65492,
-                             65489, 65502, 65523, 6, 23, 39, 45, 33, 10, 65526, 65512, 65497, 65476, 65455, 65442, 65440, 65448, 65464, 65482, 65496, 65507, 65521, 3, 19, 28, 34, 41, 42, 33, 17, 4, 0, 0, 0]
+import PEATC_Control as Ctrl
 
 PEATC_CONFIG_SAMPLE_WAIT_TIME = 10
 PEATC_CONFIG_DIAG_WAIT_TIME = 10
@@ -52,94 +48,86 @@ STATE_WAIT_DIAGNOSTIC = 6
 STATE_SEND_RESULT = 7
 
 
-Window = Tk()
-Window.title("PEATC_APP")
-Window.geometry("1000x600")
+class GUI_Control():
+    '''!
+    Controlador de la aplicación grafica
 
-WindowFrame = Frame(Window)
-WindowFrame.pack(fill="both", expand=1)
-WindowFrame.config(bg="white")
+    @note Este módulo despliega la interfaz grafica que interactua
+    con el usuario, así como capturar los comandos y datos generados
+    por el usuario.
+    '''
 
-BtnFrame = Frame(WindowFrame)
-BtnFrame.pack(fill="both", side="right", expand=1)
-BtnFrame.config(bg="white")
-BtnFrame.config(width="400", height="400")
+    def __init__(self):
+        '''!
+        Inicializa la maquina de estados para realizar la prueba de PEATC
+        '''
+        self.__Ctrl_Cmd_output, self.__Ctrl_Cmd_input = mprocess.Pipe(False)
+        self.__Ctrl_Result_output, self.__Ctrl_Result_input = mprocess.Pipe(
+            False)
 
+        self.__Ctrl_State = Array('i', range(1))
 
-GrafFrame = Frame(WindowFrame)
-GrafFrame.pack(fill="both", side="left", expand=1)
-GrafFrame.config(bg="white")
-GrafFrame.config(width="600", height="400")
+        self.__Diag_Table_output, self.__Diag_Table_input = mprocess.Pipe(
+            False)
+        self.__Diag_Result_output, self.__Diag_Result_input = mprocess.Pipe(
+            False)
 
-Graf_Notebook = ttk.Notebook(GrafFrame, width="600", height="400")
-Graf_Notebook.place(x=10, y=1)
-GrafTab = ttk.Frame(Graf_Notebook)
-WaveTab = ttk.Frame(Graf_Notebook)
-Graf_Notebook.add(GrafTab, text='First')
-Graf_Notebook.add(WaveTab, text='Second')
-Graf_Notebook.pack(fill='both', expand=True)
+        self.__Diag_State = Array('i', range(1))
 
-fig = Figure(figsize=[30, 30], dpi=100)
-#ax = fig.add_subplot(1, 1, 1)
-#fig = plt.subplots(ncols=1, nrows=10, figsize=(7.5, 25))
-# ax.legend(['Stock_Index_Price'])
-#ax.set_xlabel('Interest Rate')
-#ax.set_title('Interest Rate Vs. Stock Index Price')
+        self.__Ctrl_Block = Ctrl.PEATC_Control()
 
-canvas = FigureCanvasTkAgg(fig, master=GrafTab)
-#canvas = FigureCanvas(fig, master=GrafTab)
-canvas.get_tk_widget().grid_propagate(0)
-canvas.get_tk_widget().config(
-    bg='#FFFFFF', scrollregion=(0, 0, 0, 1000), confine=True)
-canvas.get_tk_widget().config(width=300, height=1000)
+        self.__Ctrl_Task = mprocess.Process(target=self.__Ctrl_Block.ControlHandler, args=(
+            self.__Ctrl_Cmd_output, self.__Ctrl_Result_input, self.__Ctrl_State),)
 
-scroll_bar = Scrollbar(canvas.get_tk_widget())
-scroll_bar.config(command=canvas.get_tk_widget().yview)
-scroll_bar.pack(side=RIGHT, fill=Y)
+        self.__Diag_Task = mprocess.Process(target=self.__Ctrl_Block.DiagHandler, args=(
+            self.__Diag_Table_output, self.__Diag_Result_input, self.__Diag_State),)
 
-canvas.get_tk_widget().pack(side="top", fill="both", expand=True)
-canvas.get_tk_widget().config(yscrollcommand=scroll_bar.set)
+        self.__Ctrl_Task.daemon = True
+        self.__Ctrl_Task.start()
 
+        self.__Diag_Task.daemon = True
+        self.__Diag_Task.start()
 
-def clicked():
-    fig.clear()
-    fig.add_subplot(10, 1, 1).plot([randint(0, 10), randint(
-        0, 10), randint(0, 10), randint(0, 10)], [4, 3, 2, 1])
+        self.__InitGUI()
 
-    fig.add_subplot(10, 1, 2).plot([randint(0, 10), randint(
-        0, 10), randint(0, 10), randint(0, 10)], [4, 3, 2, 1])
+        print("Inicialización finalizada")
 
-    fig.add_subplot(10, 1, 3).plot([randint(0, 10), randint(
-        0, 10), randint(0, 10), randint(0, 10)], [4, 3, 2, 1])
+    def __InitGUI(self):
+        '''!
+        Reporta el estado
+        '''
+        Window = Tk()
+        Window.title("PEATC APP")
+        Window.geometry("1000x600")
 
-    fig.add_subplot(10, 1, 4).plot([randint(0, 10), randint(
-        0, 10), randint(0, 10), randint(0, 10)], [4, 3, 2, 1])
+        WindowFrame = Frame(Window)
+        WindowFrame.pack(fill="both", expand=1)
+        WindowFrame.config(bg="white")
 
-    fig.add_subplot(10, 1, 5).plot([randint(0, 10), randint(
-        0, 10), randint(0, 10), randint(0, 10)], [4, 3, 2, 1])
+        BtnFrame = Frame(WindowFrame)
+        BtnFrame.pack(fill="both", side="right", expand=1)
+        BtnFrame.config(bg="white")
+        BtnFrame.config(width="400", height="400")
 
-    fig.add_subplot(10, 1, 6).plot([randint(0, 10), randint(
-        0, 10), randint(0, 10), randint(0, 10)], [4, 3, 2, 1])
+        GrafFrame = Frame(WindowFrame)
+        GrafFrame.pack(fill="both", side="left", expand=1)
+        GrafFrame.config(bg="white")
+        GrafFrame.config(width="600", height="400")
 
-    fig.add_subplot(10, 1, 7).plot([randint(0, 10), randint(
-        0, 10), randint(0, 10), randint(0, 10)], [4, 3, 2, 1])
+        Graf_Notebook = ttk.Notebook(GrafFrame, width="600", height="400")
+        Graf_Notebook.place(x=10, y=1)
+        GrafTab = ttk.Frame(Graf_Notebook)
+        WaveTab = ttk.Frame(Graf_Notebook)
+        Graf_Notebook.add(GrafTab, text='First')
+        Graf_Notebook.add(WaveTab, text='Second')
+        Graf_Notebook.pack(fill='both', expand=True)
 
-    fig.add_subplot(10, 1, 8).plot([randint(0, 10), randint(
-        0, 10), randint(0, 10), randint(0, 10)], [4, 3, 2, 1])
+        btn = Button(BtnFrame, text="Click Me", command=self.clicked)
+        btn.place(bordermode=OUTSIDE, height=80, width=200, x=100, y=200)
 
-    fig.add_subplot(10, 1, 9).plot([randint(0, 10), randint(
-        0, 10), randint(0, 10), randint(0, 10)], [4, 3, 2, 1])
+        Window.mainloop()
 
-    fig.add_subplot(10, 1, 10).plot([randint(0, 10), randint(
-        0, 10), randint(0, 10), randint(0, 10)], [4, 3, 2, 1])
-    fig.tight_layout()
-    canvas.draw()
-    btn["state"] = "disabled"
-    btn["state"] = "normal"
-
-
-btn = Button(BtnFrame, text="Click Me", command=clicked)
-btn.place(bordermode=OUTSIDE, height=80, width=200, x=100, y=200)
-
-
-Window.mainloop()
+    def clicked(self):
+        print("Botton Hola Hola")
+        self.btn["state"] = "disabled"
+        self.btn["state"] = "normal"
