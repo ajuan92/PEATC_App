@@ -57,6 +57,7 @@ class PEATC_Control(PEATC_Gs_As, PEATC_Diagnostic):
         Inicializa la maquina de estados para realizar la prueba de PEATC
         '''
         print("Inicialización del modulo PEATC_Control")
+        print(CURR_PATH)
 
     def __ReportState(self, Arg_State, CurrState):
         '''!
@@ -70,7 +71,7 @@ class PEATC_Control(PEATC_Gs_As, PEATC_Diagnostic):
         else:
             if Arg_State.full() is False:
                 Arg_State.get(block=True, timeout=1)
-            Arg_State.put(CurrState,block=True, timeout=1)
+            Arg_State.put(CurrState, block=True, timeout=1)
 
     def ControlHandler(self, Arg_Cmd, Arg_Results, Arg_State):
         '''!
@@ -87,7 +88,7 @@ class PEATC_Control(PEATC_Gs_As, PEATC_Diagnostic):
 
         @param Arg_State Conducto para enviar códigos de Estado
         '''
-        #print("Inicio Tarea de Control")
+        print("Inicio Tarea de Control")
         sys.stdout.flush()
 
         Control_GS_AS = PEATC_Gs_As()
@@ -99,12 +100,17 @@ class PEATC_Control(PEATC_Gs_As, PEATC_Diagnostic):
         FullWaveData = []
 
         while True:
-            Arg_State[0] = PeatcCurrState
-            #self.__ReportState(Arg_State, PeatcCurrState)
+
+            if Arg_State[0] is not PeatcCurrState:
+                Arg_State[0] = PeatcCurrState
+                print(Arg_State[0])
+                sys.stdout.flush()
 
             if PeatcCurrState is STATE_STAND_BY:
 
                 CurrCmd = Arg_Cmd.recv()
+                print(CurrCmd)
+                sys.stdout.flush()
 
                 if CurrCmd["Cmd"] is PEATC_CONFIG_CMD_START_TEST:
                     PeatcCurrState = STATE_INIT_TEST
@@ -163,7 +169,7 @@ class PEATC_Control(PEATC_Gs_As, PEATC_Diagnostic):
 
         @param Arg_State Conducto para enviar códigos de Estado
         '''
-        #print("Inicio Tarea de Diagnostico")
+        print("Inicio Tarea de Diagnostico")
         sys.stdout.flush()
 
         Diag_Sys = PEATC_Diagnostic()
@@ -173,13 +179,19 @@ class PEATC_Control(PEATC_Gs_As, PEATC_Diagnostic):
         CurrTable = None
 
         while True:
-            Arg_State[0] = DiagCurrState
+
+            if Arg_State[0] is not DiagCurrState:
+                Arg_State[0] = DiagCurrState
+                print(Arg_State[0])
+                sys.stdout.flush()
+
             if DiagCurrState is STATE_STAND_BY:
 
                 CurrTable = Arg_PeatcTable.recv()
 
                 if CurrTable is not None:
                     DiagCurrState = STATE_INIT_DIAGNOSTIC
+                    print(CURR_PATH)
 
             elif DiagCurrState is STATE_INIT_DIAGNOSTIC:
 
@@ -216,5 +228,3 @@ class PEATC_Control(PEATC_Gs_As, PEATC_Diagnostic):
                 TimeStamp = 0
                 DiagCurrState = STATE_STAND_BY
                 CurrTable = None
-
-            # Arg_State.send(DiagCurrState)
