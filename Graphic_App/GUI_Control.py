@@ -12,6 +12,7 @@ import struct
 
 import multiprocessing as mprocess
 from multiprocessing import Array
+from multiprocessing import Value
 from multiprocessing import Manager
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
@@ -45,13 +46,25 @@ Cmd_Template = {
 Estado Stand by
 '''
 STATE_STAND_BY = 0
-STATE_RESET = 1
+STATE_RESET = 11
 STATE_INIT_TEST = 2
 STATE_WAIT_RAW_DATA = 3
 STATE_ANALYZE_DATA = 4
 STATE_INIT_DIAGNOSTIC = 5
 STATE_WAIT_DIAGNOSTIC = 6
 STATE_SEND_RESULT = 7
+
+State_Dict = {
+    "STATE_STAND_BY": 0,
+    "STATE_RESET": 11,
+    "STATE_INIT_TEST": 2,
+    "STATE_WAIT_RAW_DATA": 3,
+    "STATE_ANALYZE_DATA": 4,
+    "STATE_INIT_DIAGNOSTIC": 5,
+    "STATE_WAIT_DIAGNOSTIC": 6,
+    "STATE_SEND_RESULT": 7,
+}
+
 
 CONFIG_SignaldB = [30, 40, 50, 60]
 
@@ -96,6 +109,7 @@ class GUI_Control():
         self.__Cmd_DiagAge = Array('i', range(2))
 
         self.GuiCurrState = STATE_STAND_BY
+        self.GuiUpdateState = Value('i', STATE_STAND_BY)
         self.GuiPrevState = STATE_RESET
 
         self.Ctrl_Cmd_output, self.Ctrl_Cmd_input = mprocess.Pipe(False)
@@ -150,6 +164,11 @@ class GUI_Control():
         self.BtnFrame.config(bg="white")
         self.BtnFrame.config(width="400", height="400")
 
+        self.Label_State = Label(self.BtnFrame, text="STATE_STAND_BY")
+        self.Label_State.place(x=100, y=50)
+        self.Label_State.config(bg="white")
+        #self.Label_State.after(1000, self.__UpdateStateLabel)
+
         self.GrafFrame = Frame(self.Window)
         self.GrafFrame.pack(fill="both", side="left", expand=1)
         self.GrafFrame.config(bg="white")
@@ -177,9 +196,9 @@ class GUI_Control():
 
     def __UpdateData(self):
 
-        print(self.WaveData[0])
+        # print(self.WaveData[0])
         GrafData = self.WaveData[0]['FullSignal']
-        print(GrafData)
+        # print(GrafData)
         self.fig.clear()
         self.fig.add_subplot(1, 1, 1).plot(
             list(range(0, len(GrafData))), GrafData)
@@ -187,6 +206,17 @@ class GUI_Control():
         self.canvas.draw()
 
         self.GrafTab.after(1000, self.__UpdateData)
+
+    def __UpdateStateLabel(self):
+
+        # print(self.GuiCurrState)
+        for key, value in State_Dict.items():
+            if self.GuiUpdateState.value is value:
+                NewState = StringVar()
+                NewState.set(key)
+                self.Label_State.config(textvariable=NewState)
+
+        self.Label_State.after(1000, self.__UpdateStateLabel)
 
     def __ConfParam(self):
 
@@ -282,8 +312,9 @@ class GUI_Control():
         while True:
 
             if self.GuiPrevState is not self.GuiCurrState:
+                self.GuiUpdateState.value = self.GuiCurrState
                 self.GuiPrevState = self.GuiCurrState
-                print(self.GuiCurrState)
+                print(self.GuiUpdateState.value)
                 sys.stdout.flush()
 
             if self.GuiCurrState is STATE_STAND_BY:
@@ -358,7 +389,7 @@ class GUI_Control():
                             self.WaveTable.append(self.WaveData[i]['Wave'])
 
                     print(self.WaveTable)
-                    DiagMatrix = [self.__Cmd_DiagAge[0], self.WaveTable]
+                    DiagMatrix = [self.__Cmd_DiagAge[1], self.WaveTable]
 
                     print("Envio Diag")
                     self.Diag_Table_input.send(DiagMatrix)
@@ -367,9 +398,11 @@ class GUI_Control():
 
                     self.GuiCurrState = STATE_WAIT_DIAGNOSTIC
                     print("Waiting Diag Result...")
+                    sys.stdout.flush()
                 else:
                     self.GuiCurrState = STATE_STAND_BY
                     print("Return Stand By")
+                    sys.stdout.flush()
 
             elif self.GuiCurrState is STATE_WAIT_RAW_DATA:
 
@@ -385,4 +418,7 @@ class GUI_Control():
                 print("Fin Reciv Result")
                 print(DiagnPEATC)
                 print("---------")
+                sys.stdout.flush()
                 self.GuiCurrState = STATE_STAND_BY
+                print(self.GuiCurrState)
+                print("---------")
