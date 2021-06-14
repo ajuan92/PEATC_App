@@ -55,14 +55,14 @@ STATE_WAIT_DIAGNOSTIC = 6
 STATE_SEND_RESULT = 7
 
 State_Dict = {
-    "STATE_STAND_BY": 0,
-    "STATE_RESET": 11,
-    "STATE_INIT_TEST": 2,
-    "STATE_WAIT_RAW_DATA": 3,
-    "STATE_ANALYZE_DATA": 4,
+    "   STATE_STAND_BY": 0,
+    "    STATE_RESET": 11,
+    "  STATE_INIT_TEST": 2,
+    " STATE_WAIT_RAW_DATA": 3,
+    " STATE_ANALYZE_DATA": 4,
     "STATE_INIT_DIAGNOSTIC": 5,
     "STATE_WAIT_DIAGNOSTIC": 6,
-    "STATE_SEND_RESULT": 7,
+    "  STATE_SEND_RESULT": 7,
 }
 
 
@@ -111,6 +111,8 @@ class GUI_Control():
         self.GuiCurrState = STATE_STAND_BY
         self.GuiUpdateState = Value('i', STATE_STAND_BY)
         self.GuiPrevState = STATE_RESET
+
+        self.GuiUpdateDiag = Value('i', 0)
 
         self.Ctrl_Cmd_output, self.Ctrl_Cmd_input = mprocess.Pipe(False)
         self.Ctrl_Result_output, self.Ctrl_Result_input = mprocess.Pipe(
@@ -165,7 +167,8 @@ class GUI_Control():
         self.BtnFrame.config(width="400", height="400")
 
         self.Label_State = Label(self.BtnFrame, text="STATE_STAND_BY")
-        self.Label_State.place(x=100, y=50)
+        self.Label_State.config(anchor=CENTER)
+        self.Label_State.place(x=130, y=50)
         self.Label_State.config(bg="white")
         self.Label_State.after(1000, self.__UpdateStateLabel)
 
@@ -197,11 +200,21 @@ class GUI_Control():
     def __UpdateData(self):
 
         # print(self.WaveData[0])
-        GrafData = self.WaveData[0]['FullSignal']
+        GrafData = []
         # print(GrafData)
+        ReadyGraf = 0
+
+        for i, dic in enumerate(self.WaveData):
+            if dic['NewData'] == 1:
+                GrafData.append(self.WaveData[i]['FullSignal'])
+                ReadyGraf = ReadyGraf + 1
+
         self.fig.clear()
-        self.fig.add_subplot(1, 1, 1).plot(
-            list(range(0, len(GrafData))), GrafData)
+
+        for i in range(ReadyGraf):
+            self.fig.add_subplot(ReadyGraf, 1, i + 1).plot(
+                list(range(0, len(GrafData[i]))), GrafData[i])
+
         self.fig.tight_layout()
         self.canvas.draw()
 
@@ -219,6 +232,14 @@ class GUI_Control():
                 self.Label_State.config(textvariable=NewState)
 
         self.Label_State.after(1000, self.__UpdateStateLabel)
+
+    def __UpdateDiagLabel(self):
+
+        NewDiag = StringVar()
+        NewDiag.set(self.GuiUpdateDiag.value)
+        self.Label_Diag.config(textvariable=NewDiag)
+
+        self.Label_Diag.after(1000, self.__UpdateDiagLabel)
 
     def __ConfParam(self):
 
@@ -271,6 +292,12 @@ class GUI_Control():
         self.Entry_Age.place(x=500, y=70)
         self.Entry_Age['values'] = list(range(0, 100))
         self.Entry_Age.current(0)
+
+        self.Label_Diag = Label(ConfParamFrame, text="No Diagnostic")
+        self.Label_Diag.config(anchor=CENTER)
+        self.Label_Diag.place(x=700, y=50)
+        self.Label_Diag.config(bg="white")
+        self.Label_Diag.after(1000, self.__UpdateDiagLabel)
 
     def __ConfBottons(self):
 
@@ -419,6 +446,7 @@ class GUI_Control():
 
                 print("Inicio Reciv Result")
                 DiagnPEATC = self.Diag_Result_output.recv()
+                self.GuiUpdateDiag.value = DiagnPEATC[3]
                 print("Fin Reciv Result")
                 print(DiagnPEATC)
                 print("---------")
