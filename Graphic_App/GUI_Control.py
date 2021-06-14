@@ -167,7 +167,7 @@ class GUI_Control():
         self.Label_State = Label(self.BtnFrame, text="STATE_STAND_BY")
         self.Label_State.place(x=100, y=50)
         self.Label_State.config(bg="white")
-        #self.Label_State.after(1000, self.__UpdateStateLabel)
+        self.Label_State.after(1000, self.__UpdateStateLabel)
 
         self.GrafFrame = Frame(self.Window)
         self.GrafFrame.pack(fill="both", side="left", expand=1)
@@ -209,9 +209,11 @@ class GUI_Control():
 
     def __UpdateStateLabel(self):
 
-        # print(self.GuiCurrState)
         for key, value in State_Dict.items():
             if self.GuiUpdateState.value is value:
+                print("--Estado actual--")
+                print(self.GuiUpdateState.value)
+                print("----")
                 NewState = StringVar()
                 NewState.set(key)
                 self.Label_State.config(textvariable=NewState)
@@ -314,7 +316,7 @@ class GUI_Control():
             if self.GuiPrevState is not self.GuiCurrState:
                 self.GuiUpdateState.value = self.GuiCurrState
                 self.GuiPrevState = self.GuiCurrState
-                print(self.GuiUpdateState.value)
+                # print(self.GuiUpdateState.value)
                 sys.stdout.flush()
 
             if self.GuiCurrState is STATE_STAND_BY:
@@ -324,8 +326,10 @@ class GUI_Control():
                     self.GuiCurrState = STATE_INIT_TEST
                 elif self.__Cmd_DiagAge[0] is 1:
                     self.GuiCurrState = STATE_INIT_DIAGNOSTIC
+                else:
+                    self.GuiCurrState = STATE_STAND_BY
 
-            elif self.GuiCurrState is STATE_INIT_TEST:
+            if self.GuiCurrState is STATE_INIT_TEST:
 
                 Cmd_Template["Cmd"] = self.__Cmd_Template[0]
                 Cmd_Template["Gs_SignaldB"] = self.__Cmd_Template[1]
@@ -404,9 +408,9 @@ class GUI_Control():
                     print("Return Stand By")
                     sys.stdout.flush()
 
-            elif self.GuiCurrState is STATE_WAIT_RAW_DATA:
+            elif self.GuiCurrState is STATE_WAIT_DIAGNOSTIC:
 
-                DiagCurrState = self.Ctrl_State[0]
+                DiagCurrState = self.Diag_State[0]
 
                 if DiagCurrState is 0:
                     self.GuiCurrState = STATE_SEND_RESULT
@@ -418,7 +422,11 @@ class GUI_Control():
                 print("Fin Reciv Result")
                 print(DiagnPEATC)
                 print("---------")
-                sys.stdout.flush()
                 self.GuiCurrState = STATE_STAND_BY
-                print(self.GuiCurrState)
                 print("---------")
+
+            elif self.GuiCurrState is STATE_RESET:
+
+                self.GuiCurrState = STATE_STAND_BY
+            else:
+                self.GuiCurrState = self.GuiCurrState
