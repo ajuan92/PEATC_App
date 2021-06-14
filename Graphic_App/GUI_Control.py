@@ -188,8 +188,39 @@ class GUI_Control():
 
         self.__ConfBottons()
 
-        self.fig = Figure(figsize=(5, 5), dpi=100)
+        WAVETAB_WIDTH = 75
 
+        self.WaveTable = ttk.Treeview(self.WaveTab)
+        self.WaveTable['columns'] = (
+            "dB", "I", "II", "III", "IV", "V", "I-III", "III-V", "I-V")
+        self.WaveTable.column("#0", width=0, stretch=NO)
+        self.WaveTable.column("dB", anchor=CENTER, width=WAVETAB_WIDTH)
+        self.WaveTable.column("I", anchor=CENTER, width=WAVETAB_WIDTH)
+        self.WaveTable.column("II", anchor=CENTER, width=WAVETAB_WIDTH)
+        self.WaveTable.column("III", anchor=CENTER, width=WAVETAB_WIDTH)
+        self.WaveTable.column("IV", anchor=CENTER, width=WAVETAB_WIDTH)
+        self.WaveTable.column("V", anchor=CENTER, width=WAVETAB_WIDTH)
+        self.WaveTable.column("I-III", anchor=CENTER, width=WAVETAB_WIDTH)
+        self.WaveTable.column("III-V", anchor=CENTER, width=WAVETAB_WIDTH)
+        self.WaveTable.column("I-V", anchor=CENTER, width=WAVETAB_WIDTH)
+
+        self.WaveTable.grid(row=5, column=0, columnspan=1)
+        self.WaveTable.heading("#1", text="dB", anchor=CENTER)
+        self.WaveTable.heading("#2", text="I", anchor=CENTER)
+        self.WaveTable.heading("#3", text="II", anchor=CENTER)
+        self.WaveTable.heading("#4", text="III", anchor=CENTER)
+        self.WaveTable.heading("#5", text="IV", anchor=CENTER)
+        self.WaveTable.heading("#6", text="V", anchor=CENTER)
+        self.WaveTable.heading("#7", text="I-III", anchor=CENTER)
+        self.WaveTable.heading("#8", text="III-V", anchor=CENTER)
+        self.WaveTable.heading("#9", text="I-V", anchor=CENTER)
+
+        for i in range(len(CONFIG_SignaldB)):
+            self.WaveTable.insert(parent='', index=i, iid=i, values=([]))
+
+        self.WaveTab.after(1000, self.__UpdateTable)
+
+        self.fig = Figure(figsize=(5, 5), dpi=100)
         self.canvas = FigureCanvasTkAgg(self.fig, self.GrafTab)
         self.canvas.draw()
         self.canvas.get_tk_widget().pack(side=BOTTOM, fill=BOTH, expand=True)
@@ -197,12 +228,35 @@ class GUI_Control():
 
         self.Window.mainloop()
 
+    def __UpdateTable(self):
+
+        WaveRead = []
+        dBRead = []
+        ReadyWave = 0
+
+        for i, dic in enumerate(self.WaveData):
+            if dic['NewData'] == 1:
+                WaveRead.append(self.WaveData[i]['Wave'])
+                dBRead.append(self.WaveData[i]['SignaldB'])
+                ReadyWave = ReadyWave + 1
+
+        for i in range(ReadyWave):
+            print("---Update Table---")
+            print(WaveRead[i])
+            print(dBRead)
+            print(self.WaveTable.get_children())
+            self.WaveTable.item(str(i), values=(
+                dBRead[i], WaveRead[i][0], WaveRead[i][1], WaveRead[i][2], WaveRead[i][3], WaveRead[i][4]))
+            print("------------------")
+        self.WaveTable.pack()
+
+        self.GrafTab.after(1000, self.__UpdateTable)
+
     def __UpdateData(self):
 
-        # print(self.WaveData[0])
         GrafData = []
-        # print(GrafData)
         ReadyGraf = 0
+        print(self.WaveData)
 
         for i, dic in enumerate(self.WaveData):
             if dic['NewData'] == 1:
@@ -224,9 +278,9 @@ class GUI_Control():
 
         for key, value in State_Dict.items():
             if self.GuiUpdateState.value is value:
-                print("--Estado actual--")
-                print(self.GuiUpdateState.value)
-                print("----")
+                #print("--Estado actual--")
+                # print(self.GuiUpdateState.value)
+                # print("----")
                 NewState = StringVar()
                 NewState.set(key)
                 self.Label_State.config(textvariable=NewState)
