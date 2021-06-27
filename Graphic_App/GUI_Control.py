@@ -166,12 +166,6 @@ class GUI_Control():
         self.BtnFrame.config(bg="white")
         self.BtnFrame.config(width="400", height="400")
 
-        self.Label_State = Label(self.BtnFrame, text="STATE_STAND_BY")
-        self.Label_State.config(anchor=CENTER)
-        self.Label_State.place(x=130, y=50)
-        self.Label_State.config(bg="white")
-        self.Label_State.after(1000, self.__UpdateStateLabel)
-
         self.GrafFrame = Frame(self.Window)
         self.GrafFrame.pack(fill="both", side="left", expand=1)
         self.GrafFrame.config(bg="white")
@@ -182,11 +176,17 @@ class GUI_Control():
         self.Graf_Notebook.place(x=10, y=1)
         self.GrafTab = ttk.Frame(self.Graf_Notebook)
         self.WaveTab = ttk.Frame(self.Graf_Notebook)
-        self.Graf_Notebook.add(self.GrafTab, text='First')
-        self.Graf_Notebook.add(self.WaveTab, text='Second')
+        self.Graf_Notebook.add(self.GrafTab, text='Graf')
+        self.Graf_Notebook.add(self.WaveTab, text='Tab')
         self.Graf_Notebook.pack(fill='both', expand=True)
 
         self.__ConfBottons()
+        self.__ConfWaveTab()
+        self.__ConfWaveGraf()
+
+        self.Window.mainloop()
+
+    def __ConfWaveTab(self):
 
         WAVETAB_WIDTH = 75
 
@@ -220,80 +220,14 @@ class GUI_Control():
 
         self.WaveTab.after(1000, self.__UpdateTable)
 
+    def __ConfWaveGraf(self):
+
         self.fig = Figure(figsize=(5, 5), dpi=100)
         self.canvas = FigureCanvasTkAgg(self.fig, self.GrafTab)
         self.canvas.draw()
         self.canvas.get_tk_widget().pack(side=BOTTOM, fill=BOTH, expand=True)
-        self.GrafTab.after(1000, self.__UpdateData)
-
-        self.Window.mainloop()
-
-    def __UpdateTable(self):
-
-        WaveRead = []
-        dBRead = []
-        ReadyWave = 0
-
-        for i, dic in enumerate(self.WaveData):
-            if dic['NewData'] == 1:
-                WaveRead.append(self.WaveData[i]['Wave'])
-                dBRead.append(self.WaveData[i]['SignaldB'])
-                ReadyWave = ReadyWave + 1
-
-        for i in range(ReadyWave):
-            print("---Update Table---")
-            print(WaveRead[i])
-            print(dBRead)
-            print(self.WaveTable.get_children())
-            self.WaveTable.item(str(i), values=(
-                dBRead[i], WaveRead[i][0], WaveRead[i][1], WaveRead[i][2], WaveRead[i][3], WaveRead[i][4]))
-            print("------------------")
-        self.WaveTable.pack()
-
-        self.GrafTab.after(1000, self.__UpdateTable)
-
-    def __UpdateData(self):
-
-        GrafData = []
-        ReadyGraf = 0
-        print(self.WaveData)
-
-        for i, dic in enumerate(self.WaveData):
-            if dic['NewData'] == 1:
-                GrafData.append(self.WaveData[i]['FullSignal'])
-                ReadyGraf = ReadyGraf + 1
-
-        self.fig.clear()
-
-        for i in range(ReadyGraf):
-            self.fig.add_subplot(ReadyGraf, 1, i + 1).plot(
-                list(range(0, len(GrafData[i]))), GrafData[i])
-
-        self.fig.tight_layout()
-        self.canvas.draw()
 
         self.GrafTab.after(1000, self.__UpdateData)
-
-    def __UpdateStateLabel(self):
-
-        for key, value in State_Dict.items():
-            if self.GuiUpdateState.value is value:
-                #print("--Estado actual--")
-                # print(self.GuiUpdateState.value)
-                # print("----")
-                NewState = StringVar()
-                NewState.set(key)
-                self.Label_State.config(textvariable=NewState)
-
-        self.Label_State.after(1000, self.__UpdateStateLabel)
-
-    def __UpdateDiagLabel(self):
-
-        NewDiag = StringVar()
-        NewDiag.set(self.GuiUpdateDiag.value)
-        self.Label_Diag.config(textvariable=NewDiag)
-
-        self.Label_Diag.after(1000, self.__UpdateDiagLabel)
 
     def __ConfParam(self):
 
@@ -355,6 +289,12 @@ class GUI_Control():
 
     def __ConfBottons(self):
 
+        self.Label_State = Label(self.BtnFrame, text="STATE_STAND_BY")
+        self.Label_State.config(anchor=CENTER)
+        self.Label_State.place(x=130, y=50)
+        self.Label_State.config(bg="white")
+        self.Label_State.after(1000, self.__UpdateStateLabel)
+
         btnGenSignal = Button(self.BtnFrame, text="Get PEATC",
                               command=self.__GenSignalBotton)
         btnGenSignal.place(bordermode=OUTSIDE, height=80,
@@ -364,6 +304,73 @@ class GUI_Control():
                                command=self.__GenDiagBotton)
         btnDiagSignal.place(bordermode=OUTSIDE, height=80,
                             width=200, x=100, y=300)
+
+    def __UpdateTable(self):
+
+        WaveRead = []
+        dBRead = []
+        ReadyWave = 0
+
+        for i, dic in enumerate(self.WaveData):
+            if dic['NewData'] == 1:
+                WaveRead.append(self.WaveData[i]['Wave'])
+                dBRead.append(self.WaveData[i]['SignaldB'])
+                ReadyWave = ReadyWave + 1
+
+        for i in range(ReadyWave):
+            #print("---Update Table---")
+            # print(WaveRead[i])
+            # print(dBRead)
+            # print(self.WaveTable.get_children())
+            self.WaveTable.item(str(i), values=(
+                dBRead[i], WaveRead[i][0], WaveRead[i][1], WaveRead[i][2], WaveRead[i][3], WaveRead[i][4]))
+            # print("------------------")
+        self.WaveTable.pack()
+
+        self.GrafTab.after(1000, self.__UpdateTable)
+
+    def __UpdateData(self):
+
+        GrafData = []
+        ReadyGraf = 0
+        # print(self.WaveData)
+
+        for i, dic in enumerate(self.WaveData):
+            if dic['NewData'] == 1:
+                GrafData.append(self.WaveData[i]['FullSignal'])
+                ReadyGraf = ReadyGraf + 1
+
+        self.fig.clear()
+
+        for i in range(ReadyGraf):
+            self.fig.add_subplot(ReadyGraf, 1, i + 1).plot(
+                list(range(0, len(GrafData[i]))), GrafData[i])
+
+        self.fig.tight_layout()
+        self.canvas.draw()
+
+        self.GrafTab.after(1000, self.__UpdateData)
+
+    def __UpdateStateLabel(self):
+
+        for key, value in State_Dict.items():
+            if self.GuiUpdateState.value is value:
+                #print("--Estado actual--")
+                # print(self.GuiUpdateState.value)
+                # print("----")
+                NewState = StringVar()
+                NewState.set(key)
+                self.Label_State.config(textvariable=NewState)
+
+        self.Label_State.after(1000, self.__UpdateStateLabel)
+
+    def __UpdateDiagLabel(self):
+
+        NewDiag = StringVar()
+        NewDiag.set(self.GuiUpdateDiag.value)
+        self.Label_Diag.config(textvariable=NewDiag)
+
+        self.Label_Diag.after(1000, self.__UpdateDiagLabel)
 
     def __GenSignalBotton(self):
 
