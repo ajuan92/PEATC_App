@@ -5,6 +5,7 @@ from tkinter import *
 from tkinter.ttk import Combobox
 from tkinter import ttk
 from tkinter import Label
+
 from random import randint
 
 from time import sleep
@@ -104,6 +105,7 @@ class GUI_Control():
                     {'SignaldB': 0, 'NewData': 0, 'Wave': [], 'FullSignal': []})
 
         print(self.WaveData)
+        self.ArrNewData = Array('i', len(CONFIG_SignaldB))
 
         self.__Cmd_Template = Array('i', range(5))
         self.__Cmd_DiagAge = Array('i', range(2))
@@ -220,14 +222,27 @@ class GUI_Control():
 
         self.WaveTab.after(1000, self.__UpdateTable)
 
+    def myfunction(self, GrafNum):
+        self.canvas.configure(scrollregion=(
+            0, 0, 0, 400 * (GrafNum)), width=600, height=400)
+
     def __ConfWaveGraf(self):
 
-        self.fig = Figure(figsize=(5, 5), dpi=100)
-        self.canvas = FigureCanvasTkAgg(self.fig, self.GrafTab)
-        self.canvas.draw()
-        self.canvas.get_tk_widget().pack(side=BOTTOM, fill=BOTH, expand=True)
+        self.PrevReadyGraf = 0
 
-        self.GrafTab.after(1000, self.__UpdateData)
+        self.canvas = Canvas(self.GrafTab)
+        self.graframe = Frame(self.canvas)
+
+        self.yScrollbar = Scrollbar(
+            self.GrafTab, orient="vertical", command=self.canvas.yview)
+        self.canvas.config(yscrollcommand=self.yScrollbar.set)
+        self.yScrollbar.pack(side="right", fill="y")
+
+        self.canvas.pack(side="left", expand=True, fill="both")
+        self.canvas.create_window((0, 0), window=self.graframe, anchor='nw')
+        self.graframe.bind("<Configure>", self.myfunction(1))
+
+        self.GrafTab.after(1000, self.__UpdateData())
 
     def __ConfParam(self):
 
@@ -318,13 +333,8 @@ class GUI_Control():
                 ReadyWave = ReadyWave + 1
 
         for i in range(ReadyWave):
-            #print("---Update Table---")
-            # print(WaveRead[i])
-            # print(dBRead)
-            # print(self.WaveTable.get_children())
             self.WaveTable.item(str(i), values=(
                 dBRead[i], WaveRead[i][0], WaveRead[i][1], WaveRead[i][2], WaveRead[i][3], WaveRead[i][4]))
-            # print("------------------")
         self.WaveTable.pack()
 
         self.GrafTab.after(1000, self.__UpdateTable)
@@ -333,31 +343,40 @@ class GUI_Control():
 
         GrafData = []
         ReadyGraf = 0
-        # print(self.WaveData)
 
         for i, dic in enumerate(self.WaveData):
             if dic['NewData'] == 1:
+
                 GrafData.append(self.WaveData[i]['FullSignal'])
+                self.WaveData[i].update({'NewData': 0})
                 ReadyGraf = ReadyGraf + 1
 
-        self.fig.clear()
+                if self.PrevReadyGraf < ReadyGraf:
+                    self.PrevReadyGraf = ReadyGraf
+                    self.graframe.bind(
+                        "<Configure>", self.myfunction(ReadyGraf))
 
-        for i in range(ReadyGraf):
-            self.fig.add_subplot(ReadyGraf, 1, i + 1).plot(
-                list(range(0, len(GrafData[i]))), GrafData[i])
+                if self.ArrNewData[i] == 1:
+                    fig = Figure(figsize=(6, 4), dpi=100)
 
-        self.fig.tight_layout()
-        self.canvas.draw()
+                    ax = fig.add_subplot(111)
+                    ax.set_title('SignaldB' + ' ' +
+                                 ''.join(str(self.WaveData[i]['SignaldB'])))
+                    ax.set_xlabel('Time ms')
+                    ax.set_ylabel('Voltage mV')
+                    ax.plot(range(0, len(GrafData[0])), GrafData[0])
 
-        self.GrafTab.after(1000, self.__UpdateData)
+                    canvasAgg = FigureCanvasTkAgg(fig, self.graframe)
+                    canvasAgg.get_tk_widget().grid(row=i, column=0)
+                    canvasAgg.draw()
+                    self.ArrNewData[i] = 0
+
+        self.GrafFrame.after(1000, self.__UpdateData)
 
     def __UpdateStateLabel(self):
 
         for key, value in State_Dict.items():
             if self.GuiUpdateState.value is value:
-                #print("--Estado actual--")
-                # print(self.GuiUpdateState.value)
-                # print("----")
                 NewState = StringVar()
                 NewState.set(key)
                 self.Label_State.config(textvariable=NewState)
@@ -462,6 +481,7 @@ class GUI_Control():
                         GetPEATCDict['Wave'] = WavePEATC1
                         GetPEATCDict['FullSignal'] = FullWaveData1
                         self.WaveData[i] = GetPEATCDict
+                        self.ArrNewData[i] = 1
 
                 print("---------")
 
