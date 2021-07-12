@@ -5,6 +5,7 @@ from tkinter import *
 from tkinter.ttk import Combobox
 from tkinter import ttk
 from tkinter import Label
+import tkinter as tk
 
 from random import randint
 
@@ -159,29 +160,38 @@ class GUI_Control():
         '''
         self.Window = Tk()
         self.Window.title("PEATC APP")
-        self.Window.geometry("1000x600")
-
-        self.__ConfParam()
+        self.Window.columnconfigure((0, 1, 2), minsize=1)
 
         self.BtnFrame = Frame(self.Window)
-        self.BtnFrame.pack(fill="both", side="right", expand=1)
-        self.BtnFrame.config(bg="white")
-        self.BtnFrame.config(width="400", height="400")
+        self.BtnFrame.grid(row=0, column=2)
+        self.BtnFrame.config(bg="white", bd=1, relief=GROOVE)
+        self.BtnFrame.config(width="400", height="1000")
 
-        self.GrafFrame = Frame(self.Window)
-        self.GrafFrame.pack(fill="both", side="left", expand=1)
-        self.GrafFrame.config(bg="white")
-        self.GrafFrame.config(width="600", height="400")
+        self.GrafTab = Frame(self.Window)
+        self.GrafTab.grid(row=0, column=0)
+        self.GrafTab.config(bg="white")
+        self.GrafTab.config(width="600", height="1000")
 
-        self.Graf_Notebook = ttk.Notebook(
-            self.GrafFrame, width="600", height="400")
-        self.Graf_Notebook.place(x=10, y=1)
-        self.GrafTab = ttk.Frame(self.Graf_Notebook)
-        self.WaveTab = ttk.Frame(self.Graf_Notebook)
-        self.Graf_Notebook.add(self.GrafTab, text='Graf')
-        self.Graf_Notebook.add(self.WaveTab, text='Tab')
-        self.Graf_Notebook.pack(fill='both', expand=True)
+        self.MiddleWindow = Frame(self.Window)
+        self.MiddleWindow.grid(row=0, column=1)
+        self.MiddleWindow.rowconfigure((0, 1, 2), minsize=1)
+        self.MiddleWindow.rowconfigure(0, minsize=200)
 
+        self.WaveTab = Frame(self.MiddleWindow)
+        self.WaveTab.grid(row=0, column=0, sticky=NE + NW)
+        self.WaveTab.config(bg="white")
+        self.WaveTab.config(width="600", height="600")
+
+        self.ConfParamFrame = Frame(self.MiddleWindow)
+        self.ConfParamFrame.grid(row=1, column=0, sticky=E + W)
+        self.ConfParamFrame.config(bg="white", bd=1, relief=GROOVE)
+        self.ConfParamFrame.config(width="720", height="200")
+
+        self.text = Text(self.MiddleWindow, wrap="word", height=20, width=89)
+        self.text.grid(row=2, column=0, sticky=SE + SW)
+        self.text.tag_configure("stderr", foreground="white")
+
+        self.__ConfParam()
         self.__ConfBottons()
         self.__ConfWaveTab()
         self.__ConfWaveGraf()
@@ -190,7 +200,7 @@ class GUI_Control():
 
     def __ConfWaveTab(self):
 
-        WAVETAB_WIDTH = 75
+        WAVETAB_WIDTH = 80
 
         self.WaveTable = ttk.Treeview(self.WaveTab)
         self.WaveTable['columns'] = (
@@ -206,7 +216,7 @@ class GUI_Control():
         self.WaveTable.column("III-V", anchor=CENTER, width=WAVETAB_WIDTH)
         self.WaveTable.column("I-V", anchor=CENTER, width=WAVETAB_WIDTH)
 
-        self.WaveTable.grid(row=5, column=0, columnspan=1)
+        self.WaveTable.grid(row=0, column=0, columnspan=1)
         self.WaveTable.heading("#1", text="dB", anchor=CENTER)
         self.WaveTable.heading("#2", text="I", anchor=CENTER)
         self.WaveTable.heading("#3", text="II", anchor=CENTER)
@@ -220,11 +230,12 @@ class GUI_Control():
         for i in range(len(CONFIG_SignaldB)):
             self.WaveTable.insert(parent='', index=i, iid=i, values=([]))
 
+        self.WaveTable.config(height="20")
         self.WaveTab.after(1000, self.__UpdateTable)
 
-    def myfunction(self, GrafNum):
+    def ReSizeWaveGraf(self, GrafNum):
         self.canvas.configure(scrollregion=(
-            0, 0, 0, 400 * (GrafNum)), width=600, height=400)
+            0, 0, 0, 400 * (GrafNum)), width=600, height=1000)
 
     def __ConfWaveGraf(self):
 
@@ -240,63 +251,58 @@ class GUI_Control():
 
         self.canvas.pack(side="left", expand=True, fill="both")
         self.canvas.create_window((0, 0), window=self.graframe, anchor='nw')
-        self.graframe.bind("<Configure>", self.myfunction(1))
+        self.graframe.bind("<Configure>", self.ReSizeWaveGraf(1))
 
         self.GrafTab.after(1000, self.__UpdateData())
 
     def __ConfParam(self):
 
-        ConfParamFrame = Frame(self.Window)
-        ConfParamFrame.pack(fill="both", side="bottom", expand=1)
-        ConfParamFrame.config(bg="white")
-        ConfParamFrame.config(width="600", height="50")
-
-        Label_SignaldB = Label(ConfParamFrame, text="SignaldB")
+        Label_SignaldB = Label(self.ConfParamFrame, text="SignaldB")
         Label_SignaldB.place(x=100, y=50)
         Label_SignaldB.config(bg="white")
         self.Entry_SignaldB = ttk.Combobox(
-            ConfParamFrame, width=5, state='readonly')
+            self.ConfParamFrame, width=5, state='readonly')
         self.Entry_SignaldB.place(x=100, y=70)
         self.Entry_SignaldB['values'] = CONFIG_SignaldB
         self.Entry_SignaldB.current(0)
 
-        Label_Latency = Label(ConfParamFrame, text="Latency")
+        Label_Latency = Label(self.ConfParamFrame, text="Latency")
         Label_Latency.place(x=200, y=50)
         Label_Latency.config(bg="white")
         self.Entry_Latency = ttk.Combobox(
-            ConfParamFrame, width=5, state='readonly')
+            self.ConfParamFrame, width=5, state='readonly')
         self.Entry_Latency.place(x=200, y=70)
         self.Entry_Latency['values'] = CONFIG_Latency
         self.Entry_Latency.current(0)
 
-        Label_Polarity = Label(ConfParamFrame, text="Polarity")
+        Label_Polarity = Label(self.ConfParamFrame, text="Polarity")
         Label_Polarity.place(x=300, y=50)
         Label_Polarity.config(bg="white")
         self.Entry_Polarity = ttk.Combobox(
-            ConfParamFrame, width=5, state='readonly')
+            self.ConfParamFrame, width=5, state='readonly')
         self.Entry_Polarity.place(x=300, y=70)
         self.Entry_Polarity['values'] = [1, 0]
         self.Entry_Polarity.current(0)
 
-        Label_Freq = Label(ConfParamFrame, text="Freq")
+        Label_Freq = Label(self.ConfParamFrame, text="Freq")
         Label_Freq.place(x=400, y=50)
         Label_Freq.config(bg="white")
         self.Entry_Freq = ttk.Combobox(
-            ConfParamFrame, width=5, state='readonly')
+            self.ConfParamFrame, width=5, state='readonly')
         self.Entry_Freq.place(x=400, y=70)
         self.Entry_Freq['values'] = CONFIG_Freq
         self.Entry_Freq.current(0)
 
-        Label_Age = Label(ConfParamFrame, text="Age")
+        Label_Age = Label(self.ConfParamFrame, text="Age")
         Label_Age.place(x=500, y=50)
         Label_Age.config(bg="white")
         self.Entry_Age = ttk.Combobox(
-            ConfParamFrame, width=5, state='readonly')
+            self.ConfParamFrame, width=5, state='readonly')
         self.Entry_Age.place(x=500, y=70)
         self.Entry_Age['values'] = list(range(0, 100))
         self.Entry_Age.current(0)
 
-        self.Label_Diag = Label(ConfParamFrame, text="No Diagnostic")
+        self.Label_Diag = Label(self.ConfParamFrame, text="No Diagnostic")
         self.Label_Diag.config(anchor=CENTER)
         self.Label_Diag.place(x=700, y=50)
         self.Label_Diag.config(bg="white")
@@ -334,10 +340,10 @@ class GUI_Control():
 
         for i in range(ReadyWave):
             self.WaveTable.item(str(i), values=(
-                dBRead[i], WaveRead[i][0], WaveRead[i][1], WaveRead[i][2], WaveRead[i][3], WaveRead[i][4]))
-        self.WaveTable.pack()
+                dBRead[i], WaveRead[i][0], WaveRead[i][1],
+                WaveRead[i][2], WaveRead[i][3], WaveRead[i][4]))
 
-        self.GrafTab.after(1000, self.__UpdateTable)
+        self.WaveTab.after(1000, self.__UpdateTable)
 
     def __UpdateData(self):
 
@@ -354,14 +360,14 @@ class GUI_Control():
                 if self.PrevReadyGraf < ReadyGraf:
                     self.PrevReadyGraf = ReadyGraf
                     self.graframe.bind(
-                        "<Configure>", self.myfunction(ReadyGraf))
+                        "<Configure>", self.ReSizeWaveGraf(ReadyGraf))
 
                 if self.ArrNewData[i] == 1:
                     fig = Figure(figsize=(6, 4), dpi=100)
 
                     ax = fig.add_subplot(111)
-                    ax.set_title('SignaldB' + ' ' +
-                                 ''.join(str(self.WaveData[i]['SignaldB'])))
+                    ax.set_title('SignaldB' + ' ' + ''.join
+                                 (str(self.WaveData[i]['SignaldB'])))
                     ax.set_xlabel('Time ms')
                     ax.set_ylabel('Voltage mV')
                     ax.plot(range(0, len(GrafData[0])), GrafData[0])
@@ -371,7 +377,7 @@ class GUI_Control():
                     canvasAgg.draw()
                     self.ArrNewData[i] = 0
 
-        self.GrafFrame.after(1000, self.__UpdateData)
+        self.GrafTab.after(1000, self.__UpdateData)
 
     def __UpdateStateLabel(self):
 
