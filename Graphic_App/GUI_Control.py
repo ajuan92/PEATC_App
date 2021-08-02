@@ -1,5 +1,8 @@
 import os
 import sys
+import csv
+from datetime import datetime
+
 from time import time
 from tkinter import *
 from tkinter.ttk import Combobox
@@ -21,6 +24,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 
 CURR_PATH = os.path.dirname(os.path.realpath(__file__))
+APP_LOGS_PATH = CURR_PATH + "\\..\\_Logs\\"
 LOW_DRIVE_PATH = CURR_PATH + "\\..\\Control_Block"
 
 sys.path.append(
@@ -55,6 +59,7 @@ STATE_ANALYZE_DATA = 4
 STATE_INIT_DIAGNOSTIC = 5
 STATE_WAIT_DIAGNOSTIC = 6
 STATE_SEND_RESULT = 7
+STATE_CREATING_LOG = 8
 
 State_Dict = {
     "   STATE_STAND_BY": 0,
@@ -65,6 +70,7 @@ State_Dict = {
     "STATE_INIT_DIAGNOSTIC": 5,
     "STATE_WAIT_DIAGNOSTIC": 6,
     "  STATE_SEND_RESULT": 7,
+    "  STATE_CREATING_LOG": 8,
 }
 
 
@@ -233,7 +239,7 @@ class GUI_Control():
         self.WaveTable.config(height="20")
         self.WaveTab.after(1000, self.__UpdateTable)
 
-    def ReSizeWaveGraf(self, GrafNum):
+    def __ReSizeWaveGraf(self, GrafNum):
         self.canvas.configure(scrollregion=(
             0, 0, 0, 400 * (GrafNum)), width=600, height=1000)
 
@@ -251,7 +257,7 @@ class GUI_Control():
 
         self.canvas.pack(side="left", expand=True, fill="both")
         self.canvas.create_window((0, 0), window=self.graframe, anchor='nw')
-        self.graframe.bind("<Configure>", self.ReSizeWaveGraf(1))
+        self.graframe.bind("<Configure>", self.__ReSizeWaveGraf(1))
 
         self.GrafTab.after(1000, self.__UpdateData())
 
@@ -360,7 +366,7 @@ class GUI_Control():
                 if self.PrevReadyGraf < ReadyGraf:
                     self.PrevReadyGraf = ReadyGraf
                     self.graframe.bind(
-                        "<Configure>", self.ReSizeWaveGraf(ReadyGraf))
+                        "<Configure>", self.__ReSizeWaveGraf(ReadyGraf))
 
                 if self.ArrNewData[i] == 1:
                     fig = Figure(figsize=(6, 4), dpi=100)
@@ -369,7 +375,7 @@ class GUI_Control():
                     ax.set_title('SignaldB' + ' ' + ''.join
                                  (str(self.WaveData[i]['SignaldB'])))
                     ax.set_xlabel('Time ms')
-                    ax.set_ylabel('Voltage mV')
+                    ax.set_ylabel('Voltage uV')
                     ax.plot(range(0, len(GrafData[0])), GrafData[0])
 
                     canvasAgg = FigureCanvasTkAgg(fig, self.graframe)
@@ -537,8 +543,31 @@ class GUI_Control():
                 print("Fin Reciv Result")
                 print(DiagnPEATC)
                 print("---------")
-                self.GuiCurrState = STATE_STAND_BY
+                self.GuiCurrState = STATE_CREATING_LOG
                 print("---------")
+
+            elif self.GuiCurrState is STATE_CREATING_LOG:
+
+                print("---Creating CSV File")
+                now = datetime.now()
+                dt_string = 'T'
+                #dt_string = now.strftime("%d-%m-%Y_%H-%M-%S")
+                LogFilePath = APP_LOGS_PATH + 'Log_' + dt_string + '.csv'
+                print(LogFilePath)
+
+                CsvWaveData = []
+
+                for MemIndex in range(len(CONFIG_SignaldB)):
+                    CsvWaveData.append(
+                        {'SignaldB': self.WaveData[MemIndex]['SignaldB'], 'Wave': self.WaveData[MemIndex]['Wave'], 'FullSignal': self.WaveData[MemIndex]['FullSignal'], 'Diagnostic': self.GuiUpdateDiag.value})
+                print(CsvWaveData)
+                with open(LogFilePath, 'w', encoding='UTF8', newline='') as CurrDiagData:
+                    writer = csv.DictWriter(CurrDiagData, fieldnames=[
+                        'SignaldB', 'Wave', 'FullSignal', 'Diagnostic'])
+                    writer.writeheader()
+                    writer.writerows(CsvWaveData)
+
+                self.GuiCurrState = STATE_STAND_BY
 
             elif self.GuiCurrState is STATE_RESET:
 
