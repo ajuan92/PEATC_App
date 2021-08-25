@@ -3,6 +3,8 @@ import sys
 import csv
 from datetime import datetime
 
+from StdoutToWidget import StdoutToWidget
+
 from time import time
 from tkinter import *
 from tkinter.ttk import Combobox
@@ -73,11 +75,35 @@ State_Dict = {
     "  STATE_CREATING_LOG": 8,
 }
 
+Diag_Dict = {
+    "Normal values": 0,
+    "Prolonged latency in Wave I": 1,
+    "Prolonged latency between peaks I-III": 2,
+    "Prolonged latency between peaks III-V": 3,
+    "Prolonged latency between peaks IV-V and III-V ": 4,
+    "Wave III absent with presence of I and V": 5,
+    "Wave V absent with presence of I and III": 6,
+    "Wave V absent with normal of I and III": 7,
+    "Absence of waves": 8,
+    "Excess in amplitude radius V / I": 9,
+    "Absence of waves except I (and possibly II)": 10,
+}
 
 CONFIG_SignaldB = [30, 40, 50, 60]
 
 CONFIG_Latency = [100, 233, 120, 54]
 CONFIG_Freq = [50, 70, 100, 150]
+
+class Redirect():
+
+    def __init__(self, widget):
+        self.widget = widget
+
+    def write(self, text):
+        self.widget.insert('end', text)
+
+    def flush(self):
+        pass
 
 
 class GUI_Control():
@@ -196,6 +222,7 @@ class GUI_Control():
         self.text = Text(self.MiddleWindow, wrap="word", height=20, width=89)
         self.text.grid(row=2, column=0, sticky=SE + SW)
         self.text.tag_configure("stderr", foreground="white")
+        StdoutToWidget(widget=self.text)
 
         self.__ConfParam()
         self.__ConfBottons()
@@ -308,12 +335,6 @@ class GUI_Control():
         self.Entry_Age['values'] = list(range(0, 100))
         self.Entry_Age.current(0)
 
-        self.Label_Diag = Label(self.ConfParamFrame, text="No Diagnostic")
-        self.Label_Diag.config(anchor=CENTER)
-        self.Label_Diag.place(x=700, y=50)
-        self.Label_Diag.config(bg="white")
-        self.Label_Diag.after(1000, self.__UpdateDiagLabel)
-
     def __ConfBottons(self):
 
         self.Label_State = Label(self.BtnFrame, text="STATE_STAND_BY")
@@ -332,6 +353,12 @@ class GUI_Control():
         btnDiagSignal.place(bordermode=OUTSIDE, height=80,
                             width=200, x=100, y=300)
 
+        self.Label_Diag = Label(self.BtnFrame, text="No Diagnostic")
+        self.Label_Diag.config(anchor=CENTER)
+        self.Label_Diag.place(x=130, y=500)
+        self.Label_Diag.config(bg="white")
+        self.Label_Diag.after(1000, self.__UpdateDiagLabel)
+
     def __UpdateTable(self):
 
         WaveRead = []
@@ -347,7 +374,8 @@ class GUI_Control():
         for i in range(ReadyWave):
             self.WaveTable.item(str(i), values=(
                 dBRead[i], WaveRead[i][0], WaveRead[i][1],
-                WaveRead[i][2], WaveRead[i][3], WaveRead[i][4]))
+                WaveRead[i][2], WaveRead[i][3], WaveRead[i][4],
+                WaveRead[i][5], WaveRead[i][6], WaveRead[i][7]))
 
         self.WaveTab.after(1000, self.__UpdateTable)
 
@@ -397,9 +425,11 @@ class GUI_Control():
 
     def __UpdateDiagLabel(self):
 
-        NewDiag = StringVar()
-        NewDiag.set(self.GuiUpdateDiag.value)
-        self.Label_Diag.config(textvariable=NewDiag)
+        for key, value in Diag_Dict.items():
+            if self.GuiUpdateDiag.value is value:
+                NewState = StringVar()
+                NewState.set(key)
+                self.Label_Diag.config(textvariable=NewState)
 
         self.Label_Diag.after(1000, self.__UpdateDiagLabel)
 
@@ -489,13 +519,26 @@ class GUI_Control():
                 for i, dic in enumerate(self.WaveData):
                     if dic['SignaldB'] == Cmd_Template["Gs_SignaldB"]:
                         GetPEATCDict = self.WaveData[i]
+                        print("---------")
+                        print(GetPEATCDict)
+                        print("************")
                         GetPEATCDict['NewData'] = 1
-                        GetPEATCDict['Wave'] = WavePEATC1
+                        GetPEATCDict['Wave'].append(WavePEATC1[0][0])
+                        GetPEATCDict['Wave'].append(WavePEATC1[1][0])
+                        GetPEATCDict['Wave'].append(WavePEATC1[2][0])
+                        GetPEATCDict['Wave'].append(WavePEATC1[3][0])
+                        GetPEATCDict['Wave'].append(WavePEATC1[4][0])
+
+                        GetPEATCDict['Wave'].append(
+                            WavePEATC1[2][1] - WavePEATC1[0][1])
+                        GetPEATCDict['Wave'].append(
+                            WavePEATC1[4][1] - WavePEATC1[2][1])
+                        GetPEATCDict['Wave'].append(
+                            WavePEATC1[4][1] - WavePEATC1[0][1])
+
                         GetPEATCDict['FullSignal'] = FullWaveData1
                         self.WaveData[i] = GetPEATCDict
                         self.ArrNewData[i] = 1
-
-                print("---------")
 
                 print(self.WaveData)
                 self.GuiCurrState = STATE_STAND_BY
@@ -551,7 +594,7 @@ class GUI_Control():
                 print("---Creating CSV File")
                 now = datetime.now()
                 dt_string = 'T'
-                #dt_string = now.strftime("%d-%m-%Y_%H-%M-%S")
+                #dt_string = now.strftime("%d-%m-%Y_%H.%M.%S")
                 LogFilePath = APP_LOGS_PATH + 'Log_' + dt_string + '.csv'
                 print(LogFilePath)
 
