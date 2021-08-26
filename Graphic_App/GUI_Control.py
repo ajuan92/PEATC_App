@@ -87,6 +87,7 @@ Diag_Dict = {
     "Absence of waves": 8,
     "Excess in amplitude radius V / I": 9,
     "Absence of waves except I (and possibly II)": 10,
+    "No Diagnostic": 11
 }
 
 CONFIG_SignaldB = [30, 40, 50, 60]
@@ -142,12 +143,16 @@ class GUI_Control():
 
         self.__Cmd_Template = Array('i', range(5))
         self.__Cmd_DiagAge = Array('i', range(2))
+        self.__Cmd_Reset = Array('i', range(3))
+
+        for i in range(len(self.__Cmd_Reset)):
+            self.__Cmd_Reset[i] = 0
 
         self.GuiCurrState = STATE_STAND_BY
         self.GuiUpdateState = Value('i', STATE_STAND_BY)
         self.GuiPrevState = STATE_RESET
 
-        self.GuiUpdateDiag = Value('i', 0)
+        self.GuiUpdateDiag = Value('i', Diag_Dict["No Diagnostic"])
 
         self.Ctrl_Cmd_output, self.Ctrl_Cmd_input = mprocess.Pipe(False)
         self.Ctrl_Result_output, self.Ctrl_Result_input = mprocess.Pipe(
@@ -237,28 +242,33 @@ class GUI_Control():
 
         self.WaveTable = ttk.Treeview(self.WaveTab)
         self.WaveTable['columns'] = (
-            "dB", "I", "II", "III", "IV", "V", "I-III", "III-V", "I-V")
+            "dB", "I A", "II A", "III A", "IV A", "V A",
+            "I L", "II L", "III L", "IV L", "V L")
         self.WaveTable.column("#0", width=0, stretch=NO)
         self.WaveTable.column("dB", anchor=CENTER, width=WAVETAB_WIDTH)
-        self.WaveTable.column("I", anchor=CENTER, width=WAVETAB_WIDTH)
-        self.WaveTable.column("II", anchor=CENTER, width=WAVETAB_WIDTH)
-        self.WaveTable.column("III", anchor=CENTER, width=WAVETAB_WIDTH)
-        self.WaveTable.column("IV", anchor=CENTER, width=WAVETAB_WIDTH)
-        self.WaveTable.column("V", anchor=CENTER, width=WAVETAB_WIDTH)
-        self.WaveTable.column("I-III", anchor=CENTER, width=WAVETAB_WIDTH)
-        self.WaveTable.column("III-V", anchor=CENTER, width=WAVETAB_WIDTH)
-        self.WaveTable.column("I-V", anchor=CENTER, width=WAVETAB_WIDTH)
+        self.WaveTable.column("I A", anchor=CENTER, width=WAVETAB_WIDTH)
+        self.WaveTable.column("II A", anchor=CENTER, width=WAVETAB_WIDTH)
+        self.WaveTable.column("III A", anchor=CENTER, width=WAVETAB_WIDTH)
+        self.WaveTable.column("IV A", anchor=CENTER, width=WAVETAB_WIDTH)
+        self.WaveTable.column("V A", anchor=CENTER, width=WAVETAB_WIDTH)
+        self.WaveTable.column("I L", anchor=CENTER, width=WAVETAB_WIDTH)
+        self.WaveTable.column("II L", anchor=CENTER, width=WAVETAB_WIDTH)
+        self.WaveTable.column("III L", anchor=CENTER, width=WAVETAB_WIDTH)
+        self.WaveTable.column("IV L", anchor=CENTER, width=WAVETAB_WIDTH)
+        self.WaveTable.column("V L", anchor=CENTER, width=WAVETAB_WIDTH)
 
         self.WaveTable.grid(row=0, column=0, columnspan=1)
         self.WaveTable.heading("#1", text="dB", anchor=CENTER)
-        self.WaveTable.heading("#2", text="I", anchor=CENTER)
-        self.WaveTable.heading("#3", text="II", anchor=CENTER)
-        self.WaveTable.heading("#4", text="III", anchor=CENTER)
-        self.WaveTable.heading("#5", text="IV", anchor=CENTER)
-        self.WaveTable.heading("#6", text="V", anchor=CENTER)
-        self.WaveTable.heading("#7", text="I-III", anchor=CENTER)
-        self.WaveTable.heading("#8", text="III-V", anchor=CENTER)
-        self.WaveTable.heading("#9", text="I-V", anchor=CENTER)
+        self.WaveTable.heading("#2", text="I Amp", anchor=CENTER)
+        self.WaveTable.heading("#3", text="II Amp", anchor=CENTER)
+        self.WaveTable.heading("#4", text="III Amp", anchor=CENTER)
+        self.WaveTable.heading("#5", text="IV Amp", anchor=CENTER)
+        self.WaveTable.heading("#6", text="V  Amp", anchor=CENTER)
+        self.WaveTable.heading("#7", text="I Lat", anchor=CENTER)
+        self.WaveTable.heading("#8", text="II Lat", anchor=CENTER)
+        self.WaveTable.heading("#9", text="III Lat", anchor=CENTER)
+        self.WaveTable.heading("#10", text="IV Lat", anchor=CENTER)
+        self.WaveTable.heading("#11", text="V  Lat", anchor=CENTER)
 
         for i in range(len(CONFIG_SignaldB)):
             self.WaveTable.insert(parent='', index=i, iid=i, values=([]))
@@ -353,9 +363,14 @@ class GUI_Control():
         btnDiagSignal.place(bordermode=OUTSIDE, height=80,
                             width=200, x=100, y=300)
 
+        btnReset = Button(self.BtnFrame, text="Reset",
+                          command=self.__GenResetBotton)
+        btnReset.place(bordermode=OUTSIDE, height=80,
+                       width=200, x=100, y=500)
+
         self.Label_Diag = Label(self.BtnFrame, text="No Diagnostic")
         self.Label_Diag.config(anchor=CENTER)
-        self.Label_Diag.place(x=130, y=500)
+        self.Label_Diag.place(x=130, y=700)
         self.Label_Diag.config(bg="white")
         self.Label_Diag.after(1000, self.__UpdateDiagLabel)
 
@@ -371,11 +386,19 @@ class GUI_Control():
                 dBRead.append(self.WaveData[i]['SignaldB'])
                 ReadyWave = ReadyWave + 1
 
-        for i in range(ReadyWave):
-            self.WaveTable.item(str(i), values=(
-                dBRead[i], WaveRead[i][0], WaveRead[i][1],
-                WaveRead[i][2], WaveRead[i][3], WaveRead[i][4],
-                WaveRead[i][5], WaveRead[i][6], WaveRead[i][7]))
+        if self.__Cmd_Reset[1] is 0:
+            for i in range(ReadyWave):
+                self.WaveTable.item(str(i), values=(
+                    dBRead[i], WaveRead[i][0][0], WaveRead[i][1][0],
+                    WaveRead[i][2][0], WaveRead[i][3][0], WaveRead[i][4][0],
+                    WaveRead[i][0][1], WaveRead[i][1][1], WaveRead[i][2][1],
+                    WaveRead[i][3][1], WaveRead[i][4][1]))
+        else:
+            for i in range(len(self.WaveTable.get_children())):
+                self.WaveTable.item(str(i), values=(
+                    [], [], [], [], [], [],
+                    [], [], [], [], []))
+            self.__Cmd_Reset[1] = 0
 
         self.WaveTab.after(1000, self.__UpdateTable)
 
@@ -383,6 +406,15 @@ class GUI_Control():
 
         GrafData = []
         ReadyGraf = 0
+
+        if self.__Cmd_Reset[2] is 1:
+            self.PrevReadyGraf = 0
+
+            print(self.graframe.winfo_children())
+            for widget in self.graframe.winfo_children():
+                widget.destroy()
+
+            self.__Cmd_Reset[2] = 0
 
         for i, dic in enumerate(self.WaveData):
             if dic['NewData'] == 1:
@@ -409,6 +441,7 @@ class GUI_Control():
                     canvasAgg = FigureCanvasTkAgg(fig, self.graframe)
                     canvasAgg.get_tk_widget().grid(row=i, column=0)
                     canvasAgg.draw()
+
                     self.ArrNewData[i] = 0
 
         self.GrafTab.after(1000, self.__UpdateData)
@@ -455,6 +488,18 @@ class GUI_Control():
             print("Inicio Click Disable")
             sys.stdout.flush()
 
+    def __GenResetBotton(self):
+
+        if self.GuiCurrState is STATE_STAND_BY:
+            print("Inicio Click ResetBotton")
+            sys.stdout.flush()
+            self.__Cmd_Reset[0] = 1
+            self.__Cmd_Reset[1] = 1
+            self.__Cmd_Reset[2] = 1
+        else:
+            print("Inicio Click Disable")
+            sys.stdout.flush()
+
     def GuiCom(self):
 
         print("Inicio Tarea de Comunicación")
@@ -474,7 +519,11 @@ class GUI_Control():
                     print("Read PEATC")
                     self.GuiCurrState = STATE_INIT_TEST
                 elif self.__Cmd_DiagAge[0] is 1:
+                    print("Run Diag PEATC")
                     self.GuiCurrState = STATE_INIT_DIAGNOSTIC
+                elif self.__Cmd_Reset[0] is 1:
+                    print("Reset Diag")
+                    self.GuiCurrState = STATE_RESET
                 else:
                     self.GuiCurrState = STATE_STAND_BY
 
@@ -523,19 +572,7 @@ class GUI_Control():
                         print(GetPEATCDict)
                         print("************")
                         GetPEATCDict['NewData'] = 1
-                        GetPEATCDict['Wave'].append(WavePEATC1[0][0])
-                        GetPEATCDict['Wave'].append(WavePEATC1[1][0])
-                        GetPEATCDict['Wave'].append(WavePEATC1[2][0])
-                        GetPEATCDict['Wave'].append(WavePEATC1[3][0])
-                        GetPEATCDict['Wave'].append(WavePEATC1[4][0])
-
-                        GetPEATCDict['Wave'].append(
-                            WavePEATC1[2][1] - WavePEATC1[0][1])
-                        GetPEATCDict['Wave'].append(
-                            WavePEATC1[4][1] - WavePEATC1[2][1])
-                        GetPEATCDict['Wave'].append(
-                            WavePEATC1[4][1] - WavePEATC1[0][1])
-
+                        GetPEATCDict['Wave'] = WavePEATC1
                         GetPEATCDict['FullSignal'] = FullWaveData1
                         self.WaveData[i] = GetPEATCDict
                         self.ArrNewData[i] = 1
@@ -591,10 +628,10 @@ class GUI_Control():
 
             elif self.GuiCurrState is STATE_CREATING_LOG:
 
-                print("---Creating CSV File")
+                print("---Creating CSV File----")
                 now = datetime.now()
                 dt_string = 'T'
-                #dt_string = now.strftime("%d-%m-%Y_%H.%M.%S")
+                # dt_string = now.strftime("%d-%m-%Y_%H.%M.%S")
                 LogFilePath = APP_LOGS_PATH + 'Log_' + dt_string + '.csv'
                 print(LogFilePath)
 
@@ -602,9 +639,13 @@ class GUI_Control():
 
                 for MemIndex in range(len(CONFIG_SignaldB)):
                     CsvWaveData.append(
-                        {'SignaldB': self.WaveData[MemIndex]['SignaldB'], 'Wave': self.WaveData[MemIndex]['Wave'], 'FullSignal': self.WaveData[MemIndex]['FullSignal'], 'Diagnostic': self.GuiUpdateDiag.value})
+                        {'SignaldB': self.WaveData[MemIndex]['SignaldB'],
+                         'Wave': self.WaveData[MemIndex]['Wave'],
+                         'FullSignal': self.WaveData[MemIndex]['FullSignal'],
+                         'Diagnostic': self.GuiUpdateDiag.value})
                 print(CsvWaveData)
-                with open(LogFilePath, 'w', encoding='UTF8', newline='') as CurrDiagData:
+                with open(LogFilePath, 'w',
+                          encoding='UTF8', newline='') as CurrDiagData:
                     writer = csv.DictWriter(CurrDiagData, fieldnames=[
                         'SignaldB', 'Wave', 'FullSignal', 'Diagnostic'])
                     writer.writeheader()
@@ -613,6 +654,21 @@ class GUI_Control():
                 self.GuiCurrState = STATE_STAND_BY
 
             elif self.GuiCurrState is STATE_RESET:
+
+                for i, dic in enumerate(self.WaveData):
+                    GetPEATCDict = self.WaveData[i]
+
+                    GetPEATCDict['NewData'] = 0
+                    GetPEATCDict['Wave'] = []
+                    GetPEATCDict['FullSignal'] = []
+                    self.WaveData[i] = GetPEATCDict
+                    self.ArrNewData[i] = 0
+
+                self.GuiUpdateDiag.value = Diag_Dict["No Diagnostic"]
+
+                if self.__Cmd_Reset[1] is 0:
+                    if self.__Cmd_Reset[2] is 0:
+                        self.__Cmd_Reset[0] = 0
 
                 self.GuiCurrState = STATE_STAND_BY
             else:
