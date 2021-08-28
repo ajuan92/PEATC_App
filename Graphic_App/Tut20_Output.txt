@@ -1,0 +1,46 @@
+Inicio Tarea de Diagnostico
+Inicio Tarea de Control
+Inicio Tarea de Comunicación
+Inicio Manager
+Fin Manager
+[{'SignaldB': 0, 'NewData': 0, 'Wave': [], 'FullSignal': []}]
+[{'SignaldB': 30, 'NewData': 0, 'Wave': [], 'FullSignal': []}, {'SignaldB': 40, 'NewData': 0, 'Wave': [], 'FullSignal': []}, {'SignaldB': 50, 'NewData': 0, 'Wave': [], 'FullSignal': []}, {'SignaldB': 60, 'NewData': 0, 'Wave': [], 'FullSignal': []}]
+Inicialización del modulo PEATC_Control
+E:\ARCHIVOS_Y_DOCUMENTOS\01_Tesis_Local\PEATC_App\Control_Block
+Inicio Click
+Read PEATC
+Envio Conf
+Fin Conf
+Waiting Result...
+{'Cmd': 1, 'Gs_SignaldB': 30, 'Gs_Latency': 100, 'Gs_Polarity': 1, 'Gs_Freq': 50}
+2
+3
+4
+array('B', [0, 4, 255, 255, 255, 255, 0, 0, 0, 1, 0, 0, 255, 255, 0, 0, 0, 2, 0, 1, 255, 254, 0, 1, 0, 17, 0, 38, 0, 50, 0, 44, 0, 25, 0, 0, 255, 234, 255, 221, 255, 221, 255, 233, 255, 251, 0, 13, 0, 29, 0, 39, 0, 35, 0, 20, 0, 2, 255, 242, 255, 226, 255, 212, 255, 209, 255, 222, 255, 243, 0, 6, 0, 23, 0, 39, 0, 45, 0, 33, 0, 10, 255, 246, 255, 232, 255, 217, 255, 196, 255, 175, 255, 162, 255, 160, 255, 168, 255, 184, 255, 202, 255, 216, 255, 227, 255, 241, 0, 3, 0, 19, 0, 28, 0, 34, 0, 41, 0, 42, 0, 33, 0, 17, 0, 4, 0, 0, 0, 0, 0, 0])
+--
+4
+--
+[[17, 38, 50, 44, 25], [13, 29, 39, 35, 20], [23, 39, 45, 33, 10], [19, 28, 34, 41, 42, 33, 17], []]
+--
+[17, 38, 50, 44, 25] 0-> 1400
+[13, 29, 39, 35, 20] 1-> 2500
+[23, 39, 45, 33, 10] 2-> 3800
+[19, 28, 34, 41, 42, 33, 17] 4-> 5900
+[[50, 1400], [39, 2500], [45, 3800], [0, 0], [42, 5900]]
+7
+1
+0
+Inicio Reciv Result
+Fin Reciv Result
+---------
+[[50, 1400], [39, 2500], [45, 3800], [0, 0], [42, 5900]]
+array('i', [4, -1, -1, 0, 1, 0, -1, 0, 2, 1, -2, 1, 17, 38, 50, 44, 25, 0, -22, -35, -35, -23, -5, 13, 29, 39, 35, 20, 2, -14, -30, -44, -47, -34, -13, 6, 23, 39, 45, 33, 10, -10, -24, -39, -60, -81, -94, -96, -88, -72, -54, -40, -29, -15, 3, 19, 28, 34, 41, 42, 33, 17, 4, 0, 0, 0])
+30
+---------
+{'SignaldB': 30, 'NewData': 0, 'Wave': [], 'FullSignal': []}
+************
+[{'SignaldB': 30, 'NewData': 1, 'Wave': [[50, 1400], [39, 2500], [45, 3800], [0, 0], [42, 5900]], 'FullSignal': array('i', [4, -1, -1, 0, 1, 0, -1, 0, 2, 1, -2, 1, 17, 38, 50, 44, 25, 0, -22, -35, -35, -23, -5, 13, 29, 39, 35, 20, 2, -14, -30, -44, -47, -34, -13, 6, 23, 39, 45, 33, 10, -10, -24, -39, -60, -81, -94, -96, -88, -72, -54, -40, -29, -15, 3, 19, 28, 34, 41, 42, 33, 17, 4, 0, 0, 0])}, {'SignaldB': 40, 'NewData': 0, 'Wave': [], 'FullSignal': []}, {'SignaldB': 50, 'NewData': 0, 'Wave': [], 'FullSignal': []}, {'SignaldB': 60, 'NewData': 0, 'Wave': [], 'FullSignal': []}]
+Inicio Click ResetBotton
+[<tkinter.Canvas object .!frame2.!canvas.!frame.!canvas>]
+Inicialización finalizada
+0

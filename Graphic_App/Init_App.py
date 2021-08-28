@@ -2,6 +2,10 @@ import os
 import sys
 import struct
 
+open("Tut20_Output.txt", 'w').close()
+restorePoint = sys.stdout
+sys.stdout = open("Tut20_Output.txt", 'a')
+
 from GUI_Control import GUI_Control
 
 BASE_PEATC_APP_PATH = os.getcwd()
@@ -41,6 +45,7 @@ def GenRawFile(TEMP_PATH, TEST_VECTOR):
 
             FileGs_Raw.write(struct.pack('B' * 2, ByteSplit[0], ByteSplit[1]))
 
+
 if __name__ == '__main__':
 
     GenRawFile(TEST_RAW_PATH_TEMP_6, Test_Vec.Test_AS_Raw_Data_6_month)
@@ -62,3 +67,7 @@ if __name__ == '__main__':
             FileGs_Raw.write(struct.pack('B' * 2, ByteSplit[0], ByteSplit[1]))
 
     GUI_Control()
+
+    restorePoint = sys.stdout
+    sys.stdout.close()
+    sys.stdout = restorePoint

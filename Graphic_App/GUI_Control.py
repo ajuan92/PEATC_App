@@ -3,7 +3,7 @@ import sys
 import csv
 from datetime import datetime
 
-from StdoutToWidget import StdoutToWidget
+from contextlib import redirect_stdout
 
 from time import time
 from tkinter import *
@@ -95,17 +95,18 @@ CONFIG_SignaldB = [30, 40, 50, 60]
 CONFIG_Latency = [100, 233, 120, 54]
 CONFIG_Freq = [50, 70, 100, 150]
 
-class Redirect():
-
-    def __init__(self, widget):
+class TextRedirector(object):
+    def __init__(self, widget, tag="stdout"):
         self.widget = widget
+        self.tag = tag
 
-    def write(self, text):
-        self.widget.insert('end', text)
+    def write(self, str):
+        self.widget.configure(state="normal")
+        self.widget.insert("end", str, (self.tag,))
+        self.widget.configure(state="disabled")
 
     def flush(self):
         pass
-
 
 class GUI_Control():
     '''!
@@ -227,7 +228,7 @@ class GUI_Control():
         self.text = Text(self.MiddleWindow, wrap="word", height=20, width=89)
         self.text.grid(row=2, column=0, sticky=SE + SW)
         self.text.tag_configure("stderr", foreground="white")
-        StdoutToWidget(widget=self.text)
+        self.text.after(1000, self.__UpdateLog)
 
         self.__ConfParam()
         self.__ConfBottons()
@@ -236,9 +237,17 @@ class GUI_Control():
 
         self.Window.mainloop()
 
+    def __UpdateLog(self):
+        with open('Tut20_Output.txt') as f:
+            newText = f.read()
+            self.text.delete('1.0', tk.END)
+            self.text.insert(tk.END, newText)
+
+        self.text.after(1000, self.__UpdateLog)
+
     def __ConfWaveTab(self):
 
-        WAVETAB_WIDTH = 80
+        WAVETAB_WIDTH = 70
 
         self.WaveTable = ttk.Treeview(self.WaveTab)
         self.WaveTable['columns'] = (

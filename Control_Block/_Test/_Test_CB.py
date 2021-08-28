@@ -191,6 +191,13 @@ if __name__ == '__main__':
     print(WavePEATC3)
     print(FullWaveData3)
     print("---")
+    GenRawFile(TEST_GS_RAW_PATH, Test_Vec.Test_AS_Raw_Data_12_month)
+    Ctrl_Cmd_input.send(Cmd_Template)
+    Ctrl_Task.join(5)
+    WavePEATC2, FullWaveData2 = Ctrl_Result_output.recv()
+    print(WavePEATC2)
+    print(FullWaveData2)
+    print("---")
 
     Diag_Table_input.send([25, [WavePEATC1, WavePEATC2, WavePEATC3]])
     Diag_Task.join(5)
