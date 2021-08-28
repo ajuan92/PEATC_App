@@ -95,6 +95,7 @@ CONFIG_SignaldB = [30, 40, 50, 60]
 CONFIG_Latency = [100, 233, 120, 54]
 CONFIG_Freq = [50, 70, 100, 150]
 
+
 class TextRedirector(object):
     def __init__(self, widget, tag="stdout"):
         self.widget = widget
@@ -107,6 +108,7 @@ class TextRedirector(object):
 
     def flush(self):
         pass
+
 
 class GUI_Control():
     '''!
@@ -225,6 +227,8 @@ class GUI_Control():
         self.ConfParamFrame.config(bg="white", bd=1, relief=GROOVE)
         self.ConfParamFrame.config(width="720", height="200")
 
+        self.CurrTextLogFileIndex = 0
+        self.PrevTextLogFileIndex = 0
         self.text = Text(self.MiddleWindow, wrap="word", height=20, width=89)
         self.text.grid(row=2, column=0, sticky=SE + SW)
         self.text.tag_configure("stderr", foreground="white")
@@ -239,8 +243,14 @@ class GUI_Control():
 
     def __UpdateLog(self):
         with open('Tut20_Output.txt') as f:
+            f.seek(self.CurrTextLogFileIndex)
             newText = f.read()
-            self.text.delete('1.0', tk.END)
+            self.PrevTextLogFileIndex = f.tell()
+
+            if self.PrevTextLogFileIndex is not self.CurrTextLogFileIndex:
+                self.CurrTextLogFileIndex = self.PrevTextLogFileIndex
+                self.text.see("end")
+            #self.text.delete('1.0', tk.END)
             self.text.insert(tk.END, newText)
 
         self.text.after(1000, self.__UpdateLog)
