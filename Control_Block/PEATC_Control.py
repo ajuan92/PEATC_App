@@ -12,8 +12,8 @@ from PEATC_Analyze import AnalyzeSignal
 from PEATC_GS_AS import PEATC_Gs_As
 from PEATC_Diagnostic import PEATC_Diagnostic
 
-PEATC_CONFIG_SAMPLE_WAIT_TIME = 10
-PEATC_CONFIG_DIAG_WAIT_TIME = 10
+PEATC_CONFIG_SAMPLE_WAIT_TIME = 1#10
+PEATC_CONFIG_DIAG_WAIT_TIME = 1#10
 '''!
 Comandos
 '''

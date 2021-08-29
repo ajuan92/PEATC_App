@@ -64,29 +64,29 @@ STATE_SEND_RESULT = 7
 STATE_CREATING_LOG = 8
 
 State_Dict = {
-    "   STATE_STAND_BY": 0,
-    "    STATE_RESET": 11,
-    "  STATE_INIT_TEST": 2,
-    " STATE_WAIT_RAW_DATA": 3,
-    " STATE_ANALYZE_DATA": 4,
-    "STATE_INIT_DIAGNOSTIC": 5,
-    "STATE_WAIT_DIAGNOSTIC": 6,
-    "  STATE_SEND_RESULT": 7,
-    "  STATE_CREATING_LOG": 8,
+    "     STATE_STAND_BY    ": 0,
+    "      STATE_RESET      ": 11,
+    "    STATE_INIT_TEST    ": 2,
+    "  STATE_WAIT_RAW_DATA  ": 3,
+    "   STATE_ANALYZE_DATA  ": 4,
+    " STATE_INIT_DIAGNOSTIC ": 5,
+    " STATE_WAIT_DIAGNOSTIC ": 6,
+    "   STATE_SEND_RESULT   ": 7,
+    "  STATE_CREATING_LOG   ": 8,
 }
 
 Diag_Dict = {
     "Normal values": 0,
-    "Prolonged latency in Wave I": 1,
-    "Prolonged latency between peaks I-III": 2,
-    "Prolonged latency between peaks III-V": 3,
-    "Prolonged latency between peaks IV-V and III-V ": 4,
-    "Wave III absent with presence of I and V": 5,
-    "Wave V absent with presence of I and III": 6,
-    "Wave V absent with normal of I and III": 7,
+    "Prolonged latency \nin Wave I": 1,
+    "Prolonged latency \nbetween peaks I-III": 2,
+    "Prolonged latency \nbetween peaks III-V": 3,
+    "Prolonged latency \nbetween peaks IV-V and III-V ": 4,
+    "Wave III absent with \npresence of I and V": 5,
+    "Wave V absent with \npresence of I and III": 6,
+    "Wave V absent with \nnormal of I and III": 7,
     "Absence of waves": 8,
-    "Excess in amplitude radius V / I": 9,
-    "Absence of waves except I (and possibly II)": 10,
+    "Excess in amplitude \nradius V / I": 9,
+    "Absence of waves \nexcept I (and possibly II)": 10,
     "No Diagnostic": 11
 }
 
@@ -146,6 +146,7 @@ class GUI_Control():
 
         self.__Cmd_Template = Array('i', range(5))
         self.__Cmd_DiagAge = Array('i', range(2))
+        self.__Cmd_LogName = Array('c', range(15))
         self.__Cmd_Reset = Array('i', range(3))
 
         for i in range(len(self.__Cmd_Reset)):
@@ -250,8 +251,8 @@ class GUI_Control():
             if self.PrevTextLogFileIndex is not self.CurrTextLogFileIndex:
                 self.CurrTextLogFileIndex = self.PrevTextLogFileIndex
                 self.text.see("end")
-            #self.text.delete('1.0', tk.END)
-            self.text.insert(tk.END, newText)
+                #self.text.delete('1.0', tk.END)
+                self.text.insert(tk.END, newText)
 
         self.text.after(1000, self.__UpdateLog)
 
@@ -363,6 +364,15 @@ class GUI_Control():
         self.Entry_Age.place(x=500, y=70)
         self.Entry_Age['values'] = list(range(0, 100))
         self.Entry_Age.current(0)
+
+        Label_TexName = Label(self.ConfParamFrame, text="Log Name")
+        Label_TexName.place(x=230, y=120)
+        Label_TexName.config(bg="white")
+        self.PeatcTextLogName = Text(
+            self.ConfParamFrame, wrap="word", height=1, width=30)
+        self.PeatcTextLogName.place(x=300, y=120)
+        self.PeatcTextLogName.tag_configure("stderr", foreground="white")
+        self.PeatcTextLogName.insert("1.0", "New_PEATC_Test")
 
     def __ConfBottons(self):
 
@@ -503,9 +513,16 @@ class GUI_Control():
             sys.stdout.flush()
             self.__Cmd_DiagAge[0] = 1
             self.__Cmd_DiagAge[1] = int(self.Entry_Age.get())
+
+            LogString = self.PeatcTextLogName.get(
+                "1.0", "end-1c")[:len(self.__Cmd_LogName)]
+
+            for x in (range(len(self.__Cmd_LogName) - 1)):
+                self.__Cmd_LogName[x] = bytes(LogString[x], "utf-8")
+            print(self.__Cmd_LogName[:])
         else:
             print("Inicio Click Disable")
-            sys.stdout.flush()
+        sys.stdout.flush()
 
     def __GenResetBotton(self):
 
@@ -649,7 +666,11 @@ class GUI_Control():
 
                 print("---Creating CSV File----")
                 now = datetime.now()
-                dt_string = 'T'
+
+                dt_LogNameB = self.__Cmd_LogName[:-1].decode('UTF-8')
+                dt_string = str(dt_LogNameB)
+                print(dt_string)
+                #dt_string = 'T'
                 # dt_string = now.strftime("%d-%m-%Y_%H.%M.%S")
                 LogFilePath = APP_LOGS_PATH + 'Log_' + dt_string + '.csv'
                 print(LogFilePath)
