@@ -3,19 +3,10 @@ import sys
 import csv
 from datetime import datetime
 
-from contextlib import redirect_stdout
-
-from time import time
 from tkinter import *
-from tkinter.ttk import Combobox
 from tkinter import ttk
 from tkinter import Label
 import tkinter as tk
-
-from random import randint
-
-from time import sleep
-import struct
 
 import multiprocessing as mprocess
 from multiprocessing import Array
@@ -33,22 +24,9 @@ sys.path.append(
     LOW_DRIVE_PATH)
 
 from PEATC_Control import PEATC_Control
-
-PEATC_CONFIG_SAMPLE_WAIT_TIME = 10
-PEATC_CONFIG_DIAG_WAIT_TIME = 10
-'''!
-Comandos
-'''
-PEATC_CONFIG_CMD_START_TEST = 1
-PEATC_CONFIG_CMD_STOP_TEST = 2
-
-Cmd_Template = {
-    "Cmd": 0,
-    "Gs_SignaldB": 0,
-    "Gs_Latency": 0,
-    "Gs_Polarity": 0,
-    "Gs_Freq": 0,
-}
+from PEATC_Control import PEATC_Ctrl_Cmd_Dict
+from PEATC_Control import PEATC_CONTROL_CMD_START_TEST
+from PEATC_Control import*
 
 '''!
 Estado Stand by
@@ -96,20 +74,6 @@ CONFIG_Latency = [100, 233, 120, 54]
 CONFIG_Freq = [50, 70, 100, 150]
 
 
-class TextRedirector(object):
-    def __init__(self, widget, tag="stdout"):
-        self.widget = widget
-        self.tag = tag
-
-    def write(self, str):
-        self.widget.configure(state="normal")
-        self.widget.insert("end", str, (self.tag,))
-        self.widget.configure(state="disabled")
-
-    def flush(self):
-        pass
-
-
 class GUI_Control():
     '''!
     Controlador de la aplicación grafica
@@ -123,14 +87,12 @@ class GUI_Control():
         '''!
         Inicializa la maquina de estados para realizar la prueba de PEATC
         '''
-        print('Inicio Manager')
+        print("Inicialización PEATC App")
         manager = Manager()
-        print('Fin Manager')
 
         self.WaveData = manager.list()
         self.WaveData.append(
             dict({'SignaldB': 0, 'NewData': 0, 'Wave': [], 'FullSignal': []}))
-        print(self.WaveData)
 
         for MemIndex in range(len(CONFIG_SignaldB)):
             Currd = self.WaveData[MemIndex]
@@ -141,13 +103,12 @@ class GUI_Control():
                 self.WaveData.append(
                     {'SignaldB': 0, 'NewData': 0, 'Wave': [], 'FullSignal': []})
 
-        print(self.WaveData)
         self.ArrNewData = Array('i', len(CONFIG_SignaldB))
 
         self.__Cmd_Template = Array('i', range(5))
         self.__Cmd_DiagAge = Array('i', range(2))
         self.__Cmd_LogName = Array('c', range(15))
-        self.__Cmd_Reset = Array('i', range(3))
+        self.__Cmd_Reset = Array('i', range(4))
 
         for i in range(len(self.__Cmd_Reset)):
             self.__Cmd_Reset[i] = 0
@@ -167,9 +128,9 @@ class GUI_Control():
         self.Diag_Result_output, self.Diag_Result_input = mprocess.Pipe(
             False)
 
-        self.Ctrl_State = Array('i', range(1))
+        self.Ctrl_State = Value('i', PEATC_CONTROL_STATE_STAND_BY)
 
-        self.Diag_State = Array('i', range(1))
+        self.Diag_State = Value('i', PEATC_CONTROL_STATE_STAND_BY)
 
         Ctrl_Block = PEATC_Control()
 
@@ -190,10 +151,9 @@ class GUI_Control():
         Gui_Task.daemon = True
         Gui_Task.start()
 
-        self.InitGUI()
+        print("Inicialización PEATC App finalizada")
 
-        print("Inicialización finalizada")
-        print(self.GuiCurrState)
+        self.InitGUI()
 
     def InitGUI(self):
         '''!
@@ -233,7 +193,7 @@ class GUI_Control():
         self.text = Text(self.MiddleWindow, wrap="word", height=20, width=89)
         self.text.grid(row=2, column=0, sticky=SE + SW)
         self.text.tag_configure("stderr", foreground="white")
-        self.text.after(1000, self.__UpdateLog)
+        self.text.after(100, self.__UpdateLog)
 
         self.__ConfParam()
         self.__ConfBottons()
@@ -243,18 +203,22 @@ class GUI_Control():
         self.Window.mainloop()
 
     def __UpdateLog(self):
+
         with open('Tut20_Output.txt') as f:
             f.seek(self.CurrTextLogFileIndex)
             newText = f.read()
             self.PrevTextLogFileIndex = f.tell()
 
-            if self.PrevTextLogFileIndex is not self.CurrTextLogFileIndex:
+            if self.PrevTextLogFileIndex > self.CurrTextLogFileIndex:
                 self.CurrTextLogFileIndex = self.PrevTextLogFileIndex
-                self.text.see("end")
-                #self.text.delete('1.0', tk.END)
                 self.text.insert(tk.END, newText)
+                self.text.see("end")
 
-        self.text.after(1000, self.__UpdateLog)
+            if self.__Cmd_Reset[3] is 1:
+                self.text.delete('1.0', tk.END)
+                self.__Cmd_Reset[3] = 0
+
+        self.text.after(100, self.__UpdateLog)
 
     def __ConfWaveTab(self):
 
@@ -498,18 +462,20 @@ class GUI_Control():
     def __GenSignalBotton(self):
 
         if self.GuiCurrState is STATE_STAND_BY:
-            print("Inicio Click")
+            print("> Comando inicio de prueba de PEATC")
             sys.stdout.flush()
-            self.__Cmd_Template[0] = 1
+            self.__Cmd_Template[0] = PEATC_CONTROL_CMD_START_TEST
             self.__Cmd_Template[1] = int(self.Entry_SignaldB.get())
             self.__Cmd_Template[2] = int(self.Entry_Latency.get())
             self.__Cmd_Template[3] = int(self.Entry_Polarity.get())
             self.__Cmd_Template[4] = int(self.Entry_Freq.get())
+        else:
+            print("> Actualmente existe una operación en progreso")
 
     def __GenDiagBotton(self):
 
         if self.GuiCurrState is STATE_STAND_BY:
-            print("Inicio Click DiagBotton")
+            print("> Comando diagnostico de señales PEATC")
             sys.stdout.flush()
             self.__Cmd_DiagAge[0] = 1
             self.__Cmd_DiagAge[1] = int(self.Entry_Age.get())
@@ -519,94 +485,103 @@ class GUI_Control():
 
             for x in (range(len(self.__Cmd_LogName) - 1)):
                 self.__Cmd_LogName[x] = bytes(LogString[x], "utf-8")
-            print(self.__Cmd_LogName[:])
         else:
-            print("Inicio Click Disable")
+            print("> Actualmente existe una operación en progreso")
+
         sys.stdout.flush()
 
     def __GenResetBotton(self):
 
         if self.GuiCurrState is STATE_STAND_BY:
-            print("Inicio Click ResetBotton")
-            sys.stdout.flush()
+            print("> Comando reset datos de prueba PEATC")
             self.__Cmd_Reset[0] = 1
             self.__Cmd_Reset[1] = 1
             self.__Cmd_Reset[2] = 1
+            self.__Cmd_Reset[3] = 1
         else:
-            print("Inicio Click Disable")
-            sys.stdout.flush()
+            print("> Actualmente existe una operación en progreso")
+        sys.stdout.flush()
+
+    def __StateVal2key(self, SearchVal, BaseDict):
+        for key, value in BaseDict.items():
+            if SearchVal is value:
+                return key
 
     def GuiCom(self):
 
-        print("Inicio Tarea de Comunicación")
+        print("> Inicio Modulo PEATC GUI")
         sys.stdout.flush()
 
         while True:
 
             if self.GuiPrevState is not self.GuiCurrState:
+                #print("\n-----------------Estado--------------------")
+                #print("-Estado previo: \n" +
+                #      str(self.__StateVal2key(self.GuiPrevState)))
+                #print("-Estado actual: \n " +
+                #      str(self.__StateVal2key(self.GuiCurrState)))
+                #print("-------------------------------------------")
+
+                sys.stdout.flush()
                 self.GuiUpdateState.value = self.GuiCurrState
                 self.GuiPrevState = self.GuiCurrState
-                # print(self.GuiUpdateState.value)
-                sys.stdout.flush()
 
             if self.GuiCurrState is STATE_STAND_BY:
 
-                if self.__Cmd_Template[0] is 1:
-                    print("Read PEATC")
+                if self.__Cmd_Template[0] is PEATC_CONTROL_CMD_START_TEST:
+                    print("> Read PEATC")
                     self.GuiCurrState = STATE_INIT_TEST
                 elif self.__Cmd_DiagAge[0] is 1:
-                    print("Run Diag PEATC")
+                    print("> Run Diag PEATC")
                     self.GuiCurrState = STATE_INIT_DIAGNOSTIC
                 elif self.__Cmd_Reset[0] is 1:
-                    print("Reset Diag")
                     self.GuiCurrState = STATE_RESET
                 else:
                     self.GuiCurrState = STATE_STAND_BY
+                sys.stdout.flush()
 
             if self.GuiCurrState is STATE_INIT_TEST:
 
-                Cmd_Template["Cmd"] = self.__Cmd_Template[0]
-                Cmd_Template["Gs_SignaldB"] = self.__Cmd_Template[1]
-                Cmd_Template["Gs_Latency"] = self.__Cmd_Template[2]
-                Cmd_Template["Gs_Polarity"] = self.__Cmd_Template[3]
-                Cmd_Template["Gs_Freq"] = self.__Cmd_Template[4]
+                PEATC_Ctrl_Cmd_Dict["Cmd"] = self.__Cmd_Template[0]
+                PEATC_Ctrl_Cmd_Dict["Gs_SignaldB"] = self.__Cmd_Template[1]
+                PEATC_Ctrl_Cmd_Dict["Gs_Latency"] = self.__Cmd_Template[2]
+                PEATC_Ctrl_Cmd_Dict["Gs_Polarity"] = self.__Cmd_Template[3]
+                PEATC_Ctrl_Cmd_Dict["Gs_Freq"] = self.__Cmd_Template[4]
 
-                CtrlCurrState = self.Ctrl_State[0]
+                CtrlCurrState = self.Ctrl_State.value
 
-                if CtrlCurrState == 0:
-                    print("Envio Conf")
-                    self.Ctrl_Cmd_input.send(Cmd_Template)
-                    self.__Cmd_Template[0] = 0
-                    print("Fin Conf")
+                if CtrlCurrState == PEATC_CONTROL_STATE_STAND_BY:
+                    print("Envio Cmd a PEATC_Ctrl")
+                    self.Ctrl_Cmd_input.send(PEATC_Ctrl_Cmd_Dict)
+                    self.__Cmd_Template[0] = PEATC_CONTROL_CMD_STOP_TEST
                     self.GuiCurrState = STATE_WAIT_RAW_DATA
                     print("Waiting Result...")
                 else:
                     self.GuiCurrState = STATE_STAND_BY
-                    print("Return Stand By")
+                    print("PEATC_Ctrl no disponible regreso a Stand By")
 
             elif self.GuiCurrState is STATE_WAIT_RAW_DATA:
 
-                CtrlCurrState = self.Ctrl_State[0]
+                CtrlCurrState = self.Ctrl_State.value
+                print("Waiting Result PEATC_Ctrl in state " +
+                      PEATC_Ctrl_State_Dict[CtrlCurrState])
 
-                if CtrlCurrState is 0:
+                if CtrlCurrState is PEATC_CONTROL_STATE_STAND_BY:
                     self.GuiCurrState = STATE_ANALYZE_DATA
 
             elif self.GuiCurrState is STATE_ANALYZE_DATA:
 
-                print("Inicio Reciv Result")
+                print("\n> Se recibe resultado de PEATC_Ctrl")
                 WavePEATC1, FullWaveData1 = self.Ctrl_Result_output.recv()
-                print("Fin Reciv Result")
-                print("---------")
+                print("----Wave Amp & Lat----")
                 print(WavePEATC1)
+                print("-----Full Wave Data----")
                 print(FullWaveData1)
-                print(Cmd_Template["Gs_SignaldB"])
+                print("\n>Save SignaldB "+ str(PEATC_Ctrl_Cmd_Dict["Gs_SignaldB"]))
 
                 for i, dic in enumerate(self.WaveData):
-                    if dic['SignaldB'] == Cmd_Template["Gs_SignaldB"]:
+                    if dic['SignaldB'] == PEATC_Ctrl_Cmd_Dict["Gs_SignaldB"]:
                         GetPEATCDict = self.WaveData[i]
-                        print("---------")
-                        print(GetPEATCDict)
-                        print("************")
                         GetPEATCDict['NewData'] = 1
                         GetPEATCDict['Wave'] = WavePEATC1
                         GetPEATCDict['FullSignal'] = FullWaveData1
@@ -614,13 +589,14 @@ class GUI_Control():
                         self.ArrNewData[i] = 1
 
                 print(self.WaveData)
+                print("-----------------------\n")
                 self.GuiCurrState = STATE_STAND_BY
 
             elif self.GuiCurrState is STATE_INIT_DIAGNOSTIC:
 
                 self.WaveTable = []
 
-                DiagCurrState = self.Diag_State[0]
+                DiagCurrState = self.Diag_State.value
 
                 if DiagCurrState == 0:
                     # Cuantas señales SON NECESARIAS, TODAS? Hay limites?
@@ -628,13 +604,13 @@ class GUI_Control():
                         if dic['NewData'] == 1:
                             self.WaveTable.append(self.WaveData[i]['Wave'])
 
+                    print("----Wave Amp & Lat----")
                     print(self.WaveTable)
                     DiagMatrix = [self.__Cmd_DiagAge[1], self.WaveTable]
 
-                    print("Envio Diag")
+                    print("Envio señal de PEATC para diagnostico")
                     self.Diag_Table_input.send(DiagMatrix)
                     self.__Cmd_DiagAge[0] = 0
-                    print("Fin Envio Diag")
 
                     self.GuiCurrState = STATE_WAIT_DIAGNOSTIC
                     print("Waiting Diag Result...")
@@ -646,18 +622,19 @@ class GUI_Control():
 
             elif self.GuiCurrState is STATE_WAIT_DIAGNOSTIC:
 
-                DiagCurrState = self.Diag_State[0]
+                DiagCurrState = self.Diag_State.value
 
                 if DiagCurrState is 0:
                     self.GuiCurrState = STATE_SEND_RESULT
 
             elif self.GuiCurrState is STATE_SEND_RESULT:
 
-                print("Inicio Reciv Result")
+                print("\n> Se recibe resultado de PEATC_Diag")
                 DiagnPEATC = self.Diag_Result_output.recv()
                 self.GuiUpdateDiag.value = DiagnPEATC[3]
-                print("Fin Reciv Result")
-                print(DiagnPEATC)
+
+                print(DiagnPEATC[3])
+                print(self.__StateVal2key(DiagnPEATC[3], Diag_Dict))
                 print("---------")
                 self.GuiCurrState = STATE_CREATING_LOG
                 print("---------")
@@ -669,9 +646,8 @@ class GUI_Control():
 
                 dt_LogNameB = self.__Cmd_LogName[:-1].decode('UTF-8')
                 dt_string = str(dt_LogNameB)
-                print(dt_string)
-                #dt_string = 'T'
                 # dt_string = now.strftime("%d-%m-%Y_%H.%M.%S")
+                print("Creating CSV File in the following direction")
                 LogFilePath = APP_LOGS_PATH + 'Log_' + dt_string + '.csv'
                 print(LogFilePath)
 
@@ -683,7 +659,10 @@ class GUI_Control():
                          'Wave': self.WaveData[MemIndex]['Wave'],
                          'FullSignal': self.WaveData[MemIndex]['FullSignal'],
                          'Diagnostic': self.GuiUpdateDiag.value})
+
+                print("\nWriting following data in the csv file")
                 print(CsvWaveData)
+
                 with open(LogFilePath, 'w',
                           encoding='UTF8', newline='') as CurrDiagData:
                     writer = csv.DictWriter(CurrDiagData, fieldnames=[
@@ -706,9 +685,10 @@ class GUI_Control():
 
                 self.GuiUpdateDiag.value = Diag_Dict["No Diagnostic"]
 
-                if self.__Cmd_Reset[1] is 0:
+                if self.__Cmd_Reset[1] is 0 and self.__Cmd_Reset[3] is 0:
                     if self.__Cmd_Reset[2] is 0:
                         self.__Cmd_Reset[0] = 0
+                        print("> Reset Diag")
 
                 self.GuiCurrState = STATE_STAND_BY
             else:
