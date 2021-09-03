@@ -119,7 +119,7 @@ class PEATC_Control(PEATC_Gs_As, PEATC_Diagnostic):
             if PeatcCurrState is PEATC_CONTROL_STATE_STAND_BY:
 
                 CurrCmd = Arg_Cmd.recv()
-                print("===" + os.path.basename(CURR_PATH) + "===")
+                print("\n===" + os.path.basename(CURR_PATH) + "===")
                 print("Se recibe Cmd en PEATC_Ctrl")
                 print(CurrCmd)
                 print("====================\n")

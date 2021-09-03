@@ -1,4 +1,5 @@
 import os
+import sys
 import Xillybus
 import struct
 
@@ -92,6 +93,10 @@ class PEATC_Gs_As:
             # convertir y justificar constante
             ReadGenData = Xillybus.stream_read(GS_RAW_PATH)
             ReadData = next(ReadGenData)
+            print("===" + "PEATC_GS_AS" + "===")
+            print("Raw signal")
             print(ReadData)
+            print("====================\n")
+            sys.stdout.flush()
 
             TempFile.write(struct.pack('B' * len(ReadData), *ReadData))

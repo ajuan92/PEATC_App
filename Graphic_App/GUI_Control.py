@@ -106,7 +106,7 @@ class GUI_Control():
         self.ArrNewData = Array('i', len(CONFIG_SignaldB))
 
         self.__Cmd_Template = Array('i', range(5))
-        self.__Cmd_DiagAge = Array('i', range(2))
+        self.__Cmd_DiagAge = Array('i', range(3))
         self.__Cmd_LogName = Array('c', range(15))
         self.__Cmd_Reset = Array('i', range(4))
 
@@ -483,7 +483,12 @@ class GUI_Control():
             LogString = self.PeatcTextLogName.get(
                 "1.0", "end-1c")[:len(self.__Cmd_LogName)]
 
+            self.__Cmd_DiagAge[2] = len(LogString)
+
             for x in (range(len(self.__Cmd_LogName) - 1)):
+                self.__Cmd_LogName[x] = bytes(" ", "utf-8")
+
+            for x in (range(len(LogString) - 1)):
                 self.__Cmd_LogName[x] = bytes(LogString[x], "utf-8")
         else:
             print("> Actualmente existe una operación en progreso")
@@ -515,12 +520,12 @@ class GUI_Control():
         while True:
 
             if self.GuiPrevState is not self.GuiCurrState:
-                #print("\n-----------------Estado--------------------")
-                #print("-Estado previo: \n" +
+                # print("\n-----------------Estado--------------------")
+                # print("-Estado previo: \n" +
                 #      str(self.__StateVal2key(self.GuiPrevState)))
-                #print("-Estado actual: \n " +
+                # print("-Estado actual: \n " +
                 #      str(self.__StateVal2key(self.GuiCurrState)))
-                #print("-------------------------------------------")
+                # print("-------------------------------------------")
 
                 sys.stdout.flush()
                 self.GuiUpdateState.value = self.GuiCurrState
@@ -577,7 +582,8 @@ class GUI_Control():
                 print(WavePEATC1)
                 print("-----Full Wave Data----")
                 print(FullWaveData1)
-                print("\n>Save SignaldB "+ str(PEATC_Ctrl_Cmd_Dict["Gs_SignaldB"]))
+                print("\n>Save SignaldB " +
+                      str(PEATC_Ctrl_Cmd_Dict["Gs_SignaldB"]))
 
                 for i, dic in enumerate(self.WaveData):
                     if dic['SignaldB'] == PEATC_Ctrl_Cmd_Dict["Gs_SignaldB"]:
@@ -587,8 +593,9 @@ class GUI_Control():
                         GetPEATCDict['FullSignal'] = FullWaveData1
                         self.WaveData[i] = GetPEATCDict
                         self.ArrNewData[i] = 1
+                        CurrWaveIndex = i
 
-                print(self.WaveData)
+                print(self.WaveData[CurrWaveIndex])
                 print("-----------------------\n")
                 self.GuiCurrState = STATE_STAND_BY
 
@@ -644,7 +651,8 @@ class GUI_Control():
                 print("---Creating CSV File----")
                 now = datetime.now()
 
-                dt_LogNameB = self.__Cmd_LogName[:-1].decode('UTF-8')
+                dt_LogNameB = self.__Cmd_LogName[:self.__Cmd_DiagAge[2]].decode(
+                    'UTF-8')
                 dt_string = str(dt_LogNameB)
                 # dt_string = now.strftime("%d-%m-%Y_%H.%M.%S")
                 print("Creating CSV File in the following direction")

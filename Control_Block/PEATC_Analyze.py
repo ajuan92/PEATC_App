@@ -1,4 +1,5 @@
 import array
+import sys
 
 PEATC_CONFIG_AMP_THRESHOLD = 10
 
@@ -59,23 +60,25 @@ def AnalyzeSignal(Signal_file: str):
         if DataCapture[i] >= PEATC_CONFIG_AMP_THRESHOLD:
             RawWave[WaveCount].append(DataCapture[i])
             TimeWave[WaveCount].append(TimeCapture[i])
-            #print(str(DataCapture[i]) + " -> " + str(DataCapture[i]))
+
             if DataCapture[i + 1] < PEATC_CONFIG_AMP_THRESHOLD - 1:
                 WaveCount = WaveCount + 1
-        # else:
-            #print(".." + " -> " + str(DataCapture[i]))
 
-    print("--")
+    print("===" + "PEATC_Analyze" + "===")
+    print("Numero de ondas identificadas")
     print(WaveCount)
-    print("--")
+    print("Ondas identificadas")
     print(RawWave)
-    print("--")
+    print("====================\n")
 
     SignalWaveIndex = [0, 0, 0, 0, 0]
 
     InitFilterIndex = 0
     FilterIndex = 0
     i = 0
+
+    print("\n===" + "PEATC_Analyze" + "===")
+    print("Ondas y latencias")
 
     while i < len(WaveAmpLat):
 
@@ -87,8 +90,8 @@ def AnalyzeSignal(Signal_file: str):
                 SignalWaveIndex = RawWave[FilterIndex].index(
                     max(RawWave[FilterIndex]))
 
-                if ((FIRST_WAVE_MIN_ <= TimeWave[FilterIndex][SignalWaveIndex]) 
-                    and (TimeWave[FilterIndex][SignalWaveIndex] <= FIRST_WAVE_MAX_)):
+                if ((FIRST_WAVE_MIN_ <= TimeWave[FilterIndex][SignalWaveIndex])
+                        and (TimeWave[FilterIndex][SignalWaveIndex] <= FIRST_WAVE_MAX_)):
 
                     print(str(RawWave[FilterIndex]) + " 0-> " +
                           str(TimeWave[FilterIndex][SignalWaveIndex]))
@@ -101,8 +104,8 @@ def AnalyzeSignal(Signal_file: str):
                     InitFilterIndex = FilterIndex + 1
                     FilterIndex = len(RawWave)
 
-                elif ((FIRST_WAVE_MAX_ < TimeWave[FilterIndex][SignalWaveIndex]) 
-                    and (TimeWave[FilterIndex][SignalWaveIndex] < THIRD_WAVE_MIN_)):
+                elif ((FIRST_WAVE_MAX_ < TimeWave[FilterIndex][SignalWaveIndex])
+                      and (TimeWave[FilterIndex][SignalWaveIndex] < THIRD_WAVE_MIN_)):
 
                     print(str(RawWave[FilterIndex]) + " 1-> " +
                           str(TimeWave[FilterIndex][SignalWaveIndex]))
@@ -114,8 +117,8 @@ def AnalyzeSignal(Signal_file: str):
                     InitFilterIndex = FilterIndex + 1
                     FilterIndex = len(RawWave)
 
-                elif ((THIRD_WAVE_MIN_ <= TimeWave[FilterIndex][SignalWaveIndex]) 
-                    and (TimeWave[FilterIndex][SignalWaveIndex] <= THIRD_WAVE_MAX_)):
+                elif ((THIRD_WAVE_MIN_ <= TimeWave[FilterIndex][SignalWaveIndex])
+                      and (TimeWave[FilterIndex][SignalWaveIndex] <= THIRD_WAVE_MAX_)):
 
                     print(str(RawWave[FilterIndex]) + " 2-> " +
                           str(TimeWave[FilterIndex][SignalWaveIndex]))
@@ -127,8 +130,8 @@ def AnalyzeSignal(Signal_file: str):
                     InitFilterIndex = FilterIndex + 1
                     FilterIndex = len(RawWave)
 
-                elif ((THIRD_WAVE_MAX_ < TimeWave[FilterIndex][SignalWaveIndex]) 
-                    and (TimeWave[FilterIndex][SignalWaveIndex] < FIFTH_WAVE_MIN_)):
+                elif ((THIRD_WAVE_MAX_ < TimeWave[FilterIndex][SignalWaveIndex])
+                      and (TimeWave[FilterIndex][SignalWaveIndex] < FIFTH_WAVE_MIN_)):
 
                     print(str(RawWave[FilterIndex]) + " 3-> " +
                           str(TimeWave[FilterIndex][SignalWaveIndex]))
@@ -140,8 +143,8 @@ def AnalyzeSignal(Signal_file: str):
                     InitFilterIndex = FilterIndex + 1
                     FilterIndex = len(RawWave)
 
-                elif ((FIFTH_WAVE_MIN_ <= TimeWave[FilterIndex][SignalWaveIndex]) 
-                    and (TimeWave[FilterIndex][SignalWaveIndex] <= FIFTH_WAVE_MAX_)):
+                elif ((FIFTH_WAVE_MIN_ <= TimeWave[FilterIndex][SignalWaveIndex])
+                      and (TimeWave[FilterIndex][SignalWaveIndex] <= FIFTH_WAVE_MAX_)):
 
                     print(str(RawWave[FilterIndex]) + " 4-> " +
                           str(TimeWave[FilterIndex][SignalWaveIndex]))
@@ -160,5 +163,8 @@ def AnalyzeSignal(Signal_file: str):
             FilterIndex = FilterIndex + 1
 
         i = i + 1
+    print("Amp's & Lat´s")
     print(WaveAmpLat)
+    print("====================\n")
+    sys.stdout.flush()
     return WaveAmpLat, DataCapture
