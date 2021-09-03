@@ -4,6 +4,7 @@ from time import time
 
 CURR_PATH = os.path.dirname(os.path.realpath(__file__))
 LOW_DRIVE_PATH = CURR_PATH + "\\..\\Low_Drivers"
+TEMP_RAW_DATA = LOW_DRIVE_PATH + "\\TempRawData.tmp"
 
 sys.path.append(
     LOW_DRIVE_PATH)
@@ -149,8 +150,8 @@ class PEATC_Control(PEATC_Gs_As, PEATC_Diagnostic):
 
             elif PeatcCurrState is PEATC_CONTROL_STATE_ANALYZE_DATA:
 
-                Control_GS_AS.GetRawSignal("TempRawData.tmp")
-                PeatcWaves, FullWaveData = AnalyzeSignal("TempRawData.tmp")
+                Control_GS_AS.GetRawSignal(TEMP_RAW_DATA)
+                PeatcWaves, FullWaveData = AnalyzeSignal(TEMP_RAW_DATA)
 
                 PeatcCurrState = PEATC_CONTROL_STATE_SEND_RESULT
 

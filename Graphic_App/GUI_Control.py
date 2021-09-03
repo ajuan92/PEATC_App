@@ -107,7 +107,7 @@ class GUI_Control():
 
         self.__Cmd_Template = Array('i', range(5))
         self.__Cmd_DiagAge = Array('i', range(3))
-        self.__Cmd_LogName = Array('c', range(15))
+        self.__Cmd_LogName = Array('c', range(50))
         self.__Cmd_Reset = Array('i', range(4))
 
         for i in range(len(self.__Cmd_Reset)):
