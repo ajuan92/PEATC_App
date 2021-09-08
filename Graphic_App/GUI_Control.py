@@ -123,10 +123,31 @@ class GUI_Control():
         #  previamente para no tener que graficar cada señal constantemente
         self.ArrNewData = Array('i', len(PEATC_CONFIG_SignaldB))
 
-        # Test doci
+        ## Registro donde se almacenan los parametros configurados
+        #  donde cada elemento representa:
+        #  Cmd = 0
+        #  SignaldB = 1
+        #  Latency = 2
+        #  Polarity = 3
+        #  Freq = 4
         self.__Cmd_Template = Array('i', range(5))
+
+        ## Registro donde se almacenan los parametros para el diagnostico
+        #  de las señales de PEATC donde cada elemento representa:
+        #  Cmd = 0
+        #  Age = 1
+        #  Longitud de cadena LogName = 2
         self.__Cmd_DiagAge = Array('i', range(3))
+
+        ## Registro donde se almacena la cadena de LogName:
         self.__Cmd_LogName = Array('c', range(50))
+
+        ## Registro donde se almacena el comando de reset para todos
+        #  registros
+        #  Cmd de Reset = 0
+        #  UpdateLog Reset Log de debuggeo de la aplicación = 1
+        #  UpdateTable Reset tabla de señales de PEATC = 2
+        #  UpdateData Reset de las gráficas de las señales de PEATC = 3
         self.__Cmd_Reset = Array('i', range(4))
 
         for i in range(len(self.__Cmd_Reset)):
@@ -281,6 +302,8 @@ class GUI_Control():
 
         WAVETAB_WIDTH = 70
 
+        ## Tabla desplegada en la GUI con las amplitudes y
+        #  latencias de las señales de PEATC capturadas
         self.WaveTable = ttk.Treeview(self.WaveTab)
         self.WaveTable['columns'] = (
             "dB", "I A", "II A", "III A", "IV A", "V A",
@@ -318,32 +341,56 @@ class GUI_Control():
         self.WaveTab.after(1000, self.__UpdateTable)
 
     def __ReSizeWaveGraf(self, GrafNum):
-        self.canvas.configure(scrollregion=(
+        '''!
+        Actualiza el tamaño del canvas donde se despliegan las graficas
+        de las señales de PEATC
+        @param GrafNum Cantidad de señales graficadas
+        '''
+        self.GrafCanvas.configure(scrollregion=(
             0, 0, 0, 400 * (GrafNum)), width=600, height=1000)
 
     def __ConfWaveGraf(self):
-
+        '''!
+        Inicializa y configura el frame que contiene las graficas
+        desplegadas en la GUI
+        '''
+        ## Cantidad previa de señales capturadas para ser graficadas
         self.PrevReadyGraf = 0
 
-        self.canvas = Canvas(self.GrafTab)
-        self.graframe = Frame(self.canvas)
+        ## Canvas donde se despliegan las graficas
+        #  de las señales de PEATC
+        self.GrafCanvas = Canvas(self.GrafTab)
 
+        ## Frame que contiene las graficas
+        #  de las señales de PEATC
+        self.Graframe = Frame(self.GrafCanvas)
+
+        ## Scrollbar la el frame que contiene las graficas de las
+        #  señales de PEATC
         self.yScrollbar = Scrollbar(
-            self.GrafTab, orient="vertical", command=self.canvas.yview)
-        self.canvas.config(yscrollcommand=self.yScrollbar.set)
+            self.GrafTab, orient="vertical", command=self.GrafCanvas.yview)
+        self.GrafCanvas.config(yscrollcommand=self.yScrollbar.set)
         self.yScrollbar.pack(side="right", fill="y")
 
-        self.canvas.pack(side="left", expand=True, fill="both")
-        self.canvas.create_window((0, 0), window=self.graframe, anchor='nw')
-        self.graframe.bind("<Configure>", self.__ReSizeWaveGraf(1))
+        self.GrafCanvas.pack(side="left", expand=True, fill="both")
+        self.GrafCanvas.create_window((0, 0), window=self.Graframe,
+                anchor='nw')
+        self.Graframe.bind("<Configure>", self.__ReSizeWaveGraf(1))
 
         self.GrafTab.after(1000, self.__UpdateData())
 
     def __ConfParam(self):
+        '''!
+        Inicializa y configura el frame que contiene los parámetros
+        configurables de la prueba de PEATC
+        '''
 
         Label_SignaldB = Label(self.ConfParamFrame, text="SignaldB")
         Label_SignaldB.place(x=100, y=50)
         Label_SignaldB.config(bg="white")
+
+        ## Configuración de la potencia del estímulo sonoro para
+        #  la prueba de PEATC
         self.Entry_SignaldB = ttk.Combobox(
             self.ConfParamFrame, width=5, state='readonly')
         self.Entry_SignaldB.place(x=100, y=70)
@@ -353,6 +400,9 @@ class GUI_Control():
         Label_Latency = Label(self.ConfParamFrame, text="Latency")
         Label_Latency.place(x=200, y=50)
         Label_Latency.config(bg="white")
+
+        ## Configuración de la latencia del estímulo sonoro para
+        #  la prueba de PEATC
         self.Entry_Latency = ttk.Combobox(
             self.ConfParamFrame, width=5, state='readonly')
         self.Entry_Latency.place(x=200, y=70)
@@ -362,6 +412,9 @@ class GUI_Control():
         Label_Polarity = Label(self.ConfParamFrame, text="Polarity")
         Label_Polarity.place(x=300, y=50)
         Label_Polarity.config(bg="white")
+
+        ## Configuración de la polaridad del estímulo sonoro para
+        #  la prueba de PEATC
         self.Entry_Polarity = ttk.Combobox(
             self.ConfParamFrame, width=5, state='readonly')
         self.Entry_Polarity.place(x=300, y=70)
@@ -371,6 +424,9 @@ class GUI_Control():
         Label_Freq = Label(self.ConfParamFrame, text="Freq")
         Label_Freq.place(x=400, y=50)
         Label_Freq.config(bg="white")
+
+        ## Configuración de la frecuencia del estímulo sonoro para
+        #  la prueba de PEATC
         self.Entry_Freq = ttk.Combobox(
             self.ConfParamFrame, width=5, state='readonly')
         self.Entry_Freq.place(x=400, y=70)
@@ -380,6 +436,8 @@ class GUI_Control():
         Label_Age = Label(self.ConfParamFrame, text="Age")
         Label_Age.place(x=500, y=50)
         Label_Age.config(bg="white")
+
+        ## Configuración de la edad del paciente
         self.Entry_Age = ttk.Combobox(
             self.ConfParamFrame, width=5, state='readonly')
         self.Entry_Age.place(x=500, y=70)
@@ -389,6 +447,9 @@ class GUI_Control():
         Label_TexName = Label(self.ConfParamFrame, text="Log Name")
         Label_TexName.place(x=230, y=120)
         Label_TexName.config(bg="white")
+
+        ## Captura el nombre del archivo csv donde se guarda el resultado
+        #  de la prueba
         self.PeatcTextLogName = Text(
             self.ConfParamFrame, wrap="word", height=1, width=30)
         self.PeatcTextLogName.place(x=300, y=120)
@@ -396,7 +457,13 @@ class GUI_Control():
         self.PeatcTextLogName.insert("1.0", "New_PEATC_Test")
 
     def __ConfBottons(self):
-
+        '''!
+        Inicializa y configura el frame con los botones que activan los
+        comandos del usuario (iniciar la prueba de PEATC, resetear los datos
+        capurados de la ultima prueba, diagnosticar las señales y generar un
+        log de la prueba)
+        '''
+        ## Etiqueta que indica el estado actual de la aplicación
         self.Label_State = Label(self.BtnFrame, text="STATE_STAND_BY")
         self.Label_State.config(anchor=CENTER)
         self.Label_State.place(x=130, y=50)
@@ -418,6 +485,8 @@ class GUI_Control():
         btnReset.place(bordermode=OUTSIDE, height=80,
                        width=200, x=100, y=500)
 
+        ## Etiqueta que indica el el diagnostico resultante de la prueba
+        # de PEATC
         self.Label_Diag = Label(self.BtnFrame, text="No Diagnostic")
         self.Label_Diag.config(anchor=CENTER)
         self.Label_Diag.place(x=130, y=700)
@@ -446,6 +515,10 @@ class GUI_Control():
         self.TextLog.after(100, self.__UpdateLog)
 
     def __UpdateTable(self):
+        '''!
+        Actualiza cada 1000ms la tabla con las señales
+        de PEATC capturadas.
+        '''
 
         WaveRead = []
         dBRead = []
@@ -474,6 +547,11 @@ class GUI_Control():
         self.WaveTab.after(1000, self.__UpdateTable)
 
     def __UpdateData(self):
+        '''!
+        Actualiza cada 1000ms las gráficas con las señales
+        de PEATC capturadas siempre y cuando haya datos nuevos
+        de las señales.
+        '''
 
         GrafData = []
         ReadyGraf = 0
@@ -481,8 +559,8 @@ class GUI_Control():
         if self.__Cmd_Reset[2] is 1:
             self.PrevReadyGraf = 0
 
-            print(self.graframe.winfo_children())
-            for widget in self.graframe.winfo_children():
+            print(self.Graframe.winfo_children())
+            for widget in self.Graframe.winfo_children():
                 widget.destroy()
 
             self.__Cmd_Reset[2] = 0
@@ -496,7 +574,7 @@ class GUI_Control():
 
                 if self.PrevReadyGraf < ReadyGraf:
                     self.PrevReadyGraf = ReadyGraf
-                    self.graframe.bind(
+                    self.Graframe.bind(
                         "<Configure>", self.__ReSizeWaveGraf(ReadyGraf))
 
                 if self.ArrNewData[i] == 1:
@@ -509,15 +587,20 @@ class GUI_Control():
                     ax.set_ylabel('Voltage uV')
                     ax.plot(range(0, len(GrafData[0])), GrafData[0])
 
-                    canvasAgg = FigureCanvasTkAgg(fig, self.graframe)
-                    canvasAgg.get_tk_widget().grid(row=i, column=0)
-                    canvasAgg.draw()
+                    GrafCanvasAgg = FigureCanvasTkAgg(fig, self.Graframe)
+                    GrafCanvasAgg.get_tk_widget().grid(row=i, column=0)
+                    GrafCanvasAgg.draw()
 
                     self.ArrNewData[i] = 0
 
         self.GrafTab.after(1000, self.__UpdateData)
 
     def __UpdateStateLabel(self):
+        '''!
+        Actualiza cada 1000ms las gráficas con las señales
+        de PEATC capturadas siempre y cuando haya datos nuevos
+        de las señales.
+        '''
 
         for key, value in State_Dict.items():
             if self.GuiUpdateState.value is value:
@@ -528,6 +611,10 @@ class GUI_Control():
         self.Label_State.after(1000, self.__UpdateStateLabel)
 
     def __UpdateDiagLabel(self):
+        '''!
+        Actualiza cada 1000ms la etiqueta con el diagnostico
+        de la prueba de PEATC
+        '''
 
         for key, value in PEATC_Conf_Diag_Dict.items():
             if self.GuiUpdateDiag.value is value:
@@ -543,6 +630,10 @@ class GUI_Control():
         self.Label_Diag.after(1000, self.__UpdateDiagLabel)
 
     def __GenSignalBotton(self):
+        '''!
+        Manejador del botón para comandar el inicio de la
+        prueba de PEATC
+        '''
 
         if self.GuiCurrState is STATE_STAND_BY:
             print("> Comando inicio de prueba de PEATC")
@@ -556,6 +647,10 @@ class GUI_Control():
             print("> Actualmente existe una operación en progreso")
 
     def __GenDiagBotton(self):
+        '''!
+        Manejador del botón para comandar diagnóstico de la
+        prueba de PEATC
+        '''
 
         if self.GuiCurrState is STATE_STAND_BY:
             print("> Comando diagnostico de señales PEATC")
@@ -579,6 +674,10 @@ class GUI_Control():
         sys.stdout.flush()
 
     def __GenResetBotton(self):
+        '''!
+        Manejador del botón para comandar el reset de los datos de la
+        prueba de PEATC
+        '''
 
         if self.GuiCurrState is STATE_STAND_BY:
             print("> Comando reset datos de prueba PEATC")
@@ -591,11 +690,21 @@ class GUI_Control():
         sys.stdout.flush()
 
     def __StateVal2key(self, SearchVal, BaseDict):
+        '''!
+        Entrega la llave a partir del valor dado en el
+        diccionario dado
+        @param SearchVal Valor a buscar
+        @param BaseDict Diccionario donde se buscará la llave
+        '''
         for key, value in BaseDict.items():
             if SearchVal is value:
                 return key
 
     def GuiCom(self):
+        '''!
+        Maquina de estados que gestiona las pruebas y diagnostico
+        de las señales de PEATC
+        '''
 
         print("> Inicio Modulo PEATC GUI")
         sys.stdout.flush()
