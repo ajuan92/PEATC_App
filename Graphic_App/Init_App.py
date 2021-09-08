@@ -2,23 +2,28 @@ import os
 import sys
 import struct
 
-open("Tut20_Output.txt", 'w').close()
-restorePoint = sys.stdout
-sys.stdout = open("Tut20_Output.txt", 'a')
-
-from GUI_Control import GUI_Control
-
 BASE_PEATC_APP_PATH = os.getcwd()
 
 TEST_LOW_DRIVE = BASE_PEATC_APP_PATH + \
     "\\Low_Drivers\\_Test"
 
+CONFIG_DRIVE_PATH = BASE_PEATC_APP_PATH + "\\..\\Config"
+
 sys.path.append(
     BASE_PEATC_APP_PATH + "\\_Test")
+sys.path.append(
+    CONFIG_DRIVE_PATH)
+
+
+from PEATC_Config import*
+
+open(PEATC_CONFIG_DEB_LOG_PATH, 'w').close()
+restorePoint = sys.stdout
+sys.stdout = open(PEATC_CONFIG_DEB_LOG_PATH, 'a')
+
+from GUI_Control import*
 
 import _Test_RawVal_PEATC as Test_Vec
-import PEATC_Analyze as Analyze
-import PEATC_Control as Ctrl
 
 TEST_RAW_PATH_TEMP_6 = BASE_PEATC_APP_PATH + "\\_Test\\_TestTempFile_6.tmp"
 TEST_RAW_PATH_TEMP_12 = BASE_PEATC_APP_PATH + "\\_Test\\_TestTempFile_12.tmp"
@@ -54,7 +59,7 @@ if __name__ == '__main__':
 
     with open(TEST_GS_RAW_PATH, 'wb') as FileGs_Raw:
         ByteSplit = [0, 0]
-        Raw_Data_list = Test_Vec.Test_AS_Raw_Data_20_month
+        Raw_Data_list = Test_Vec.Test_AS_Raw_Data_6_month
         for i in range(len(Raw_Data_list)):
             RawStream = Raw_Data_list[i]
             if RawStream <= 0xFF:

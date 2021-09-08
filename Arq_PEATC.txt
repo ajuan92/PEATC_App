@@ -1,8 +1,0 @@
-LowLevel:
-	Xillybus
-		-Read/Write directo a los archivos /dev/Xillybus, y control de archvos (workaround seek error)
-	
-	PEATC_GS_AS
-		-Armar formato del comando a GS_AS (Polaridad, intensidad, periodo de captura)
-		/0xFrecuencia Clics /0xPolaridad de la señal/0xPotencia (0 a 70dB)/0xLatencia en ms
-	PEATC_Diagnostic

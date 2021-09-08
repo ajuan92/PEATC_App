@@ -1,9 +1,6 @@
 import array
 import sys
-
-PEATC_CONFIG_AMP_THRESHOLD = 10
-
-PEATC_CONFIG_TIME_US_PER_SAMPLE = 100
+from PEATC_Config import*
 
 
 FIRST_WAVE_MIN_ = 0
@@ -17,6 +14,12 @@ FIFTH_WAVE_MAX_ = 7000
 
 
 def TwoComplement(Value):
+    '''!
+    Convierte un valor de 16 bits a su representación
+    en entero con complemento a 2
+
+    @param Value Valor a convertir a complemento a 2
+    '''
     twos_complement = 0
     if Value > 0x7FFF:
         flipped_binary_number = Value - 65536

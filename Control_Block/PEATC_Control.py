@@ -74,7 +74,7 @@ class PEATC_Control(PEATC_Gs_As, PEATC_Diagnostic):
 
     def __ReportState(self, Arg_State, CurrState):
         '''!
-        Reporta el estado
+        Reporta códigos de estado del driver que captura la señal de PEATC
         '''
 
         if Arg_State.empty() is True:
@@ -88,18 +88,17 @@ class PEATC_Control(PEATC_Gs_As, PEATC_Diagnostic):
 
     def ControlHandler(self, Arg_Cmd, Arg_Results, Arg_State):
         '''!
-        Parte central de la tarea de control, maneja la maquina
-        de estados para la realización de la prueba de PEATC, así
-        como manjear los mecanismos de comunicación de entrada y
-        salida.
+        Maneja la maquina de estados para la realización de la
+        prueba de PEATC, así como la captura de la señal de PEATC.
 
-        @param Arg_Cmd Conducto para recibir comandos que disparan
-        las transiciones de la maquina de estado
+        @param Arg_Cmd Conducto para recibir comandos que inician
+        la prueba de PEATC
 
-        @param Arg_Results Conducto para enviar los resultados
-        de la prueba de PEATC
+        @param Arg_Results Conducto para enviar los datos capturados
+        de la señal de PEATC obtenida
 
-        @param Arg_State Conducto para enviar códigos de Estado
+        @param Arg_State Conducto para enviar el código de estado
+        del driver que captura la señal de PEATC
         '''
         print("> Inicio Modulo PEATC_Control Tarea ControlHandler")
         sys.stdout.flush()
@@ -170,18 +169,17 @@ class PEATC_Control(PEATC_Gs_As, PEATC_Diagnostic):
 
     def DiagHandler(self, Arg_PeatcTable, Arg_DiagResults, Arg_State):
         '''!
-        Parte central de la tarea de control, maneja la maquina
-        de estados para la realización del diagnostico de las
-        señales de PEATC, así como manjear los mecanismos de
-        comunicación de entrada y salida.
+        Maneja la maquina de estados para la realización del diagnostico
+        de las señales de PEATC.
 
-        @param Arg_Cmd Conducto para recibir comandos que disparan
-        las transiciones de la maquina de estado
+        @param Arg_PeatcTable Conducto para recibir la tabla de
+        propiedades de las señales de PEATC
 
-        @param Arg_Results Conducto para enviar los resultados
-        de la prueba de PEATC
+        @param Arg_DiagResults Conducto para enviar el resultado
+        del diagnostico de las señales de PEATC
 
-        @param Arg_State Conducto para enviar códigos de Estado
+        @param Arg_State Conducto para enviar el código de estado
+        del driver para el diagnostico de las señal de PEATC
         '''
         print("> Inicio Modulo PEATC_Control Tarea DiagHandler")
         sys.stdout.flush()

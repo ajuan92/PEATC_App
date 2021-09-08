@@ -19,28 +19,57 @@ from matplotlib.figure import Figure
 CURR_PATH = os.path.dirname(os.path.realpath(__file__))
 APP_LOGS_PATH = CURR_PATH + "\\..\\_Logs\\"
 LOW_DRIVE_PATH = CURR_PATH + "\\..\\Control_Block"
+CONFIG_DRIVE_PATH = CURR_PATH + "\\..\\Config"
 
 sys.path.append(
+    APP_LOGS_PATH)
+sys.path.append(
     LOW_DRIVE_PATH)
+sys.path.append(
+    CONFIG_DRIVE_PATH)
 
-from PEATC_Control import PEATC_Control
-from PEATC_Control import PEATC_Ctrl_Cmd_Dict
-from PEATC_Control import PEATC_CONTROL_CMD_START_TEST
 from PEATC_Control import*
+from PEATC_Config import*
 
-'''!
-Estado Stand by
-'''
+## Estado Stand by: La aplicación está a la espera de un
+#  comando del usuario
 STATE_STAND_BY = 0
+
+## Estado Reset: Se borra la información, gráficas y datos
+#  de la última prueba y diagnóstico de PEATC
 STATE_RESET = 11
+
+## Estado Init Test: Se envía el comando al driver del sistema
+#  que genera el estímulo sonoro y captura la señal cruda
+#  PEATC
 STATE_INIT_TEST = 2
+
+## Estado Wait raw data: Se espera la captura de la señal de PEATC
 STATE_WAIT_RAW_DATA = 3
+
+## Estado Analyze data: Se utiliza la señal de PEATC obtenida y
+#  utilizando el módulo PEATC Analyze se extraen las latencias y
+#  amplitudes de las ondas de PEATC
 STATE_ANALYZE_DATA = 4
+
+## Estado Init Diagnostic: Envía las latencias y amplitudes, así como
+#  la edad del paciente al sistema que determina el diagnóstico de la
+#  prueba
 STATE_INIT_DIAGNOSTIC = 5
+
+## Estado Wait Diagnostic: En espera del resultado del sistema que
+#  determina el diagnostico
 STATE_WAIT_DIAGNOSTIC = 6
+
+## Estado Send Result: Se recibe y despliega el diagnostico de las
+#  señales de PEATC
 STATE_SEND_RESULT = 7
+
+## Estado Creating log: Se crea un archivo csv con los datos de las
+# señales de PEATC capturadas en la prueba, junto con su diagnostico
 STATE_CREATING_LOG = 8
 
+## Diccionario con los estados desplegados en la GUI
 State_Dict = {
     "     STATE_STAND_BY    ": 0,
     "      STATE_RESET      ": 11,
@@ -53,58 +82,48 @@ State_Dict = {
     "  STATE_CREATING_LOG   ": 8,
 }
 
-Diag_Dict = {
-    "Normal values": 0,
-    "Prolonged latency \nin Wave I": 1,
-    "Prolonged latency \nbetween peaks I-III": 2,
-    "Prolonged latency \nbetween peaks III-V": 3,
-    "Prolonged latency \nbetween peaks IV-V and III-V ": 4,
-    "Wave III absent with \npresence of I and V": 5,
-    "Wave V absent with \npresence of I and III": 6,
-    "Wave V absent with \nnormal of I and III": 7,
-    "Absence of waves": 8,
-    "Excess in amplitude \nradius V / I": 9,
-    "Absence of waves \nexcept I (and possibly II)": 10,
-    "No Diagnostic": 11
-}
-
-CONFIG_SignaldB = [30, 40, 50, 60]
-
-CONFIG_Latency = [100, 233, 120, 54]
-CONFIG_Freq = [50, 70, 100, 150]
-
 
 class GUI_Control():
     '''!
     Controlador de la aplicación grafica
 
-    @note Este módulo despliega la interfaz grafica que interactua
+    @note Este módulo despliega la interfaz gráfica que interactúa
     con el usuario, así como capturar los comandos y datos generados
-    por el usuario.
+    por el usuario, además de implementar la lógica que conecta a la GUI
+    con los módulos de la capa Control_Block
     '''
 
     def __init__(self):
         '''!
-        Inicializa la maquina de estados para realizar la prueba de PEATC
+        Inicializa las tareas y máquinas de estados de la aplicación,
+        incluyendo la configuración y despliegue de la interfaz grafica
         '''
         print("Inicialización PEATC App")
         manager = Manager()
 
+        ## Lista donde se almacenan las señales de PEATC capturadas
+        #  en cada prueba.
         self.WaveData = manager.list()
         self.WaveData.append(
             dict({'SignaldB': 0, 'NewData': 0, 'Wave': [], 'FullSignal': []}))
 
-        for MemIndex in range(len(CONFIG_SignaldB)):
+        for MemIndex in range(len(PEATC_CONFIG_SignaldB)):
             Currd = self.WaveData[MemIndex]
-            Currd['SignaldB'] = CONFIG_SignaldB[MemIndex]
+            Currd['SignaldB'] = PEATC_CONFIG_SignaldB[MemIndex]
             self.WaveData[MemIndex] = Currd
 
-            if MemIndex is not len(CONFIG_SignaldB) - 1:
+            if MemIndex is not len(PEATC_CONFIG_SignaldB) - 1:
                 self.WaveData.append(
-                    {'SignaldB': 0, 'NewData': 0, 'Wave': [], 'FullSignal': []})
+                    {'SignaldB': 0, 'NewData': 0,
+                        'Wave': [], 'FullSignal': []})
 
-        self.ArrNewData = Array('i', len(CONFIG_SignaldB))
+        ## Arreglo que contiene el estado de cada señal capturada
+        #  dicho estado indica si alguna señal se actualizo con nuevos datos
+        #  el motivo de dicho estado es identificar si la señal fue graficada
+        #  previamente para no tener que graficar cada señal constantemente
+        self.ArrNewData = Array('i', len(PEATC_CONFIG_SignaldB))
 
+        # Test doci
         self.__Cmd_Template = Array('i', range(5))
         self.__Cmd_DiagAge = Array('i', range(3))
         self.__Cmd_LogName = Array('c', range(50))
@@ -113,23 +132,61 @@ class GUI_Control():
         for i in range(len(self.__Cmd_Reset)):
             self.__Cmd_Reset[i] = 0
 
+        ## Registro del estado actual de la maquina de estados
         self.GuiCurrState = STATE_STAND_BY
+        ## Registro con el estado actual a ser desplegado en la GUI
         self.GuiUpdateState = Value('i', STATE_STAND_BY)
+        ## Registro con el estado anterior de la máquina de estados
         self.GuiPrevState = STATE_RESET
+        ## Registro con el estado de diagnóstico a ser desplegado en la GUI
+        self.GuiUpdateDiag = Value('i', PEATC_Conf_Diag_Dict["No Diagnostic"])
 
-        self.GuiUpdateDiag = Value('i', Diag_Dict["No Diagnostic"])
+        ## Salida del conducto para iniciar la prueba de PEATC
+        self.Ctrl_Cmd_output = None
+        ## Entrada del conducto para iniciar la prueba de PEATC
+        self.Ctrl_Cmd_input = None
 
         self.Ctrl_Cmd_output, self.Ctrl_Cmd_input = mprocess.Pipe(False)
+
+        ## Salida del conducto para recibir los datos capturados
+        #  de la señal de PEATC obtenida
+        self.Ctrl_Result_output = None
+
+        ## Entrada del conducto para recibir los datos capturados
+        #  de la señal de PEATC obtenida
+        self.Ctrl_Result_input = None
+
         self.Ctrl_Result_output, self.Ctrl_Result_input = mprocess.Pipe(
             False)
 
+        ## Salida del conducto para enviar la tabla de
+        #  propiedades de las señales de PEATC
+        self.Diag_Table_output = None
+
+        ## Entrada del conducto para enviar la tabla de
+        #  propiedades de las señales de PEATC
+        self.Diag_Table_input = None
+
         self.Diag_Table_output, self.Diag_Table_input = mprocess.Pipe(
             False)
+
+        ## Salida del conducto para recibir el resultado
+        #  del diagnostico de las señales de PEATC
+        self.Diag_Result_output = None
+
+        ## Entrada del conducto para recibir el resultado
+        #  del diagnostico de las señales de PEATC
+        self.Diag_Result_input = None
+
         self.Diag_Result_output, self.Diag_Result_input = mprocess.Pipe(
             False)
 
+        ## Conducto para el código de estado
+        #  del driver que captura la señal de PEATC
         self.Ctrl_State = Value('i', PEATC_CONTROL_STATE_STAND_BY)
 
+        ## Conducto para el código de estado
+        #  del driver para el diagnostico de las señal de PEATC
         self.Diag_State = Value('i', PEATC_CONTROL_STATE_STAND_BY)
 
         Ctrl_Block = PEATC_Control()
@@ -157,43 +214,55 @@ class GUI_Control():
 
     def InitGUI(self):
         '''!
-        Reporta el estado
+        Inicialización de la interfaz grafica
         '''
+        ## Root de la interfaz grafica
         self.Window = Tk()
         self.Window.title("PEATC APP")
         self.Window.columnconfigure((0, 1, 2), minsize=1)
 
+        ## Frame que contiene los botones para los comandos del usuario
         self.BtnFrame = Frame(self.Window)
         self.BtnFrame.grid(row=0, column=2)
         self.BtnFrame.config(bg="white", bd=1, relief=GROOVE)
         self.BtnFrame.config(width="400", height="1000")
 
+        ## Frame que contiene las graficas de las señales de PEATC
         self.GrafTab = Frame(self.Window)
         self.GrafTab.grid(row=0, column=0)
         self.GrafTab.config(bg="white")
         self.GrafTab.config(width="600", height="1000")
 
+        ## Frame que contiene la tabla de señales, el panel de
+        #  configuración y el log de la aplicación
         self.MiddleWindow = Frame(self.Window)
         self.MiddleWindow.grid(row=0, column=1)
         self.MiddleWindow.rowconfigure((0, 1, 2), minsize=1)
         self.MiddleWindow.rowconfigure(0, minsize=200)
 
+        ## Frame que contiene la tabla de señales de PEATC
         self.WaveTab = Frame(self.MiddleWindow)
         self.WaveTab.grid(row=0, column=0, sticky=NE + NW)
         self.WaveTab.config(bg="white")
         self.WaveTab.config(width="600", height="600")
 
+        ## Frame que contiene el panel de configuración
         self.ConfParamFrame = Frame(self.MiddleWindow)
         self.ConfParamFrame.grid(row=1, column=0, sticky=E + W)
         self.ConfParamFrame.config(bg="white", bd=1, relief=GROOVE)
         self.ConfParamFrame.config(width="720", height="200")
 
+        ## TextBox que contiene el log de la aplicación
+        self.TextLog = Text(self.MiddleWindow, wrap="word", height=20,
+                width=89)
+        self.TextLog.grid(row=2, column=0, sticky=SE + SW)
+        self.TextLog.tag_configure("stderr", foreground="white")
+        self.TextLog.after(100, self.__UpdateLog)
+
+        ## Registro de posición actual del log de debuggeo
         self.CurrTextLogFileIndex = 0
+        ## Registro de posición previo del log de debuggeo
         self.PrevTextLogFileIndex = 0
-        self.text = Text(self.MiddleWindow, wrap="word", height=20, width=89)
-        self.text.grid(row=2, column=0, sticky=SE + SW)
-        self.text.tag_configure("stderr", foreground="white")
-        self.text.after(100, self.__UpdateLog)
 
         self.__ConfParam()
         self.__ConfBottons()
@@ -202,25 +271,13 @@ class GUI_Control():
 
         self.Window.mainloop()
 
-    def __UpdateLog(self):
-
-        with open('Tut20_Output.txt') as f:
-            f.seek(self.CurrTextLogFileIndex)
-            newText = f.read()
-            self.PrevTextLogFileIndex = f.tell()
-
-            if self.PrevTextLogFileIndex > self.CurrTextLogFileIndex:
-                self.CurrTextLogFileIndex = self.PrevTextLogFileIndex
-                self.text.insert(tk.END, newText)
-                self.text.see("end")
-
-            if self.__Cmd_Reset[3] is 1:
-                self.text.delete('1.0', tk.END)
-                self.__Cmd_Reset[3] = 0
-
-        self.text.after(100, self.__UpdateLog)
-
     def __ConfWaveTab(self):
+        '''!
+        Inicializa y configura el frame que contiene la tabla
+        con las amplitudes(Amp) y latencias (Lat) de cada onda
+        capturada despues de comandar la obtención de la señal
+        de PEATC
+        '''
 
         WAVETAB_WIDTH = 70
 
@@ -254,7 +311,7 @@ class GUI_Control():
         self.WaveTable.heading("#10", text="IV Lat", anchor=CENTER)
         self.WaveTable.heading("#11", text="V  Lat", anchor=CENTER)
 
-        for i in range(len(CONFIG_SignaldB)):
+        for i in range(len(PEATC_CONFIG_SignaldB)):
             self.WaveTable.insert(parent='', index=i, iid=i, values=([]))
 
         self.WaveTable.config(height="20")
@@ -290,7 +347,7 @@ class GUI_Control():
         self.Entry_SignaldB = ttk.Combobox(
             self.ConfParamFrame, width=5, state='readonly')
         self.Entry_SignaldB.place(x=100, y=70)
-        self.Entry_SignaldB['values'] = CONFIG_SignaldB
+        self.Entry_SignaldB['values'] = PEATC_CONFIG_SignaldB
         self.Entry_SignaldB.current(0)
 
         Label_Latency = Label(self.ConfParamFrame, text="Latency")
@@ -299,7 +356,7 @@ class GUI_Control():
         self.Entry_Latency = ttk.Combobox(
             self.ConfParamFrame, width=5, state='readonly')
         self.Entry_Latency.place(x=200, y=70)
-        self.Entry_Latency['values'] = CONFIG_Latency
+        self.Entry_Latency['values'] = PEATC_CONFIG_Latency
         self.Entry_Latency.current(0)
 
         Label_Polarity = Label(self.ConfParamFrame, text="Polarity")
@@ -317,7 +374,7 @@ class GUI_Control():
         self.Entry_Freq = ttk.Combobox(
             self.ConfParamFrame, width=5, state='readonly')
         self.Entry_Freq.place(x=400, y=70)
-        self.Entry_Freq['values'] = CONFIG_Freq
+        self.Entry_Freq['values'] = PEATC_CONFIG_Freq
         self.Entry_Freq.current(0)
 
         Label_Age = Label(self.ConfParamFrame, text="Age")
@@ -366,6 +423,27 @@ class GUI_Control():
         self.Label_Diag.place(x=130, y=700)
         self.Label_Diag.config(bg="white")
         self.Label_Diag.after(1000, self.__UpdateDiagLabel)
+
+    def __UpdateLog(self):
+        '''!
+        Actualiza cada 100ms el log de debuggeo en el Textbox
+        en la GUI
+        '''
+        with open(PEATC_CONFIG_DEB_LOG_PATH) as f:
+            f.seek(self.CurrTextLogFileIndex)
+            newText = f.read()
+            self.PrevTextLogFileIndex = f.tell()
+
+            if self.PrevTextLogFileIndex > self.CurrTextLogFileIndex:
+                self.CurrTextLogFileIndex = self.PrevTextLogFileIndex
+                self.TextLog.insert(tk.END, newText)
+                self.TextLog.see("end")
+
+            if self.__Cmd_Reset[3] is 1:
+                self.TextLog.delete('1.0', tk.END)
+                self.__Cmd_Reset[3] = 0
+
+        self.TextLog.after(100, self.__UpdateLog)
 
     def __UpdateTable(self):
 
@@ -451,10 +529,15 @@ class GUI_Control():
 
     def __UpdateDiagLabel(self):
 
-        for key, value in Diag_Dict.items():
+        for key, value in PEATC_Conf_Diag_Dict.items():
             if self.GuiUpdateDiag.value is value:
                 NewState = StringVar()
-                NewState.set(key)
+                keySplit = key.split()
+                if len(keySplit) > 3:
+                    keySplit.insert(3, '\n')
+
+                FinalKey = ' '.join(keySplit)
+                NewState.set(FinalKey)
                 self.Label_Diag.config(textvariable=NewState)
 
         self.Label_Diag.after(1000, self.__UpdateDiagLabel)
@@ -520,13 +603,6 @@ class GUI_Control():
         while True:
 
             if self.GuiPrevState is not self.GuiCurrState:
-                # print("\n-----------------Estado--------------------")
-                # print("-Estado previo: \n" +
-                #      str(self.__StateVal2key(self.GuiPrevState)))
-                # print("-Estado actual: \n " +
-                #      str(self.__StateVal2key(self.GuiCurrState)))
-                # print("-------------------------------------------")
-
                 sys.stdout.flush()
                 self.GuiUpdateState.value = self.GuiCurrState
                 self.GuiPrevState = self.GuiCurrState
@@ -606,7 +682,6 @@ class GUI_Control():
                 DiagCurrState = self.Diag_State.value
 
                 if DiagCurrState == 0:
-                    # Cuantas señales SON NECESARIAS, TODAS? Hay limites?
                     for i, dic in enumerate(self.WaveData):
                         if dic['NewData'] == 1:
                             self.WaveTable.append(self.WaveData[i]['Wave'])
@@ -641,7 +716,7 @@ class GUI_Control():
                 self.GuiUpdateDiag.value = DiagnPEATC[3]
 
                 print(DiagnPEATC[3])
-                print(self.__StateVal2key(DiagnPEATC[3], Diag_Dict))
+                print(self.__StateVal2key(DiagnPEATC[3], PEATC_Conf_Diag_Dict))
                 print("---------")
                 self.GuiCurrState = STATE_CREATING_LOG
                 print("---------")
@@ -654,14 +729,14 @@ class GUI_Control():
                 dt_LogNameB = self.__Cmd_LogName[:self.__Cmd_DiagAge[2]].decode(
                     'UTF-8')
                 dt_string = str(dt_LogNameB)
-                # dt_string = now.strftime("%d-%m-%Y_%H.%M.%S")
+                dt_string = dt_string + now.strftime("%d-%m-%Y_%H.%M.%S")
                 print("Creating CSV File in the following direction")
                 LogFilePath = APP_LOGS_PATH + 'Log_' + dt_string + '.csv'
                 print(LogFilePath)
 
                 CsvWaveData = []
 
-                for MemIndex in range(len(CONFIG_SignaldB)):
+                for MemIndex in range(len(PEATC_CONFIG_SignaldB)):
                     CsvWaveData.append(
                         {'SignaldB': self.WaveData[MemIndex]['SignaldB'],
                          'Wave': self.WaveData[MemIndex]['Wave'],
@@ -691,7 +766,7 @@ class GUI_Control():
                     self.WaveData[i] = GetPEATCDict
                     self.ArrNewData[i] = 0
 
-                self.GuiUpdateDiag.value = Diag_Dict["No Diagnostic"]
+                self.GuiUpdateDiag.value = PEATC_Conf_Diag_Dict["No Diagnostic"]
 
                 if self.__Cmd_Reset[1] is 0 and self.__Cmd_Reset[3] is 0:
                     if self.__Cmd_Reset[2] is 0:
