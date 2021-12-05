@@ -109,10 +109,10 @@ class PEATC_Gs_As:
         Asignación de trama para el comando enviado al sistema GS_AS
         '''
         TestParams = (int(TestProfile["Gs_Latency"]),
-                      int(TestProfile["Gs_SignaldB"]),
                       int(TestProfile["Gs_Polarity"]),
-                      int(TestProfile["Gs_Freq"]))
-
+                      int(TestProfile["Gs_Freq"]),
+		      int(TestProfile["Gs_SignaldB"]))
+        print(TestParams)
         Xillybus.memory_write(GS_START_PATH, TestParams)
 
     def GetRawSignal(self, Temp_file: str):

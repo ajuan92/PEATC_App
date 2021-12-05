@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+#-*- coding: utf-8 -*-
 import os
 import sys
 import csv
@@ -468,6 +470,7 @@ class GUI_Control():
 
         ## Configuración de la edad del paciente
         self.Entry_Age = Entry(self.ConfParamFrame, width=5)
+        self.Entry_Age.insert(END,0)
         self.Entry_Age.place(x=int(0.3125*self.WINDOW_WIDTH_X), y=int(0.07*self.WINDOW_HEIGHT_Y))
 
         Label_TexName = Label(self.ConfParamFrame, text="Log Name")
@@ -480,7 +483,7 @@ class GUI_Control():
             self.ConfParamFrame, wrap="word", height=int(0.001*self.WINDOW_HEIGHT_Y), width=int(0.01875*self.WINDOW_WIDTH_X))
         self.PeatcTextLogName.place(x=int(0.1875*self.WINDOW_WIDTH_X), y=int(0.12*self.WINDOW_HEIGHT_Y))
         self.PeatcTextLogName.tag_configure("stderr", foreground="white")
-        self.PeatcTextLogName.insert("1.0", "New_PEATC_Test")
+        self.PeatcTextLogName.insert("1.0", "NewPEATCTest")
 
     def __ConfBottons(self):
         '''!
@@ -618,7 +621,7 @@ class GUI_Control():
                                  (str(self.WaveData[i]['SignaldB'])))
                     ax.set_xlabel('Time ms')
                     ax.set_ylabel('Voltage uV')
-                    ax.plot(range(0, len(GrafData[0])), GrafData[0])
+                    ax.plot(range(0, len(GrafData[i])), GrafData[i])
 
                     GrafCanvasAgg = FigureCanvasTkAgg(fig, self.Graframe)
                     GrafCanvasAgg.get_tk_widget().grid(row=i, column=0)
@@ -690,7 +693,8 @@ class GUI_Control():
             sys.stdout.flush()
             self.__Cmd_DiagAge[0] = 1
             self.__Cmd_DiagAge[1] = int(self.Entry_Age.get())
-
+            
+            LogString = 0
             LogString = self.PeatcTextLogName.get(
                 "1.0", "end-1c")[:len(self.__Cmd_LogName)]
 
@@ -832,7 +836,7 @@ class GUI_Control():
                     print(self.WaveTable)
                     DiagMatrix = [self.__Cmd_DiagAge[1], self.WaveTable]
 
-                    print("Envio señal de PEATC para diagnostico")
+                    print("Envio senal de PEATC para diagnostico")
                     self.Diag_Table_input.send(DiagMatrix)
                     self.__Cmd_DiagAge[0] = 0
 
@@ -871,7 +875,7 @@ class GUI_Control():
                 dt_LogNameB = self.__Cmd_LogName[:self.__Cmd_DiagAge[2]].decode(
                     'UTF-8')
                 dt_string = str(dt_LogNameB)
-                dt_string = dt_string + now.strftime("%d-%m-%Y_%H.%M.%S")
+                dt_string = dt_string + now.strftime("%d-%m-%Y_%H.%M.%S")             
                 print("Creating CSV File in the following direction")
                 LogFilePath = APP_LOGS_PATH + 'Log_' + dt_string + '.csv'
                 print(LogFilePath)
