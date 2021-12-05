@@ -17,9 +17,28 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 
 CURR_PATH = os.path.dirname(os.path.realpath(__file__))
-APP_LOGS_PATH = CURR_PATH + "\\..\\_Logs\\"
-LOW_DRIVE_PATH = CURR_PATH + "\\..\\Control_Block"
-CONFIG_DRIVE_PATH = CURR_PATH + "\\..\\Config"
+
+try:
+    CONFIG_DRIVE_PATH = CURR_PATH + "\\..\\Config"
+    sys.path.append(
+        CONFIG_DRIVE_PATH)
+except ImportError:
+    print(CONFIG_DRIVE_PATH)
+else:
+    CONFIG_DRIVE_PATH = CURR_PATH + "/../Config"
+    sys.path.append(
+        CONFIG_DRIVE_PATH)
+
+from PEATC_Config import*
+
+if PEATC_CONFIG_CURR_OS is "Linux":
+    APP_LOGS_PATH = CURR_PATH + "/../_Logs/"
+    LOW_DRIVE_PATH = CURR_PATH + "/../Control_Block"
+    CONFIG_DRIVE_PATH = CURR_PATH + "/../Config"
+else:
+    APP_LOGS_PATH = CURR_PATH + "\\..\\_Logs\\"
+    LOW_DRIVE_PATH = CURR_PATH + "\\..\\Control_Block"
+    CONFIG_DRIVE_PATH = CURR_PATH + "\\..\\Config"
 
 sys.path.append(
     APP_LOGS_PATH)
@@ -339,7 +358,7 @@ class GUI_Control():
         self.WaveTable.heading("#11", text="V  Lat", anchor=CENTER)
 
         for i in range(len(PEATC_CONFIG_SignaldB)):
-            self.WaveTable.insert(parent='', index=i, iid=i, values=([]))
+            self.WaveTable.insert(parent='', index=i, iid=str(i), values=([]))
 
         self.WaveTable.config(height=int(0.02*self.WINDOW_HEIGHT_Y))
         self.WaveTab.after(1000, self.__UpdateTable)
@@ -667,7 +686,7 @@ class GUI_Control():
         '''
 
         if self.GuiCurrState is STATE_STAND_BY:
-            print("> Comando diagnostico de señales PEATC")
+            print("> Comando diagnostico de senales PEATC")
             sys.stdout.flush()
             self.__Cmd_DiagAge[0] = 1
             self.__Cmd_DiagAge[1] = int(self.Entry_Age.get())

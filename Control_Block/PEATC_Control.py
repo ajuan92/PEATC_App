@@ -3,8 +3,26 @@ import sys
 from time import time
 
 CURR_PATH = os.path.dirname(os.path.realpath(__file__))
-LOW_DRIVE_PATH = CURR_PATH + "\\..\\Low_Drivers"
-TEMP_RAW_DATA = LOW_DRIVE_PATH + "\\TempRawData.tmp"
+
+try:
+    CONFIG_DRIVE_PATH = CURR_PATH + "\\..\\Config"
+    sys.path.append(
+        CONFIG_DRIVE_PATH)
+except ImportError:
+    print(CONFIG_DRIVE_PATH)
+else:
+    CONFIG_DRIVE_PATH = CURR_PATH + "/../Config"
+    sys.path.append(
+        CONFIG_DRIVE_PATH)
+
+from PEATC_Config import*
+
+if PEATC_CONFIG_CURR_OS is "Linux":
+    LOW_DRIVE_PATH = CURR_PATH + "/../Low_Drivers"
+    TEMP_RAW_DATA = LOW_DRIVE_PATH + "/TempRawData.tmp"
+else:
+    LOW_DRIVE_PATH = CURR_PATH + "\\..\\Low_Drivers"
+    TEMP_RAW_DATA = LOW_DRIVE_PATH + "\\TempRawData.tmp"
 
 sys.path.append(
     LOW_DRIVE_PATH)
@@ -69,7 +87,6 @@ class PEATC_Control(PEATC_Gs_As, PEATC_Diagnostic):
         Inicializa la maquina de estados para realizar la prueba de PEATC
         '''
         print("Inicializacion del modulo PEATC_Control")
-        print(CURR_PATH)
         sys.stdout.flush()
 
     def __ReportState(self, Arg_State, CurrState):

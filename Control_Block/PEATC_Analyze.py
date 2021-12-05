@@ -3,11 +3,20 @@ import os
 import sys
 
 PEATC_ANALYZE_PATH = os.path.dirname(os.path.realpath(__file__))
-CONFIG_DRIVE_PATH = PEATC_ANALYZE_PATH + "\\..\\Config"
-sys.path.append(
-    CONFIG_DRIVE_PATH)
+
+try:
+    CONFIG_DRIVE_PATH = PEATC_ANALYZE_PATH + "\\..\\Config"
+    sys.path.append(
+        CONFIG_DRIVE_PATH)
+except ImportError:
+    print(CONFIG_DRIVE_PATH)
+else:
+    CONFIG_DRIVE_PATH = PEATC_ANALYZE_PATH + "/../Config"
+    sys.path.append(
+        CONFIG_DRIVE_PATH)
 
 from PEATC_Config import*
+
 
 def TwoComplement(Value):
     '''!
@@ -55,7 +64,7 @@ def AnalyzeSignal(Signal_file: str):
 
     WaveCount = 0
 
-    for i in range(len(DataCapture)):
+    for i in range(len(DataCapture)-1):
         if DataCapture[i] >= PEATC_CONFIG_AMP_THRESHOLD:
             RawWave[WaveCount].append(DataCapture[i])
             TimeWave[WaveCount].append(TimeCapture[i])
@@ -162,7 +171,7 @@ def AnalyzeSignal(Signal_file: str):
             FilterIndex = FilterIndex + 1
 
         i = i + 1
-    print("Amp's & Lat´s")
+    print("Amp's & Lat's")
     print(WaveAmpLat)
     print("====================\n")
     sys.stdout.flush()

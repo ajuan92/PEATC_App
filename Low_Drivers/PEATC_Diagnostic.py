@@ -3,9 +3,17 @@ import sys
 import Xillybus
 
 PEATC_DIAGNOSTIC_PATH = os.path.dirname(os.path.realpath(__file__))
-CONFIG_DRIVE_PATH = PEATC_DIAGNOSTIC_PATH + "\\..\\Config"
-sys.path.append(
-    CONFIG_DRIVE_PATH)
+
+try:
+    CONFIG_DRIVE_PATH = PEATC_DIAGNOSTIC_PATH + "\\..\\Config"
+    sys.path.append(
+        CONFIG_DRIVE_PATH)
+except ImportError:
+    print(CONFIG_DRIVE_PATH)
+else:
+    CONFIG_DRIVE_PATH = PEATC_DIAGNOSTIC_PATH + "/../Config"
+    sys.path.append(
+        CONFIG_DRIVE_PATH)
 
 from PEATC_Config import*
 
