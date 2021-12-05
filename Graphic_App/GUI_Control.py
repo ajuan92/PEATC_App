@@ -82,7 +82,6 @@ State_Dict = {
     "  STATE_CREATING_LOG   ": 8,
 }
 
-
 class GUI_Control():
     '''!
     Controlador de la aplicación grafica
@@ -98,11 +97,14 @@ class GUI_Control():
         Inicializa las tareas y máquinas de estados de la aplicación,
         incluyendo la configuración y despliegue de la interfaz grafica
         '''
-        print("Inicialización PEATC App")
-        manager = Manager()
+        print("Inicializacion PEATC App")
+
+        self.WINDOW_WIDTH_X  = PEATC_CONFIG_WINDOW_WIDTH_X
+        self.WINDOW_HEIGHT_Y = PEATC_CONFIG_WINDOW_HEIGHT_Y
 
         ## Lista donde se almacenan las señales de PEATC capturadas
         #  en cada prueba.
+        manager = Manager()
         self.WaveData = manager.list()
         self.WaveData.append(
             dict({'SignaldB': 0, 'NewData': 0, 'Wave': [], 'FullSignal': []}))
@@ -241,18 +243,19 @@ class GUI_Control():
         self.Window = Tk()
         self.Window.title("PEATC APP")
         self.Window.columnconfigure((0, 1, 2), minsize=1)
+        self.Window.config(bg="white", width=self.WINDOW_WIDTH_X, height=self.WINDOW_HEIGHT_Y)
 
         ## Frame que contiene los botones para los comandos del usuario
         self.BtnFrame = Frame(self.Window)
         self.BtnFrame.grid(row=0, column=2)
         self.BtnFrame.config(bg="white", bd=1, relief=GROOVE)
-        self.BtnFrame.config(width="400", height="1000")
+        self.BtnFrame.config(width=int(0.25*self.WINDOW_WIDTH_X), height=self.WINDOW_HEIGHT_Y)
 
         ## Frame que contiene las graficas de las señales de PEATC
         self.GrafTab = Frame(self.Window)
         self.GrafTab.grid(row=0, column=0)
         self.GrafTab.config(bg="white")
-        self.GrafTab.config(width="600", height="1000")
+        self.GrafTab.config(width=int(0.375*self.WINDOW_WIDTH_X), height=self.WINDOW_HEIGHT_Y)
 
         ## Frame que contiene la tabla de señales, el panel de
         #  configuración y el log de la aplicación
@@ -260,25 +263,26 @@ class GUI_Control():
         self.MiddleWindow.grid(row=0, column=1)
         self.MiddleWindow.rowconfigure((0, 1, 2), minsize=1)
         self.MiddleWindow.rowconfigure(0, minsize=200)
+        self.MiddleWindow.config(width=int(0.375*self.WINDOW_WIDTH_X), height=self.WINDOW_HEIGHT_Y)
 
         ## Frame que contiene la tabla de señales de PEATC
         self.WaveTab = Frame(self.MiddleWindow)
         self.WaveTab.grid(row=0, column=0, sticky=NE + NW)
         self.WaveTab.config(bg="white")
-        self.WaveTab.config(width="600", height="600")
+        self.WaveTab.config(width=int(0.375*self.WINDOW_WIDTH_X), height=int(0.60*self.WINDOW_HEIGHT_Y))
 
         ## Frame que contiene el panel de configuración
         self.ConfParamFrame = Frame(self.MiddleWindow)
         self.ConfParamFrame.grid(row=1, column=0, sticky=E + W)
         self.ConfParamFrame.config(bg="white", bd=1, relief=GROOVE)
-        self.ConfParamFrame.config(width="720", height="200")
+        self.ConfParamFrame.config(width=int(0.375*self.WINDOW_WIDTH_X), height=int(0.20*self.WINDOW_HEIGHT_Y))
 
         ## TextBox que contiene el log de la aplicación
-        self.TextLog = Text(self.MiddleWindow, wrap="word", height=20,
-                width=89)
+        self.TextLog = Text(self.MiddleWindow, wrap="word", height=int(0.02*self.WINDOW_HEIGHT_Y),
+                width=int(0.05*self.WINDOW_WIDTH_X))
         self.TextLog.grid(row=2, column=0, sticky=SE + SW)
         self.TextLog.tag_configure("stderr", foreground="white")
-        self.TextLog.after(100, self.__UpdateLog)
+        self.TextLog.after(int(0.0625*self.WINDOW_WIDTH_X), self.__UpdateLog)
 
         ## Registro de posición actual del log de debuggeo
         self.CurrTextLogFileIndex = 0
@@ -300,7 +304,7 @@ class GUI_Control():
         de PEATC
         '''
 
-        WAVETAB_WIDTH = 70
+        WAVETAB_WIDTH = int(0.04375*self.WINDOW_WIDTH_X)
 
         ## Tabla desplegada en la GUI con las amplitudes y
         #  latencias de las señales de PEATC capturadas
@@ -337,7 +341,7 @@ class GUI_Control():
         for i in range(len(PEATC_CONFIG_SignaldB)):
             self.WaveTable.insert(parent='', index=i, iid=i, values=([]))
 
-        self.WaveTable.config(height="20")
+        self.WaveTable.config(height=int(0.02*self.WINDOW_HEIGHT_Y))
         self.WaveTab.after(1000, self.__UpdateTable)
 
     def __ReSizeWaveGraf(self, GrafNum):
@@ -347,7 +351,8 @@ class GUI_Control():
         @param GrafNum Cantidad de señales graficadas
         '''
         self.GrafCanvas.configure(scrollregion=(
-            0, 0, 0, 400 * (GrafNum)), width=600, height=1000)
+            0, 0, 0, int(0.40*self.WINDOW_HEIGHT_Y) * (GrafNum)), width=int(0.60*self.WINDOW_HEIGHT_Y), 
+            height=self.WINDOW_HEIGHT_Y)
 
     def __ConfWaveGraf(self):
         '''!
@@ -370,11 +375,17 @@ class GUI_Control():
         self.yScrollbar = Scrollbar(
             self.GrafTab, orient="vertical", command=self.GrafCanvas.yview)
         self.GrafCanvas.config(yscrollcommand=self.yScrollbar.set)
+        self.GrafCanvas.configure(width=int(0.60*self.WINDOW_HEIGHT_Y), 
+            height=self.WINDOW_HEIGHT_Y)
         self.yScrollbar.pack(side="right", fill="y")
 
         self.GrafCanvas.pack(side="left", expand=True, fill="both")
+        self.Graframe.configure(width=int(0.60*self.WINDOW_HEIGHT_Y), 
+            height=self.WINDOW_HEIGHT_Y)
         self.GrafCanvas.create_window((0, 0), window=self.Graframe,
                 anchor='nw')
+
+
         self.Graframe.bind("<Configure>", self.__ReSizeWaveGraf(1))
 
         self.GrafTab.after(1000, self.__UpdateData())
@@ -384,75 +395,74 @@ class GUI_Control():
         Inicializa y configura el frame que contiene los parámetros
         configurables de la prueba de PEATC
         '''
-
         Label_SignaldB = Label(self.ConfParamFrame, text="SignaldB")
-        Label_SignaldB.place(x=100, y=50)
+        Label_SignaldB.place(x=int(0.0625*self.WINDOW_WIDTH_X), y=int(0.05*self.WINDOW_HEIGHT_Y))
         Label_SignaldB.config(bg="white")
 
         ## Configuración de la potencia del estímulo sonoro para
         #  la prueba de PEATC
         self.Entry_SignaldB = ttk.Combobox(
             self.ConfParamFrame, width=5, state='readonly')
-        self.Entry_SignaldB.place(x=100, y=70)
+        self.Entry_SignaldB.place(x=int(0.0625*self.WINDOW_WIDTH_X), y=int(0.07*self.WINDOW_HEIGHT_Y))
         self.Entry_SignaldB['values'] = PEATC_CONFIG_SignaldB
         self.Entry_SignaldB.current(0)
 
         Label_Latency = Label(self.ConfParamFrame, text="Latency")
-        Label_Latency.place(x=200, y=50)
+        Label_Latency.place(x=int(0.125*self.WINDOW_WIDTH_X), y=int(0.05*self.WINDOW_HEIGHT_Y))
         Label_Latency.config(bg="white")
 
         ## Configuración de la latencia del estímulo sonoro para
         #  la prueba de PEATC
         self.Entry_Latency = ttk.Combobox(
             self.ConfParamFrame, width=5, state='readonly')
-        self.Entry_Latency.place(x=200, y=70)
+        self.Entry_Latency.place(x=int(0.125*self.WINDOW_WIDTH_X), y=int(0.07*self.WINDOW_HEIGHT_Y))
         self.Entry_Latency['values'] = PEATC_CONFIG_Latency
         self.Entry_Latency.current(0)
 
         Label_Polarity = Label(self.ConfParamFrame, text="Polarity")
-        Label_Polarity.place(x=300, y=50)
+        Label_Polarity.place(x=int(0.1875*self.WINDOW_WIDTH_X), y=int(0.05*self.WINDOW_HEIGHT_Y))
         Label_Polarity.config(bg="white")
 
         ## Configuración de la polaridad del estímulo sonoro para
         #  la prueba de PEATC
         self.Entry_Polarity = ttk.Combobox(
             self.ConfParamFrame, width=5, state='readonly')
-        self.Entry_Polarity.place(x=300, y=70)
+        self.Entry_Polarity.place(x=int(0.1875*self.WINDOW_WIDTH_X), y=int(0.07*self.WINDOW_HEIGHT_Y))
         self.Entry_Polarity['values'] = [1, 0]
         self.Entry_Polarity.current(0)
 
         Label_Freq = Label(self.ConfParamFrame, text="Freq")
-        Label_Freq.place(x=400, y=50)
+        Label_Freq.place(x=int(0.25*self.WINDOW_WIDTH_X), y=int(0.05*self.WINDOW_HEIGHT_Y))
         Label_Freq.config(bg="white")
 
         ## Configuración de la frecuencia del estímulo sonoro para
         #  la prueba de PEATC
         self.Entry_Freq = ttk.Combobox(
             self.ConfParamFrame, width=5, state='readonly')
-        self.Entry_Freq.place(x=400, y=70)
+        self.Entry_Freq.place(x=int(0.25*self.WINDOW_WIDTH_X), y=int(0.07*self.WINDOW_HEIGHT_Y))
         self.Entry_Freq['values'] = PEATC_CONFIG_Freq
         self.Entry_Freq.current(0)
 
         Label_Age = Label(self.ConfParamFrame, text="Age")
-        Label_Age.place(x=500, y=50)
+        Label_Age.place(x=int(0.3125*self.WINDOW_WIDTH_X), y=int(0.05*self.WINDOW_HEIGHT_Y))
         Label_Age.config(bg="white")
 
         ## Configuración de la edad del paciente
         self.Entry_Age = ttk.Combobox(
             self.ConfParamFrame, width=5, state='readonly')
-        self.Entry_Age.place(x=500, y=70)
+        self.Entry_Age.place(x=int(0.3125*self.WINDOW_WIDTH_X), y=int(0.07*self.WINDOW_HEIGHT_Y))
         self.Entry_Age['values'] = list(range(0, 100))
         self.Entry_Age.current(0)
 
         Label_TexName = Label(self.ConfParamFrame, text="Log Name")
-        Label_TexName.place(x=230, y=120)
+        Label_TexName.place(x=int(0.125*self.WINDOW_WIDTH_X), y=int(0.12*self.WINDOW_HEIGHT_Y))
         Label_TexName.config(bg="white")
 
         ## Captura el nombre del archivo csv donde se guarda el resultado
         #  de la prueba
         self.PeatcTextLogName = Text(
-            self.ConfParamFrame, wrap="word", height=1, width=30)
-        self.PeatcTextLogName.place(x=300, y=120)
+            self.ConfParamFrame, wrap="word", height=int(0.001*self.WINDOW_HEIGHT_Y), width=int(0.01875*self.WINDOW_WIDTH_X))
+        self.PeatcTextLogName.place(x=int(0.1875*self.WINDOW_WIDTH_X), y=int(0.12*self.WINDOW_HEIGHT_Y))
         self.PeatcTextLogName.tag_configure("stderr", foreground="white")
         self.PeatcTextLogName.insert("1.0", "New_PEATC_Test")
 
@@ -466,30 +476,36 @@ class GUI_Control():
         ## Etiqueta que indica el estado actual de la aplicación
         self.Label_State = Label(self.BtnFrame, text="STATE_STAND_BY")
         self.Label_State.config(anchor=CENTER)
-        self.Label_State.place(x=130, y=50)
+        self.Label_State.place(x=int(0.08125*self.WINDOW_WIDTH_X), y=int(0.05*self.WINDOW_HEIGHT_Y))
         self.Label_State.config(bg="white")
         self.Label_State.after(1000, self.__UpdateStateLabel)
 
         btnGenSignal = Button(self.BtnFrame, text="Get PEATC",
                               command=self.__GenSignalBotton)
-        btnGenSignal.place(bordermode=OUTSIDE, height=80,
-                           width=200, x=100, y=100)
+        btnGenSignal.place(bordermode=OUTSIDE, height=int(0.08*self.WINDOW_HEIGHT_Y),
+                           width=int(0.125*self.WINDOW_WIDTH_X), 
+                           x=int(0.0625*self.WINDOW_WIDTH_X), 
+                           y=int(0.1*self.WINDOW_HEIGHT_Y))
 
         btnDiagSignal = Button(self.BtnFrame, text="Diagnostic",
                                command=self.__GenDiagBotton)
-        btnDiagSignal.place(bordermode=OUTSIDE, height=80,
-                            width=200, x=100, y=300)
+        btnDiagSignal.place(bordermode=OUTSIDE, height=int(0.08*self.WINDOW_HEIGHT_Y),
+                            width=int(0.125*self.WINDOW_WIDTH_X), 
+                            x=int(0.0625*self.WINDOW_WIDTH_X), 
+                            y=int(0.3*self.WINDOW_HEIGHT_Y))
 
         btnReset = Button(self.BtnFrame, text="Reset",
                           command=self.__GenResetBotton)
-        btnReset.place(bordermode=OUTSIDE, height=80,
-                       width=200, x=100, y=500)
+        btnReset.place(bordermode=OUTSIDE, height=int(0.08*self.WINDOW_HEIGHT_Y),
+                       width=int(0.125*self.WINDOW_WIDTH_X), 
+                       x=int(0.0625*self.WINDOW_WIDTH_X), 
+                       y=int(0.5*self.WINDOW_HEIGHT_Y))
 
         ## Etiqueta que indica el el diagnostico resultante de la prueba
         # de PEATC
         self.Label_Diag = Label(self.BtnFrame, text="No Diagnostic")
         self.Label_Diag.config(anchor=CENTER)
-        self.Label_Diag.place(x=130, y=700)
+        self.Label_Diag.place(x=int(0.08125*self.WINDOW_WIDTH_X), y=int(0.7*self.WINDOW_HEIGHT_Y))
         self.Label_Diag.config(bg="white")
         self.Label_Diag.after(1000, self.__UpdateDiagLabel)
 
@@ -578,7 +594,8 @@ class GUI_Control():
                         "<Configure>", self.__ReSizeWaveGraf(ReadyGraf))
 
                 if self.ArrNewData[i] == 1:
-                    fig = Figure(figsize=(6, 4), dpi=100)
+                    fig = Figure(figsize=(int(0.00375*self.WINDOW_WIDTH_X), 
+                        int(0.004*self.WINDOW_HEIGHT_Y)))
 
                     ax = fig.add_subplot(111)
                     ax.set_title('SignaldB' + ' ' + ''.join

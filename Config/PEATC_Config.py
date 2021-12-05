@@ -1,6 +1,9 @@
 '''!
 Configuración de la aplicación
 '''
+PEATC_CONFIG_WINDOW_WIDTH_X  = 1600
+PEATC_CONFIG_WINDOW_HEIGHT_Y = 1000
+
 PEATC_CONFIG_DEB_LOG_PATH = "Debug_Log_Output.txt"
 
 PEATC_CONFIG_CURR_OS = "Windows"#"Linux"
