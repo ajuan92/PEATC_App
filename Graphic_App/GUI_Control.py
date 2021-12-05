@@ -448,11 +448,8 @@ class GUI_Control():
         Label_Age.config(bg="white")
 
         ## Configuración de la edad del paciente
-        self.Entry_Age = ttk.Combobox(
-            self.ConfParamFrame, width=5, state='readonly')
+        self.Entry_Age = Entry(self.ConfParamFrame, width=5)
         self.Entry_Age.place(x=int(0.3125*self.WINDOW_WIDTH_X), y=int(0.07*self.WINDOW_HEIGHT_Y))
-        self.Entry_Age['values'] = list(range(0, 100))
-        self.Entry_Age.current(0)
 
         Label_TexName = Label(self.ConfParamFrame, text="Log Name")
         Label_TexName.place(x=int(0.125*self.WINDOW_WIDTH_X), y=int(0.12*self.WINDOW_HEIGHT_Y))

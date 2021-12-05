@@ -87,7 +87,7 @@ class PEATC_Gs_As:
         Revisión de valores limite en parametros para la
         generación de la señal estimulo
         '''
-        Xillybus.memory_write(GS_FPGA_RESET_PATH, [0,0,0,0])
+        Xillybus.memory_write(GS_FPGA_RESET_PATH, [0, 0, 0, 0])
 
         for key in TestParamsLimits:
 
@@ -117,7 +117,8 @@ class PEATC_Gs_As:
         '''
         with open(Temp_file, 'wb') as TempFile:
             # convertir y justificar constante
-            ReadGenData = Xillybus.stream_read(GS_RAW_PATH)
+            ReadGenData = Xillybus.stream_read(dev_file=GS_RAW_PATH,
+                                               length=PEATC_CONFIG_EXPECTED_SIGNAL_SAMPLES)
             ReadData = next(ReadGenData)
             print("===" + "PEATC_GS_AS" + "===")
             print("Raw signal")
