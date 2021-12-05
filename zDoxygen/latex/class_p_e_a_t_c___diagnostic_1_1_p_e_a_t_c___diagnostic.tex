@@ -1,0 +1,85 @@
+\doxysection{PEATC\+\_\+\+Diagnostic.\+PEATC\+\_\+\+Diagnostic Class Reference}
+\label{class_p_e_a_t_c___diagnostic_1_1_p_e_a_t_c___diagnostic}\index{PEATC\_Diagnostic.PEATC\_Diagnostic@{PEATC\_Diagnostic.PEATC\_Diagnostic}}
+
+
+Driver para el sistema donde se implementa la red neuronal.  
+
+
+
+
+Inheritance diagram for PEATC\+\_\+\+Diagnostic.\+PEATC\+\_\+\+Diagnostic\+:
+% FIG 0
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \textbf{ \+\_\+\+\_\+new\+\_\+\+\_\+} (self)
+\begin{DoxyCompactList}\small\item\em Implementación del patrón de diseño singelton, ya que se debe resguardar la manipulación de los archivos del \doxyref{Xillybus}{p.}{namespace_xillybus}, ya que el manipular dichos archivos influye en señales de Hw generadas por el core del \doxyref{Xillybus}{p.}{namespace_xillybus}. \end{DoxyCompactList}\item 
+def \textbf{ Set\+Matrix} (self, int Patient\+Age, list Matrix\+Params)
+\begin{DoxyCompactList}\small\item\em Establece en formato la matriz con los resultados de la prueba de PEATC para ser enviados como perametros de entrada a la red neuronal. \end{DoxyCompactList}\item 
+int \textbf{ Get\+Diagnostic} (self)
+\begin{DoxyCompactList}\small\item\em Lee el archivo de \doxyref{Xillybus}{p.}{namespace_xillybus} donde se encientra el diagnostico retornado por la red neuronal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Is\+Singleton} = None
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Driver para el sistema donde se implementa la red neuronal. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\label{class_p_e_a_t_c___diagnostic_1_1_p_e_a_t_c___diagnostic_a9fafa8135b6e0fbc3987c3953df1dd74}} 
+\index{PEATC\_Diagnostic.PEATC\_Diagnostic@{PEATC\_Diagnostic.PEATC\_Diagnostic}!\_\_new\_\_@{\_\_new\_\_}}
+\index{\_\_new\_\_@{\_\_new\_\_}!PEATC\_Diagnostic.PEATC\_Diagnostic@{PEATC\_Diagnostic.PEATC\_Diagnostic}}
+\doxysubsubsection{\_\_new\_\_()}
+{\footnotesize\ttfamily def PEATC\+\_\+\+Diagnostic.\+PEATC\+\_\+\+Diagnostic.\+\_\+\+\_\+new\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Implementación del patrón de diseño singelton, ya que se debe resguardar la manipulación de los archivos del \doxyref{Xillybus}{p.}{namespace_xillybus}, ya que el manipular dichos archivos influye en señales de Hw generadas por el core del \doxyref{Xillybus}{p.}{namespace_xillybus}. 
+
+\mbox{\label{class_p_e_a_t_c___diagnostic_1_1_p_e_a_t_c___diagnostic_aeef29aada419d7f2c57cd44c5a00e61a}} 
+\index{PEATC\_Diagnostic.PEATC\_Diagnostic@{PEATC\_Diagnostic.PEATC\_Diagnostic}!GetDiagnostic@{GetDiagnostic}}
+\index{GetDiagnostic@{GetDiagnostic}!PEATC\_Diagnostic.PEATC\_Diagnostic@{PEATC\_Diagnostic.PEATC\_Diagnostic}}
+\doxysubsubsection{GetDiagnostic()}
+{\footnotesize\ttfamily  int PEATC\+\_\+\+Diagnostic.\+PEATC\+\_\+\+Diagnostic.\+Get\+Diagnostic (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Lee el archivo de \doxyref{Xillybus}{p.}{namespace_xillybus} donde se encientra el diagnostico retornado por la red neuronal. 
+
+\begin{DoxyReturn}{Returns}
+Codigo de diagnostico 
+\end{DoxyReturn}
+\mbox{\label{class_p_e_a_t_c___diagnostic_1_1_p_e_a_t_c___diagnostic_acd29f7383cf4d7471a41da43643ed55a}} 
+\index{PEATC\_Diagnostic.PEATC\_Diagnostic@{PEATC\_Diagnostic.PEATC\_Diagnostic}!SetMatrix@{SetMatrix}}
+\index{SetMatrix@{SetMatrix}!PEATC\_Diagnostic.PEATC\_Diagnostic@{PEATC\_Diagnostic.PEATC\_Diagnostic}}
+\doxysubsubsection{SetMatrix()}
+{\footnotesize\ttfamily def PEATC\+\_\+\+Diagnostic.\+PEATC\+\_\+\+Diagnostic.\+Set\+Matrix (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{int}]{Patient\+Age,  }\item[{list}]{Matrix\+Params }\end{DoxyParamCaption})}
+
+
+
+Establece en formato la matriz con los resultados de la prueba de PEATC para ser enviados como perametros de entrada a la red neuronal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Matrix\+Params} & Matriz con los parametro de entrada los cuales constan de Amp Tx\+Wx $\vert$ Lat Tx\+Wx\+: $\vert$\+Amp T1\+W1$\vert$\+Lat T1\+W1$\vert$\+Amp T1W(..)$\vert$\+Lat T1W(..)$\vert$\+Amp T1\+Wn$\vert$\+Lat T1\+Wn $\vert$\+Amp T(..)W1$\vert$\+Lat T(..)W1$\vert$\+Amp T(..)W(..)$\vert$\+Lat T(..)W(..)$\vert$\+Amp T(..)W(n) $\vert$\+Lat T(..)W(n)$\vert$\+Amp Tm\+W1$\vert$\+Lat Tm\+W1$\vert$\+Amp TmW(..)$\vert$ Lat TmW(..)$\vert$\+Amp Tm\+W(n) $\vert$\+Lat Tm\+W(n) (donde m = numero de pruebas, n = 5, Amp = Amplitud, Lat = latencia, Tx = Test x, Wx = Wave x)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyVerb}Asignación de trama para el comando enviado al sistema RN
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\label{class_p_e_a_t_c___diagnostic_1_1_p_e_a_t_c___diagnostic_a24d24521259f6298224a768cd5389000}} 
+\index{PEATC\_Diagnostic.PEATC\_Diagnostic@{PEATC\_Diagnostic.PEATC\_Diagnostic}!IsSingleton@{IsSingleton}}
+\index{IsSingleton@{IsSingleton}!PEATC\_Diagnostic.PEATC\_Diagnostic@{PEATC\_Diagnostic.PEATC\_Diagnostic}}
+\doxysubsubsection{IsSingleton}
+{\footnotesize\ttfamily PEATC\+\_\+\+Diagnostic.\+PEATC\+\_\+\+Diagnostic.\+Is\+Singleton = None\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+E\+:/\+ARCHIVOS\+\_\+\+Y\+\_\+\+DOCUMENTOS/01\+\_\+\+Tesis\+\_\+\+Local/\+PEATC\+\_\+\+App/\+Low\+\_\+\+Drivers/\textbf{ PEATC\+\_\+\+Diagnostic.\+py}\end{DoxyCompactItemize}

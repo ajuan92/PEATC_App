@@ -1,0 +1,9 @@
+digraph "PEATC_GS_AS.PEATC_Gs_As.__new__"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="PEATC_GS_AS.PEATC_Gs\l_As.__new__",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Implementación del patrón de diseño singelton, ya que se debe resguardar la manipulación de los archi..."];
+  Node1 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

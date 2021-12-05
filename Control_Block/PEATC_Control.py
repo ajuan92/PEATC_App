@@ -68,7 +68,7 @@ class PEATC_Control(PEATC_Gs_As, PEATC_Diagnostic):
         '''!
         Inicializa la maquina de estados para realizar la prueba de PEATC
         '''
-        print("Inicialización del modulo PEATC_Control")
+        print("Inicializacion del modulo PEATC_Control")
         print(CURR_PATH)
         sys.stdout.flush()
 

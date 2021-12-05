@@ -57,8 +57,9 @@ def stream_read(dev_file: str, length=2 ** 12, chunk_size=2 ** 12):
         while length < 0 or read < length:
             data = array.array('B')
             try:
-                Checj = data.fromfile(fifo, min(length - read, chunk_size))
-                yield abs(Checj)
+                data.fromfile(fifo, min(length - read, chunk_size))
+                Checj = data
+                yield Checj
                 read += len(data)
             except EOFError:
                 yield data

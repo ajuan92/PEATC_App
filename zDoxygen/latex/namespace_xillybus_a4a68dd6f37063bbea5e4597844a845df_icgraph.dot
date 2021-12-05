@@ -1,0 +1,12 @@
+digraph "Xillybus.stream_read"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="Xillybus.stream_read",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="reads data from the device into an array of chuck_size bytes and yields it"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="PEATC_GS_AS.PEATC_Gs\l_As.GetRawSignal",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_p_e_a_t_c___g_s___a_s_1_1_p_e_a_t_c___gs___as.html#a0a10259fa04e6766c0da93f4a2be432d",tooltip="Crea un archivo con la señal cruda resultante de la lectura analogica de PEATC."];
+  Node2 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+}

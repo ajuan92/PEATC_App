@@ -1,0 +1,180 @@
+\doxysection{GUI\+\_\+\+Control Namespace Reference}
+\label{namespace_g_u_i___control}\index{GUI\_Control@{GUI\_Control}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \textbf{ GUI\+\_\+\+Control}
+\begin{DoxyCompactList}\small\item\em Controlador de la aplicación grafica. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ CURR\+\_\+\+PATH} = os.\+path.\+dirname(os.\+path.\+realpath(\+\_\+\+\_\+file\+\_\+\+\_\+))
+\item 
+string \textbf{ APP\+\_\+\+LOGS\+\_\+\+PATH} = \textbf{ CURR\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}..\textbackslash{}\textbackslash{}\+\_\+\+Logs\textbackslash{}\textbackslash{}\char`\"{}
+\item 
+string \textbf{ LOW\+\_\+\+DRIVE\+\_\+\+PATH} = \textbf{ CURR\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}..\textbackslash{}\textbackslash{}Control\+\_\+\+Block\char`\"{}
+\item 
+string \textbf{ CONFIG\+\_\+\+DRIVE\+\_\+\+PATH} = \textbf{ CURR\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}..\textbackslash{}\textbackslash{}Config\char`\"{}
+\item 
+int \textbf{ STATE\+\_\+\+STAND\+\_\+\+BY} = 0
+\begin{DoxyCompactList}\small\item\em Estado Stand by\+: La aplicación está a la espera de un comando del usuario. \end{DoxyCompactList}\item 
+int \textbf{ STATE\+\_\+\+RESET} = 11
+\begin{DoxyCompactList}\small\item\em Estado Reset\+: Se borra la información, gráficas y datos de la última prueba y diagnóstico de PEATC. \end{DoxyCompactList}\item 
+int \textbf{ STATE\+\_\+\+INIT\+\_\+\+TEST} = 2
+\begin{DoxyCompactList}\small\item\em Estado Init Test\+: Se envía el comando al driver del sistema que genera el estímulo sonoro y captura la señal cruda PEATC. \end{DoxyCompactList}\item 
+int \textbf{ STATE\+\_\+\+WAIT\+\_\+\+RAW\+\_\+\+DATA} = 3
+\begin{DoxyCompactList}\small\item\em Estado Wait raw data\+: Se espera la captura de la señal de PEATC. \end{DoxyCompactList}\item 
+int \textbf{ STATE\+\_\+\+ANALYZE\+\_\+\+DATA} = 4
+\begin{DoxyCompactList}\small\item\em Estado Analyze data\+: Se utiliza la señal de PEATC obtenida y utilizando el módulo PEATC Analyze se extraen las latencias y amplitudes de las ondas de PEATC. \end{DoxyCompactList}\item 
+int \textbf{ STATE\+\_\+\+INIT\+\_\+\+DIAGNOSTIC} = 5
+\begin{DoxyCompactList}\small\item\em Estado Init Diagnostic\+: Envía las latencias y amplitudes, así como la edad del paciente al sistema que determina el diagnóstico de la prueba. \end{DoxyCompactList}\item 
+int \textbf{ STATE\+\_\+\+WAIT\+\_\+\+DIAGNOSTIC} = 6
+\begin{DoxyCompactList}\small\item\em Estado Wait Diagnostic\+: En espera del resultado del sistema que determina el diagnostico. \end{DoxyCompactList}\item 
+int \textbf{ STATE\+\_\+\+SEND\+\_\+\+RESULT} = 7
+\begin{DoxyCompactList}\small\item\em Estado Send Result\+: Se recibe y despliega el diagnostico de las señales de PEATC. \end{DoxyCompactList}\item 
+int \textbf{ STATE\+\_\+\+CREATING\+\_\+\+LOG} = 8
+\begin{DoxyCompactList}\small\item\em Estado Creating log\+: Se crea un archivo csv con los datos de las señales de PEATC capturadas en la prueba, junto con su diagnostico. \end{DoxyCompactList}\item 
+dictionary \textbf{ State\+\_\+\+Dict}
+\begin{DoxyCompactList}\small\item\em Diccionario con los estados desplegados en la GUI. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\label{namespace_g_u_i___control_a448b661f776c2a9124c0cff9b750340e}} 
+\index{GUI\_Control@{GUI\_Control}!APP\_LOGS\_PATH@{APP\_LOGS\_PATH}}
+\index{APP\_LOGS\_PATH@{APP\_LOGS\_PATH}!GUI\_Control@{GUI\_Control}}
+\doxysubsubsection{APP\_LOGS\_PATH}
+{\footnotesize\ttfamily string GUI\+\_\+\+Control.\+APP\+\_\+\+LOGS\+\_\+\+PATH = \textbf{ CURR\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}..\textbackslash{}\textbackslash{}\+\_\+\+Logs\textbackslash{}\textbackslash{}\char`\"{}}
+
+\mbox{\label{namespace_g_u_i___control_a96fc571fa3a3efabefcf2c75ea87688e}} 
+\index{GUI\_Control@{GUI\_Control}!CONFIG\_DRIVE\_PATH@{CONFIG\_DRIVE\_PATH}}
+\index{CONFIG\_DRIVE\_PATH@{CONFIG\_DRIVE\_PATH}!GUI\_Control@{GUI\_Control}}
+\doxysubsubsection{CONFIG\_DRIVE\_PATH}
+{\footnotesize\ttfamily string GUI\+\_\+\+Control.\+CONFIG\+\_\+\+DRIVE\+\_\+\+PATH = \textbf{ CURR\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}..\textbackslash{}\textbackslash{}Config\char`\"{}}
+
+\mbox{\label{namespace_g_u_i___control_a963539a20a2f86543e9e1e119f109a8d}} 
+\index{GUI\_Control@{GUI\_Control}!CURR\_PATH@{CURR\_PATH}}
+\index{CURR\_PATH@{CURR\_PATH}!GUI\_Control@{GUI\_Control}}
+\doxysubsubsection{CURR\_PATH}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+CURR\+\_\+\+PATH = os.\+path.\+dirname(os.\+path.\+realpath(\+\_\+\+\_\+file\+\_\+\+\_\+))}
+
+\mbox{\label{namespace_g_u_i___control_a7c01a3ca5d87cb87647b91549f16514d}} 
+\index{GUI\_Control@{GUI\_Control}!LOW\_DRIVE\_PATH@{LOW\_DRIVE\_PATH}}
+\index{LOW\_DRIVE\_PATH@{LOW\_DRIVE\_PATH}!GUI\_Control@{GUI\_Control}}
+\doxysubsubsection{LOW\_DRIVE\_PATH}
+{\footnotesize\ttfamily string GUI\+\_\+\+Control.\+LOW\+\_\+\+DRIVE\+\_\+\+PATH = \textbf{ CURR\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}..\textbackslash{}\textbackslash{}Control\+\_\+\+Block\char`\"{}}
+
+\mbox{\label{namespace_g_u_i___control_a9771606d4dc064ab6df0c9f60934ecf4}} 
+\index{GUI\_Control@{GUI\_Control}!STATE\_ANALYZE\_DATA@{STATE\_ANALYZE\_DATA}}
+\index{STATE\_ANALYZE\_DATA@{STATE\_ANALYZE\_DATA}!GUI\_Control@{GUI\_Control}}
+\doxysubsubsection{STATE\_ANALYZE\_DATA}
+{\footnotesize\ttfamily int GUI\+\_\+\+Control.\+STATE\+\_\+\+ANALYZE\+\_\+\+DATA = 4}
+
+
+
+Estado Analyze data\+: Se utiliza la señal de PEATC obtenida y utilizando el módulo PEATC Analyze se extraen las latencias y amplitudes de las ondas de PEATC. 
+
+\mbox{\label{namespace_g_u_i___control_a406bfba80c4a60a551071f97d25f747c}} 
+\index{GUI\_Control@{GUI\_Control}!STATE\_CREATING\_LOG@{STATE\_CREATING\_LOG}}
+\index{STATE\_CREATING\_LOG@{STATE\_CREATING\_LOG}!GUI\_Control@{GUI\_Control}}
+\doxysubsubsection{STATE\_CREATING\_LOG}
+{\footnotesize\ttfamily int GUI\+\_\+\+Control.\+STATE\+\_\+\+CREATING\+\_\+\+LOG = 8}
+
+
+
+Estado Creating log\+: Se crea un archivo csv con los datos de las señales de PEATC capturadas en la prueba, junto con su diagnostico. 
+
+\mbox{\label{namespace_g_u_i___control_ac82c2369ee6a7bae840a502b7a480c54}} 
+\index{GUI\_Control@{GUI\_Control}!State\_Dict@{State\_Dict}}
+\index{State\_Dict@{State\_Dict}!GUI\_Control@{GUI\_Control}}
+\doxysubsubsection{State\_Dict}
+{\footnotesize\ttfamily dictionary GUI\+\_\+\+Control.\+State\+\_\+\+Dict}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 =  \{}
+\DoxyCodeLine{2     \textcolor{stringliteral}{"{}     STATE\_STAND\_BY    "{}}: 0,}
+\DoxyCodeLine{3     \textcolor{stringliteral}{"{}      STATE\_RESET      "{}}: 11,}
+\DoxyCodeLine{4     \textcolor{stringliteral}{"{}    STATE\_INIT\_TEST    "{}}: 2,}
+\DoxyCodeLine{5     \textcolor{stringliteral}{"{}  STATE\_WAIT\_RAW\_DATA  "{}}: 3,}
+\DoxyCodeLine{6     \textcolor{stringliteral}{"{}   STATE\_ANALYZE\_DATA  "{}}: 4,}
+\DoxyCodeLine{7     \textcolor{stringliteral}{"{} STATE\_INIT\_DIAGNOSTIC "{}}: 5,}
+\DoxyCodeLine{8     \textcolor{stringliteral}{"{} STATE\_WAIT\_DIAGNOSTIC "{}}: 6,}
+\DoxyCodeLine{9     \textcolor{stringliteral}{"{}   STATE\_SEND\_RESULT   "{}}: 7,}
+\DoxyCodeLine{10     \textcolor{stringliteral}{"{}  STATE\_CREATING\_LOG   "{}}: 8,}
+\DoxyCodeLine{11 \}}
+
+\end{DoxyCode}
+
+
+Diccionario con los estados desplegados en la GUI. 
+
+\mbox{\label{namespace_g_u_i___control_a891f3aa3cfddd7ad6edc84d14956e955}} 
+\index{GUI\_Control@{GUI\_Control}!STATE\_INIT\_DIAGNOSTIC@{STATE\_INIT\_DIAGNOSTIC}}
+\index{STATE\_INIT\_DIAGNOSTIC@{STATE\_INIT\_DIAGNOSTIC}!GUI\_Control@{GUI\_Control}}
+\doxysubsubsection{STATE\_INIT\_DIAGNOSTIC}
+{\footnotesize\ttfamily int GUI\+\_\+\+Control.\+STATE\+\_\+\+INIT\+\_\+\+DIAGNOSTIC = 5}
+
+
+
+Estado Init Diagnostic\+: Envía las latencias y amplitudes, así como la edad del paciente al sistema que determina el diagnóstico de la prueba. 
+
+\mbox{\label{namespace_g_u_i___control_a46a95014175eec01525c80314ebae56c}} 
+\index{GUI\_Control@{GUI\_Control}!STATE\_INIT\_TEST@{STATE\_INIT\_TEST}}
+\index{STATE\_INIT\_TEST@{STATE\_INIT\_TEST}!GUI\_Control@{GUI\_Control}}
+\doxysubsubsection{STATE\_INIT\_TEST}
+{\footnotesize\ttfamily int GUI\+\_\+\+Control.\+STATE\+\_\+\+INIT\+\_\+\+TEST = 2}
+
+
+
+Estado Init Test\+: Se envía el comando al driver del sistema que genera el estímulo sonoro y captura la señal cruda PEATC. 
+
+\mbox{\label{namespace_g_u_i___control_a9dc6679d34053e73c1596205c1ca8d93}} 
+\index{GUI\_Control@{GUI\_Control}!STATE\_RESET@{STATE\_RESET}}
+\index{STATE\_RESET@{STATE\_RESET}!GUI\_Control@{GUI\_Control}}
+\doxysubsubsection{STATE\_RESET}
+{\footnotesize\ttfamily int GUI\+\_\+\+Control.\+STATE\+\_\+\+RESET = 11}
+
+
+
+Estado Reset\+: Se borra la información, gráficas y datos de la última prueba y diagnóstico de PEATC. 
+
+\mbox{\label{namespace_g_u_i___control_a0a4ee9ad650ec79328f43fd6757caad6}} 
+\index{GUI\_Control@{GUI\_Control}!STATE\_SEND\_RESULT@{STATE\_SEND\_RESULT}}
+\index{STATE\_SEND\_RESULT@{STATE\_SEND\_RESULT}!GUI\_Control@{GUI\_Control}}
+\doxysubsubsection{STATE\_SEND\_RESULT}
+{\footnotesize\ttfamily int GUI\+\_\+\+Control.\+STATE\+\_\+\+SEND\+\_\+\+RESULT = 7}
+
+
+
+Estado Send Result\+: Se recibe y despliega el diagnostico de las señales de PEATC. 
+
+\mbox{\label{namespace_g_u_i___control_aabbe1e816c2707070b713796170ef5a2}} 
+\index{GUI\_Control@{GUI\_Control}!STATE\_STAND\_BY@{STATE\_STAND\_BY}}
+\index{STATE\_STAND\_BY@{STATE\_STAND\_BY}!GUI\_Control@{GUI\_Control}}
+\doxysubsubsection{STATE\_STAND\_BY}
+{\footnotesize\ttfamily int GUI\+\_\+\+Control.\+STATE\+\_\+\+STAND\+\_\+\+BY = 0}
+
+
+
+Estado Stand by\+: La aplicación está a la espera de un comando del usuario. 
+
+\mbox{\label{namespace_g_u_i___control_aedfbbe89656a40559ce432886c5d4eea}} 
+\index{GUI\_Control@{GUI\_Control}!STATE\_WAIT\_DIAGNOSTIC@{STATE\_WAIT\_DIAGNOSTIC}}
+\index{STATE\_WAIT\_DIAGNOSTIC@{STATE\_WAIT\_DIAGNOSTIC}!GUI\_Control@{GUI\_Control}}
+\doxysubsubsection{STATE\_WAIT\_DIAGNOSTIC}
+{\footnotesize\ttfamily int GUI\+\_\+\+Control.\+STATE\+\_\+\+WAIT\+\_\+\+DIAGNOSTIC = 6}
+
+
+
+Estado Wait Diagnostic\+: En espera del resultado del sistema que determina el diagnostico. 
+
+\mbox{\label{namespace_g_u_i___control_a93027e925adf7a5687e216f6eb902f1d}} 
+\index{GUI\_Control@{GUI\_Control}!STATE\_WAIT\_RAW\_DATA@{STATE\_WAIT\_RAW\_DATA}}
+\index{STATE\_WAIT\_RAW\_DATA@{STATE\_WAIT\_RAW\_DATA}!GUI\_Control@{GUI\_Control}}
+\doxysubsubsection{STATE\_WAIT\_RAW\_DATA}
+{\footnotesize\ttfamily int GUI\+\_\+\+Control.\+STATE\+\_\+\+WAIT\+\_\+\+RAW\+\_\+\+DATA = 3}
+
+
+
+Estado Wait raw data\+: Se espera la captura de la señal de PEATC. 
+

@@ -1,0 +1,569 @@
+\doxysection{GUI\+\_\+\+Control.\+GUI\+\_\+\+Control Class Reference}
+\label{class_g_u_i___control_1_1_g_u_i___control}\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+
+
+Controlador de la aplicación grafica.  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \textbf{ \+\_\+\+\_\+init\+\_\+\+\_\+} (self)
+\begin{DoxyCompactList}\small\item\em Inicializa la maquina de estados para realizar la prueba de PEATC. \end{DoxyCompactList}\item 
+def \textbf{ Init\+GUI} (self)
+\begin{DoxyCompactList}\small\item\em Inicialización de la interfaz grafica. \end{DoxyCompactList}\item 
+def \textbf{ Gui\+Com} (self)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Wave\+Data}
+\item 
+\textbf{ Arr\+New\+Data}
+\item 
+\textbf{ Gui\+Curr\+State}
+\item 
+\textbf{ Gui\+Update\+State}
+\item 
+\textbf{ Gui\+Prev\+State}
+\item 
+\textbf{ Gui\+Update\+Diag}
+\item 
+\textbf{ Ctrl\+\_\+\+Cmd\+\_\+input}
+\item 
+\textbf{ Ctrl\+\_\+\+Result\+\_\+input}
+\item 
+\textbf{ Diag\+\_\+\+Table\+\_\+input}
+\item 
+\textbf{ Diag\+\_\+\+Result\+\_\+input}
+\item 
+\textbf{ Ctrl\+\_\+\+State}
+\item 
+\textbf{ Diag\+\_\+\+State}
+\item 
+\textbf{ Window}
+\item 
+\textbf{ Btn\+Frame}
+\item 
+\textbf{ Graf\+Tab}
+\item 
+\textbf{ Middle\+Window}
+\item 
+\textbf{ Wave\+Tab}
+\item 
+\textbf{ Conf\+Param\+Frame}
+\item 
+\textbf{ Curr\+Text\+Log\+File\+Index}
+\item 
+\textbf{ Prev\+Text\+Log\+File\+Index}
+\item 
+\textbf{ text}
+\item 
+\textbf{ Wave\+Table}
+\item 
+\textbf{ Prev\+Ready\+Graf}
+\item 
+\textbf{ canvas}
+\item 
+\textbf{ graframe}
+\item 
+\textbf{ y\+Scrollbar}
+\item 
+\textbf{ Entry\+\_\+\+SignaldB}
+\item 
+\textbf{ Entry\+\_\+\+Latency}
+\item 
+\textbf{ Entry\+\_\+\+Polarity}
+\item 
+\textbf{ Entry\+\_\+\+Freq}
+\item 
+\textbf{ Entry\+\_\+\+Age}
+\item 
+\textbf{ Peatc\+Text\+Log\+Name}
+\item 
+\textbf{ Label\+\_\+\+State}
+\item 
+\textbf{ Label\+\_\+\+Diag}
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \textbf{ \+\_\+\+\_\+\+Conf\+Wave\+Tab} (self)
+\begin{DoxyCompactList}\small\item\em Inicializa y configura el frame que contiene la tabla con las amplitudes(\+Amp) y latencias (Lat) de cada onda capturada despues de comandar la obtención de la señal de PEATC. \end{DoxyCompactList}\item 
+def \textbf{ \+\_\+\+\_\+\+Re\+Size\+Wave\+Graf} (self, Graf\+Num)
+\item 
+def \textbf{ \+\_\+\+\_\+\+Conf\+Wave\+Graf} (self)
+\item 
+def \textbf{ \+\_\+\+\_\+\+Conf\+Param} (self)
+\item 
+def \textbf{ \+\_\+\+\_\+\+Conf\+Bottons} (self)
+\item 
+def \textbf{ \+\_\+\+\_\+\+Update\+Log} (self)
+\begin{DoxyCompactList}\small\item\em Actualiza cada 100ms el log de debuggeo en el Textbox en la GUI. \end{DoxyCompactList}\item 
+def \textbf{ \+\_\+\+\_\+\+Update\+Table} (self)
+\item 
+def \textbf{ \+\_\+\+\_\+\+Update\+Data} (self)
+\item 
+def \textbf{ \+\_\+\+\_\+\+Update\+State\+Label} (self)
+\item 
+def \textbf{ \+\_\+\+\_\+\+Update\+Diag\+Label} (self)
+\item 
+def \textbf{ \+\_\+\+\_\+\+Gen\+Signal\+Botton} (self)
+\item 
+def \textbf{ \+\_\+\+\_\+\+Gen\+Diag\+Botton} (self)
+\item 
+def \textbf{ \+\_\+\+\_\+\+Gen\+Reset\+Botton} (self)
+\item 
+def \textbf{ \+\_\+\+\_\+\+State\+Val2key} (self, Search\+Val, Base\+Dict)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ \+\_\+\+\_\+\+Cmd\+\_\+\+Template}
+\begin{DoxyCompactList}\small\item\em Test doci. \end{DoxyCompactList}\item 
+\textbf{ \+\_\+\+\_\+\+Cmd\+\_\+\+Diag\+Age}
+\item 
+\textbf{ \+\_\+\+\_\+\+Cmd\+\_\+\+Log\+Name}
+\item 
+\textbf{ \+\_\+\+\_\+\+Cmd\+\_\+\+Reset}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Controlador de la aplicación grafica. 
+
+\begin{DoxyNote}{Note}
+Este módulo despliega la interfaz grafica que interactua con el usuario, así como capturar los comandos y datos generados por el usuario, ademas de implementar la logica que conecta a la GUI con los modulos de la capa Control\+\_\+\+Block 
+\end{DoxyNote}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a62cfebe02a585a5e9e08ebdb0bde0a49}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{\_\_init\_\_()}
+{\footnotesize\ttfamily def GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Inicializa la maquina de estados para realizar la prueba de PEATC. 
+
+Here is the call graph for this function\+:
+% FIG 0
+Here is the caller graph for this function\+:
+% FIG 1
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_ad5217d4daa9616a63446d87ca07950d3}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!\_\_ConfBottons@{\_\_ConfBottons}}
+\index{\_\_ConfBottons@{\_\_ConfBottons}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{\_\_ConfBottons()}
+{\footnotesize\ttfamily def GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+\_\+\+\_\+\+Conf\+Bottons (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+% FIG 2
+Here is the caller graph for this function\+:
+% FIG 3
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_ab200cc552d548a3727114b461cd9fb75}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!\_\_ConfParam@{\_\_ConfParam}}
+\index{\_\_ConfParam@{\_\_ConfParam}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{\_\_ConfParam()}
+{\footnotesize\ttfamily def GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+\_\+\+\_\+\+Conf\+Param (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+% FIG 4
+Here is the caller graph for this function\+:
+% FIG 5
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a5fb29c60db85c7b4699364924577a748}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!\_\_ConfWaveGraf@{\_\_ConfWaveGraf}}
+\index{\_\_ConfWaveGraf@{\_\_ConfWaveGraf}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{\_\_ConfWaveGraf()}
+{\footnotesize\ttfamily def GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+\_\+\+\_\+\+Conf\+Wave\+Graf (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+% FIG 6
+Here is the caller graph for this function\+:
+% FIG 7
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a2867f2dfbb8a2193a4dd6d369c7d8a39}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!\_\_ConfWaveTab@{\_\_ConfWaveTab}}
+\index{\_\_ConfWaveTab@{\_\_ConfWaveTab}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{\_\_ConfWaveTab()}
+{\footnotesize\ttfamily def GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+\_\+\+\_\+\+Conf\+Wave\+Tab (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Inicializa y configura el frame que contiene la tabla con las amplitudes(\+Amp) y latencias (Lat) de cada onda capturada despues de comandar la obtención de la señal de PEATC. 
+
+Here is the call graph for this function\+:
+% FIG 8
+Here is the caller graph for this function\+:
+% FIG 9
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a0aff78d0dd96959c8c8c4fe58bdfdf7b}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!\_\_GenDiagBotton@{\_\_GenDiagBotton}}
+\index{\_\_GenDiagBotton@{\_\_GenDiagBotton}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{\_\_GenDiagBotton()}
+{\footnotesize\ttfamily def GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+\_\+\+\_\+\+Gen\+Diag\+Botton (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+% FIG 10
+Here is the caller graph for this function\+:
+% FIG 11
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a66ffa2ab1c4661b836fbd09aaf5b5fbd}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!\_\_GenResetBotton@{\_\_GenResetBotton}}
+\index{\_\_GenResetBotton@{\_\_GenResetBotton}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{\_\_GenResetBotton()}
+{\footnotesize\ttfamily def GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+\_\+\+\_\+\+Gen\+Reset\+Botton (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+% FIG 12
+Here is the caller graph for this function\+:
+% FIG 13
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_ab54da53b90c710edc43655a7c192c1dd}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!\_\_GenSignalBotton@{\_\_GenSignalBotton}}
+\index{\_\_GenSignalBotton@{\_\_GenSignalBotton}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{\_\_GenSignalBotton()}
+{\footnotesize\ttfamily def GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+\_\+\+\_\+\+Gen\+Signal\+Botton (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+% FIG 14
+Here is the caller graph for this function\+:
+% FIG 15
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a49ee922a09708e359adc57709fcea4ee}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!\_\_ReSizeWaveGraf@{\_\_ReSizeWaveGraf}}
+\index{\_\_ReSizeWaveGraf@{\_\_ReSizeWaveGraf}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{\_\_ReSizeWaveGraf()}
+{\footnotesize\ttfamily def GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+\_\+\+\_\+\+Re\+Size\+Wave\+Graf (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{Graf\+Num }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+% FIG 16
+Here is the caller graph for this function\+:
+% FIG 17
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_adfb7ab9a4a5a2ba592e1ee403001b4cc}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!\_\_StateVal2key@{\_\_StateVal2key}}
+\index{\_\_StateVal2key@{\_\_StateVal2key}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{\_\_StateVal2key()}
+{\footnotesize\ttfamily def GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+\_\+\+\_\+\+State\+Val2key (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{Search\+Val,  }\item[{}]{Base\+Dict }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+% FIG 18
+Here is the caller graph for this function\+:
+% FIG 19
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a1f0aeeee95877e542fd278731a07a91c}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!\_\_UpdateData@{\_\_UpdateData}}
+\index{\_\_UpdateData@{\_\_UpdateData}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{\_\_UpdateData()}
+{\footnotesize\ttfamily def GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+\_\+\+\_\+\+Update\+Data (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+% FIG 20
+Here is the caller graph for this function\+:
+% FIG 21
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a0899daed2bb2d2c45d4820f4845e9910}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!\_\_UpdateDiagLabel@{\_\_UpdateDiagLabel}}
+\index{\_\_UpdateDiagLabel@{\_\_UpdateDiagLabel}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{\_\_UpdateDiagLabel()}
+{\footnotesize\ttfamily def GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+\_\+\+\_\+\+Update\+Diag\+Label (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+% FIG 22
+Here is the caller graph for this function\+:
+% FIG 23
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_ad81474076a5529a4263816771eea3a27}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!\_\_UpdateLog@{\_\_UpdateLog}}
+\index{\_\_UpdateLog@{\_\_UpdateLog}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{\_\_UpdateLog()}
+{\footnotesize\ttfamily def GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+\_\+\+\_\+\+Update\+Log (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Actualiza cada 100ms el log de debuggeo en el Textbox en la GUI. 
+
+Here is the call graph for this function\+:
+% FIG 24
+Here is the caller graph for this function\+:
+% FIG 25
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a71fa7eac34db41063aac5cb4d270f8d5}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!\_\_UpdateStateLabel@{\_\_UpdateStateLabel}}
+\index{\_\_UpdateStateLabel@{\_\_UpdateStateLabel}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{\_\_UpdateStateLabel()}
+{\footnotesize\ttfamily def GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+\_\+\+\_\+\+Update\+State\+Label (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+% FIG 26
+Here is the caller graph for this function\+:
+% FIG 27
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a6d3a63dd8c3cbd3fd43f99fc42e67a37}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!\_\_UpdateTable@{\_\_UpdateTable}}
+\index{\_\_UpdateTable@{\_\_UpdateTable}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{\_\_UpdateTable()}
+{\footnotesize\ttfamily def GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+\_\+\+\_\+\+Update\+Table (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+% FIG 28
+Here is the caller graph for this function\+:
+% FIG 29
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a380c2dc9b1fd06cc1c6165b0f8af66c6}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!GuiCom@{GuiCom}}
+\index{GuiCom@{GuiCom}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{GuiCom()}
+{\footnotesize\ttfamily def GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+Gui\+Com (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 30
+Here is the caller graph for this function\+:
+% FIG 31
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a48d48f390131d69033d9a2a101229ec9}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!InitGUI@{InitGUI}}
+\index{InitGUI@{InitGUI}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{InitGUI()}
+{\footnotesize\ttfamily def GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+Init\+GUI (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Inicialización de la interfaz grafica. 
+
+Here is the call graph for this function\+:
+% FIG 32
+Here is the caller graph for this function\+:
+% FIG 33
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a32fb42c3b2fba216afdc48f2ae466cde}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!\_\_Cmd\_DiagAge@{\_\_Cmd\_DiagAge}}
+\index{\_\_Cmd\_DiagAge@{\_\_Cmd\_DiagAge}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{\_\_Cmd\_DiagAge}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+\_\+\+\_\+\+Cmd\+\_\+\+Diag\+Age\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_ae6838a92527f7fd36e3a7af706287930}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!\_\_Cmd\_LogName@{\_\_Cmd\_LogName}}
+\index{\_\_Cmd\_LogName@{\_\_Cmd\_LogName}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{\_\_Cmd\_LogName}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+\_\+\+\_\+\+Cmd\+\_\+\+Log\+Name\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_ad329e2c1e6ed6c31c0bd1dba1904f11a}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!\_\_Cmd\_Reset@{\_\_Cmd\_Reset}}
+\index{\_\_Cmd\_Reset@{\_\_Cmd\_Reset}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{\_\_Cmd\_Reset}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+\_\+\+\_\+\+Cmd\+\_\+\+Reset\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_abe79bc34c59e847a9d3a6083f5773f3b}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!\_\_Cmd\_Template@{\_\_Cmd\_Template}}
+\index{\_\_Cmd\_Template@{\_\_Cmd\_Template}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{\_\_Cmd\_Template}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+\_\+\+\_\+\+Cmd\+\_\+\+Template\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Test doci. 
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a02cfb57ed51ad23b55196c32eb2ef394}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!ArrNewData@{ArrNewData}}
+\index{ArrNewData@{ArrNewData}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{ArrNewData}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+Arr\+New\+Data}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a6cff033474d6c6c2d384ef625d44d10c}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!BtnFrame@{BtnFrame}}
+\index{BtnFrame@{BtnFrame}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{BtnFrame}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+Btn\+Frame}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_aee90170a6efc7b568b0d05b9dbfdf575}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!canvas@{canvas}}
+\index{canvas@{canvas}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{canvas}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+canvas}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a82035a3be7ba906c99bdf1f2978b0c6d}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!ConfParamFrame@{ConfParamFrame}}
+\index{ConfParamFrame@{ConfParamFrame}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{ConfParamFrame}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+Conf\+Param\+Frame}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a5bbbb8ac5be11af4e0474e939cfb69d7}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!Ctrl\_Cmd\_input@{Ctrl\_Cmd\_input}}
+\index{Ctrl\_Cmd\_input@{Ctrl\_Cmd\_input}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{Ctrl\_Cmd\_input}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+Ctrl\+\_\+\+Cmd\+\_\+input}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_ad04695a18c3c768c12427a989b01d7ec}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!Ctrl\_Result\_input@{Ctrl\_Result\_input}}
+\index{Ctrl\_Result\_input@{Ctrl\_Result\_input}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{Ctrl\_Result\_input}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+Ctrl\+\_\+\+Result\+\_\+input}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_ac30bfb2fa03cabb0d2220f7096bbc257}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!Ctrl\_State@{Ctrl\_State}}
+\index{Ctrl\_State@{Ctrl\_State}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{Ctrl\_State}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+Ctrl\+\_\+\+State}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a3ef5f2da55e6ffd38429568a50cfd055}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!CurrTextLogFileIndex@{CurrTextLogFileIndex}}
+\index{CurrTextLogFileIndex@{CurrTextLogFileIndex}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{CurrTextLogFileIndex}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+Curr\+Text\+Log\+File\+Index}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_ab4c9f3021b71dfcc961e73d7e39b277d}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!Diag\_Result\_input@{Diag\_Result\_input}}
+\index{Diag\_Result\_input@{Diag\_Result\_input}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{Diag\_Result\_input}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+Diag\+\_\+\+Result\+\_\+input}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a5fad661e972cde5872765ef3998c57d7}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!Diag\_State@{Diag\_State}}
+\index{Diag\_State@{Diag\_State}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{Diag\_State}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+Diag\+\_\+\+State}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a2bf0b3e2ea7408ba5a30bb0cb5173622}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!Diag\_Table\_input@{Diag\_Table\_input}}
+\index{Diag\_Table\_input@{Diag\_Table\_input}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{Diag\_Table\_input}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+Diag\+\_\+\+Table\+\_\+input}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_acd3a207bacf5a34d2c9c67e9c2703748}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!Entry\_Age@{Entry\_Age}}
+\index{Entry\_Age@{Entry\_Age}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{Entry\_Age}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+Entry\+\_\+\+Age}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a8e0322da507f295f5e6783f5cfa73443}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!Entry\_Freq@{Entry\_Freq}}
+\index{Entry\_Freq@{Entry\_Freq}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{Entry\_Freq}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+Entry\+\_\+\+Freq}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_adc976fe98c3ed4da5be6e1b8ddc93b82}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!Entry\_Latency@{Entry\_Latency}}
+\index{Entry\_Latency@{Entry\_Latency}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{Entry\_Latency}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+Entry\+\_\+\+Latency}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a12f43991104a352a238b135d76833ffe}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!Entry\_Polarity@{Entry\_Polarity}}
+\index{Entry\_Polarity@{Entry\_Polarity}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{Entry\_Polarity}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+Entry\+\_\+\+Polarity}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_aa36d1b6607e508bf91d4535b7ac1de10}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!Entry\_SignaldB@{Entry\_SignaldB}}
+\index{Entry\_SignaldB@{Entry\_SignaldB}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{Entry\_SignaldB}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+Entry\+\_\+\+SignaldB}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a50eeff663bd2077f3652f362e0fb6d45}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!graframe@{graframe}}
+\index{graframe@{graframe}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{graframe}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+graframe}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a18df277e6d7feb3f265712210b50e335}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!GrafTab@{GrafTab}}
+\index{GrafTab@{GrafTab}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{GrafTab}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+Graf\+Tab}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a83e82109b390a2cd43e30a2ba5822aad}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!GuiCurrState@{GuiCurrState}}
+\index{GuiCurrState@{GuiCurrState}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{GuiCurrState}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+Gui\+Curr\+State}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a01d419f398758e96f0301af17bae4fa2}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!GuiPrevState@{GuiPrevState}}
+\index{GuiPrevState@{GuiPrevState}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{GuiPrevState}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+Gui\+Prev\+State}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a7375b1bdfbdee77226341572a6527405}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!GuiUpdateDiag@{GuiUpdateDiag}}
+\index{GuiUpdateDiag@{GuiUpdateDiag}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{GuiUpdateDiag}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+Gui\+Update\+Diag}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a857186e3ab0658bab53ee8db04568d38}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!GuiUpdateState@{GuiUpdateState}}
+\index{GuiUpdateState@{GuiUpdateState}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{GuiUpdateState}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+Gui\+Update\+State}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a3dc96b5bb545d85e9eb716cd0625295b}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!Label\_Diag@{Label\_Diag}}
+\index{Label\_Diag@{Label\_Diag}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{Label\_Diag}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+Label\+\_\+\+Diag}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a5824fc7c337bdf9c514f04b75a1512a7}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!Label\_State@{Label\_State}}
+\index{Label\_State@{Label\_State}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{Label\_State}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+Label\+\_\+\+State}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a4ef2b6bbded3b6d0cf8d9b127b6c6cb5}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!MiddleWindow@{MiddleWindow}}
+\index{MiddleWindow@{MiddleWindow}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{MiddleWindow}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+Middle\+Window}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a83885fac242bfa47f8f5b798a93fa218}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!PeatcTextLogName@{PeatcTextLogName}}
+\index{PeatcTextLogName@{PeatcTextLogName}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{PeatcTextLogName}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+Peatc\+Text\+Log\+Name}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_ac545fdf29f9535907c0a98f8f2eccff9}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!PrevReadyGraf@{PrevReadyGraf}}
+\index{PrevReadyGraf@{PrevReadyGraf}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{PrevReadyGraf}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+Prev\+Ready\+Graf}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a3d9d6fca78460d21cab20a5ebf99deaf}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!PrevTextLogFileIndex@{PrevTextLogFileIndex}}
+\index{PrevTextLogFileIndex@{PrevTextLogFileIndex}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{PrevTextLogFileIndex}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+Prev\+Text\+Log\+File\+Index}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a5ba99518a4164618a16d428b382159fb}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!text@{text}}
+\index{text@{text}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{text}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+text}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a674b37636d1534f55b13f6bbf8fe2ba3}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!WaveData@{WaveData}}
+\index{WaveData@{WaveData}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{WaveData}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+Wave\+Data}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a5d4eb81671cfd2105cb50670fced695a}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!WaveTab@{WaveTab}}
+\index{WaveTab@{WaveTab}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{WaveTab}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+Wave\+Tab}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_ab780c217b07d640f4caf31c097571f6c}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!WaveTable@{WaveTable}}
+\index{WaveTable@{WaveTable}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{WaveTable}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+Wave\+Table}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_ac6c344bc47a484bb281f2c16a342401f}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!Window@{Window}}
+\index{Window@{Window}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{Window}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+Window}
+
+\mbox{\label{class_g_u_i___control_1_1_g_u_i___control_a95cc191ba21d55fbd860cc8c503f54ef}} 
+\index{GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}!yScrollbar@{yScrollbar}}
+\index{yScrollbar@{yScrollbar}!GUI\_Control.GUI\_Control@{GUI\_Control.GUI\_Control}}
+\doxysubsubsection{yScrollbar}
+{\footnotesize\ttfamily GUI\+\_\+\+Control.\+GUI\+\_\+\+Control.\+y\+Scrollbar}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Graphic\+\_\+\+App/\textbf{ GUI\+\_\+\+Control.\+py}\end{DoxyCompactItemize}

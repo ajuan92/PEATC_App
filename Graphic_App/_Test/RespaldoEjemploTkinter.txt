@@ -1,0 +1,66 @@
+window = Tk()
+window.title("PEATC_APP")
+window.geometry("500x400")
+
+tab_control = ttk.Notebook(window)
+tab1 = ttk.Frame(tab_control)
+tab2 = ttk.Frame(tab_control)
+tab_control.add(tab1, text='First')
+tab_control.add(tab2, text='Second')
+tab_control.pack(expand=1, fill='both')
+
+lbl = Label(tab1, text="Hello")
+lbl.grid(column=0, row=0)
+
+txt = Entry(tab1,width=10)
+txt.grid(column=3, row=0)
+txt.focus()
+
+def clicked():
+    print(combo.get())
+    res = "Welcome to " + txt.get()
+
+    lbl.configure(text= res)
+
+btn = Button(tab1, text="Click Me", bg="orange", fg="red",command=clicked)
+btn.grid(column=1, row=0)
+
+combo = Combobox(tab1)
+combo['values']= (1, 2, 3, 4, 5, "Text")
+combo.current(1) #set the selected item
+combo.grid(column=0, row=3)
+
+
+
+window.mainloop()
+
+
+----------------------------
+
+GrafWindow = ttk.PanedWindow(GrafFrame, orient=VERTICAL)
+GrafWindow.pack(side=TOP, expand=Y, fill=BOTH,
+        pady=2, padx='2m')
+
+tab1 = ttk.Frame(pw)
+scrollbar = Scrollbar(tab1)
+scrollbar.pack(side=RIGHT, fill=Y)
+
+wnames = ('List of Tk Widgets',
+          'button', 'canvas', 'checkbutton', 'entry',
+          'frame', 'label', 'labelframe', 'listbox',
+          'menu', 'menubutton', 'message', 'panedwindow',
+          'radiobutton', 'scale', 'scrollbar', 'spinbox',
+          'text', 'toplevel')
+
+paneList = StringVar()  # use a Tkinter variable for list values
+paneList.set(wnames)    # add list of widget names to the variable
+
+lb = Listbox(tab1, listvariable=paneList)
+
+lb.itemconfigure(0, background=lb.cget('fg'), fg=lb.cget('bg'))
+
+# add a vertical scrollbar
+vscroll = ttk.Scrollbar(tab1, orient=VERTICAL, command=lb.yview)
+lb['yscrollcommand'] = vscroll.set
+vscroll.pack(side=RIGHT, fill=Y)
+lb.pack(fill=BOTH, expand=Y)

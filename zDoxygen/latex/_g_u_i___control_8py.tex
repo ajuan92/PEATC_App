@@ -1,0 +1,43 @@
+\doxysection{E\+:/\+ARCHIVOS\+\_\+\+Y\+\_\+\+DOCUMENTOS/01\+\_\+\+Tesis\+\_\+\+Local/\+PEATC\+\_\+\+App/\+Graphic\+\_\+\+App/\+GUI\+\_\+\+Control.py File Reference}
+\label{_g_u_i___control_8py}\index{E:/ARCHIVOS\_Y\_DOCUMENTOS/01\_Tesis\_Local/PEATC\_App/Graphic\_App/GUI\_Control.py@{E:/ARCHIVOS\_Y\_DOCUMENTOS/01\_Tesis\_Local/PEATC\_App/Graphic\_App/GUI\_Control.py}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \textbf{ GUI\+\_\+\+Control.\+GUI\+\_\+\+Control}
+\begin{DoxyCompactList}\small\item\em Controlador de la aplicación grafica. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \textbf{ GUI\+\_\+\+Control}
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ GUI\+\_\+\+Control.\+CURR\+\_\+\+PATH} = os.\+path.\+dirname(os.\+path.\+realpath(\+\_\+\+\_\+file\+\_\+\+\_\+))
+\item 
+string \textbf{ GUI\+\_\+\+Control.\+APP\+\_\+\+LOGS\+\_\+\+PATH} = CURR\+\_\+\+PATH + \char`\"{}\textbackslash{}\textbackslash{}..\textbackslash{}\textbackslash{}\+\_\+\+Logs\textbackslash{}\textbackslash{}\char`\"{}
+\item 
+string \textbf{ GUI\+\_\+\+Control.\+LOW\+\_\+\+DRIVE\+\_\+\+PATH} = CURR\+\_\+\+PATH + \char`\"{}\textbackslash{}\textbackslash{}..\textbackslash{}\textbackslash{}Control\+\_\+\+Block\char`\"{}
+\item 
+string \textbf{ GUI\+\_\+\+Control.\+CONFIG\+\_\+\+DRIVE\+\_\+\+PATH} = CURR\+\_\+\+PATH + \char`\"{}\textbackslash{}\textbackslash{}..\textbackslash{}\textbackslash{}Config\char`\"{}
+\item 
+int \textbf{ GUI\+\_\+\+Control.\+STATE\+\_\+\+STAND\+\_\+\+BY} = 0
+\begin{DoxyCompactList}\small\item\em Estado Stand by\+: La aplicación está a la espera de un comando del usuario. \end{DoxyCompactList}\item 
+int \textbf{ GUI\+\_\+\+Control.\+STATE\+\_\+\+RESET} = 11
+\begin{DoxyCompactList}\small\item\em Estado Reset\+: Se borra la información, gráficas y datos de la última prueba y diagnóstico de PEATC. \end{DoxyCompactList}\item 
+int \textbf{ GUI\+\_\+\+Control.\+STATE\+\_\+\+INIT\+\_\+\+TEST} = 2
+\begin{DoxyCompactList}\small\item\em Estado Init Test\+: Se envía el comando al driver del sistema que genera el estímulo sonoro y captura la señal cruda PEATC. \end{DoxyCompactList}\item 
+int \textbf{ GUI\+\_\+\+Control.\+STATE\+\_\+\+WAIT\+\_\+\+RAW\+\_\+\+DATA} = 3
+\begin{DoxyCompactList}\small\item\em Estado Wait raw data\+: Se espera la captura de la señal de PEATC. \end{DoxyCompactList}\item 
+int \textbf{ GUI\+\_\+\+Control.\+STATE\+\_\+\+ANALYZE\+\_\+\+DATA} = 4
+\begin{DoxyCompactList}\small\item\em Estado Analyze data\+: Se utiliza la señal de PEATC obtenida y utilizando el módulo PEATC Analyze se extraen las latencias y amplitudes de las ondas de PEATC. \end{DoxyCompactList}\item 
+int \textbf{ GUI\+\_\+\+Control.\+STATE\+\_\+\+INIT\+\_\+\+DIAGNOSTIC} = 5
+\begin{DoxyCompactList}\small\item\em Estado Init Diagnostic\+: Envía las latencias y amplitudes, así como la edad del paciente al sistema que determina el diagnóstico de la prueba. \end{DoxyCompactList}\item 
+int \textbf{ GUI\+\_\+\+Control.\+STATE\+\_\+\+WAIT\+\_\+\+DIAGNOSTIC} = 6
+\begin{DoxyCompactList}\small\item\em Estado Wait Diagnostic\+: En espera del resultado del sistema que determina el diagnostico. \end{DoxyCompactList}\item 
+int \textbf{ GUI\+\_\+\+Control.\+STATE\+\_\+\+SEND\+\_\+\+RESULT} = 7
+\begin{DoxyCompactList}\small\item\em Estado Send Result\+: Se recibe y despliega el diagnostico de las señales de PEATC. \end{DoxyCompactList}\item 
+int \textbf{ GUI\+\_\+\+Control.\+STATE\+\_\+\+CREATING\+\_\+\+LOG} = 8
+\begin{DoxyCompactList}\small\item\em Estado Creating log\+: Se crea un archivo csv con los datos de las señales de PEATC capturadas en la prueba, junto con su diagnostico. \end{DoxyCompactList}\item 
+dictionary \textbf{ GUI\+\_\+\+Control.\+State\+\_\+\+Dict}
+\begin{DoxyCompactList}\small\item\em Diccionario con los estados desplegados en la GUI. \end{DoxyCompactList}\end{DoxyCompactItemize}

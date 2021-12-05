@@ -9,10 +9,17 @@ sys.path.append(
 
 print(BASE_LD_PATH)
 
+BASE_PEATC_APP_PATH = os.getcwd()
+CONFIG_DRIVE_PATH = BASE_PEATC_APP_PATH + "\\..\\..\\Config"
+sys.path.append(
+    CONFIG_DRIVE_PATH)
+
 from PEATC_GS_AS import PEATC_Gs_As
 from PEATC_Diagnostic import PEATC_Diagnostic
 from _Test_RawVal_PEATC import*
 import struct
+
+TEST_FPGA_RESET_PATH = BASE_LD_PATH + "\\dev\\xillybus_fpga_reset"
 
 TEST_GS_START_PATH = BASE_LD_PATH + "\\dev\\xillybus_gs_start_test"
 TEST_GS_RAW_PATH = BASE_LD_PATH + "\\dev\\xillybus_gs_raw_signal"
@@ -22,6 +29,8 @@ TEST_RN_DIAG_RESULT = BASE_LD_PATH + "\\dev\\xillybus_rn_diag_result"
 
 
 # -------------------------PRE-TEST---------------------------------
+with open(TEST_FPGA_RESET_PATH, 'w') as FileGs_Start:
+    pass
 
 with open(TEST_GS_START_PATH, 'w') as FileGs_Start:
     pass

@@ -1,0 +1,88 @@
+\doxysection{PEATC\+\_\+\+GS\+\_\+\+AS.\+PEATC\+\_\+\+Gs\+\_\+\+As Class Reference}
+\label{class_p_e_a_t_c___g_s___a_s_1_1_p_e_a_t_c___gs___as}\index{PEATC\_GS\_AS.PEATC\_Gs\_As@{PEATC\_GS\_AS.PEATC\_Gs\_As}}
+
+
+Driver para el sistema Generate Signal, Analog Signal.  
+
+
+
+
+Inheritance diagram for PEATC\+\_\+\+GS\+\_\+\+AS.\+PEATC\+\_\+\+Gs\+\_\+\+As\+:
+% FIG 0
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \textbf{ \+\_\+\+\_\+new\+\_\+\+\_\+} (self)
+\begin{DoxyCompactList}\small\item\em Implementación del patrón de diseño singelton, ya que se debe resguardar la manipulación de los archivos del \doxyref{Xillybus}{p.}{namespace_xillybus}, ya que el manipular dichos archivos influye en señales de Hw generadas por el core del Xillibus. \end{DoxyCompactList}\item 
+def \textbf{ Init\+Test} (self, $\ast$$\ast$Test\+Profile)
+\begin{DoxyCompactList}\small\item\em Driver para el sistema Generate Signal, Analog Signal. \end{DoxyCompactList}\item 
+def \textbf{ Get\+Raw\+Signal} (self, str Temp\+\_\+file)
+\begin{DoxyCompactList}\small\item\em Crea un archivo con la señal cruda resultante de la lectura analogica de PEATC. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Is\+Singleton} = None
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Driver para el sistema Generate Signal, Analog Signal. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\label{class_p_e_a_t_c___g_s___a_s_1_1_p_e_a_t_c___gs___as_a99722d52ca24865f847c6dafbdc674b9}} 
+\index{PEATC\_GS\_AS.PEATC\_Gs\_As@{PEATC\_GS\_AS.PEATC\_Gs\_As}!\_\_new\_\_@{\_\_new\_\_}}
+\index{\_\_new\_\_@{\_\_new\_\_}!PEATC\_GS\_AS.PEATC\_Gs\_As@{PEATC\_GS\_AS.PEATC\_Gs\_As}}
+\doxysubsubsection{\_\_new\_\_()}
+{\footnotesize\ttfamily def PEATC\+\_\+\+GS\+\_\+\+AS.\+PEATC\+\_\+\+Gs\+\_\+\+As.\+\_\+\+\_\+new\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Implementación del patrón de diseño singelton, ya que se debe resguardar la manipulación de los archivos del \doxyref{Xillybus}{p.}{namespace_xillybus}, ya que el manipular dichos archivos influye en señales de Hw generadas por el core del Xillibus. 
+
+\mbox{\label{class_p_e_a_t_c___g_s___a_s_1_1_p_e_a_t_c___gs___as_a0a10259fa04e6766c0da93f4a2be432d}} 
+\index{PEATC\_GS\_AS.PEATC\_Gs\_As@{PEATC\_GS\_AS.PEATC\_Gs\_As}!GetRawSignal@{GetRawSignal}}
+\index{GetRawSignal@{GetRawSignal}!PEATC\_GS\_AS.PEATC\_Gs\_As@{PEATC\_GS\_AS.PEATC\_Gs\_As}}
+\doxysubsubsection{GetRawSignal()}
+{\footnotesize\ttfamily def PEATC\+\_\+\+GS\+\_\+\+AS.\+PEATC\+\_\+\+Gs\+\_\+\+As.\+Get\+Raw\+Signal (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{str}]{Temp\+\_\+file }\end{DoxyParamCaption})}
+
+
+
+Crea un archivo con la señal cruda resultante de la lectura analogica de PEATC. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Temp\+\_\+file} & Ruta del archivo temporal donde se almacenara la señal cruda de PEATC \\
+\hline
+\end{DoxyParams}
+\mbox{\label{class_p_e_a_t_c___g_s___a_s_1_1_p_e_a_t_c___gs___as_a93a62f0850441efa8c534015282cee30}} 
+\index{PEATC\_GS\_AS.PEATC\_Gs\_As@{PEATC\_GS\_AS.PEATC\_Gs\_As}!InitTest@{InitTest}}
+\index{InitTest@{InitTest}!PEATC\_GS\_AS.PEATC\_Gs\_As@{PEATC\_GS\_AS.PEATC\_Gs\_As}}
+\doxysubsubsection{InitTest()}
+{\footnotesize\ttfamily def PEATC\+\_\+\+GS\+\_\+\+AS.\+PEATC\+\_\+\+Gs\+\_\+\+As.\+Init\+Test (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{$\ast$$\ast$}]{Test\+Profile }\end{DoxyParamCaption})}
+
+
+
+Driver para el sistema Generate Signal, Analog Signal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Test\+Profile} & Trama de la configuración para generar el estimulo sonoro en el sistema GS\\
+\hline
+\end{DoxyParams}
+\begin{DoxyVerb}Revisión de valores limite en parametros para la
+generación de la señal estimulo
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\label{class_p_e_a_t_c___g_s___a_s_1_1_p_e_a_t_c___gs___as_a5b056a9d4899bb99cfed1e88c2ed9d04}} 
+\index{PEATC\_GS\_AS.PEATC\_Gs\_As@{PEATC\_GS\_AS.PEATC\_Gs\_As}!IsSingleton@{IsSingleton}}
+\index{IsSingleton@{IsSingleton}!PEATC\_GS\_AS.PEATC\_Gs\_As@{PEATC\_GS\_AS.PEATC\_Gs\_As}}
+\doxysubsubsection{IsSingleton}
+{\footnotesize\ttfamily PEATC\+\_\+\+GS\+\_\+\+AS.\+PEATC\+\_\+\+Gs\+\_\+\+As.\+Is\+Singleton = None\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+E\+:/\+ARCHIVOS\+\_\+\+Y\+\_\+\+DOCUMENTOS/01\+\_\+\+Tesis\+\_\+\+Local/\+PEATC\+\_\+\+App/\+Low\+\_\+\+Drivers/\textbf{ PEATC\+\_\+\+GS\+\_\+\+AS.\+py}\end{DoxyCompactItemize}

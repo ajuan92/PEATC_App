@@ -1,22 +1,49 @@
 import os
+import sys
 import Xillybus
+
 PEATC_DIAGNOSTIC_PATH = os.path.dirname(os.path.realpath(__file__))
+CONFIG_DRIVE_PATH = PEATC_DIAGNOSTIC_PATH + "\\..\\Config"
+sys.path.append(
+    CONFIG_DRIVE_PATH)
+
+from PEATC_Config import*
+
+'''!
+Ruta para el arvhivo para reiniciar la logica
+en el FPGA
+'''
+if PEATC_CONFIG_CURR_OS is "Linux":
+    if PEATC_CONFIG_TEST_MODE is False:
+        RN_FPGA_RESET_PATH = '/dev/xillybus_fpga_reset'
+    else:
+        RN_FPGA_RESET_PATH = PEATC_DIAGNOSTIC_PATH + "/dev/xillybus_fpga_reset"
+else:
+    RN_FPGA_RESET_PATH = PEATC_DIAGNOSTIC_PATH + "\\dev\\xillybus_fpga_reset"
 
 '''!
 Ruta para el arvhivo que contiene los datos
 crudos transmitido del sistema RN al host
 '''
-# RN_PARAM_PATH = '/dev/xillybus_rn_diag_param'
-RN_PARAM_PATH = PEATC_DIAGNOSTIC_PATH + "\\dev\\xillybus_rn_diag_param"
-# RN_PARAM_PATH = 'dev\\xillybus_rn_diag_param'
+if PEATC_CONFIG_CURR_OS is "Linux":
+    if PEATC_CONFIG_TEST_MODE is False:
+        RN_PARAM_PATH = '/dev/xillybus_rn_diag_param'
+    else:
+        RN_PARAM_PATH = PEATC_DIAGNOSTIC_PATH + "/dev/xillybus_rn_diag_param"
+else:
+    RN_PARAM_PATH = PEATC_DIAGNOSTIC_PATH + "\\dev\\xillybus_rn_diag_param"
 
 '''!
 Ruta para el arvhivo que contiene los datos
 crudos transmitido del sistema RN al host
 '''
-# RN_RESULT_PATH = '/dev/xillybus_rn_diag_result'
-RN_RESULT_PATH = PEATC_DIAGNOSTIC_PATH + "\\dev\\xillybus_rn_diag_result"
-# RN_RESULT_PATH = 'dev\\xillybus_rn_diag_result'
+if PEATC_CONFIG_CURR_OS is "Linux":
+    if PEATC_CONFIG_TEST_MODE is False:
+        RN_RESULT_PATH = '/dev/xillybus_rn_diag_result'
+    else:
+        RN_RESULT_PATH = PEATC_DIAGNOSTIC_PATH + "/dev/xillybus_rn_diag_result"       
+else:
+    RN_RESULT_PATH = PEATC_DIAGNOSTIC_PATH + "\\dev\\xillybus_rn_diag_result"
 
 
 class PEATC_Diagnostic:
@@ -57,6 +84,8 @@ class PEATC_Diagnostic:
         '''
         Asignación de trama para el comando enviado al sistema RN
         '''
+        Xillybus.memory_write(RN_FPGA_RESET_PATH, [0,0,0,0])
+
         MatrixStream = [PatientAge]
         MatrixStream.extend(MatrixParams)
         ByteSplit = [0, 0]

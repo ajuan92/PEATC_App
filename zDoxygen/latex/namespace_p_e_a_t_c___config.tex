@@ -1,0 +1,82 @@
+\doxysection{PEATC\+\_\+\+Config Namespace Reference}
+\label{namespace_p_e_a_t_c___config}\index{PEATC\_Config@{PEATC\_Config}}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+string \textbf{ PEATC\+\_\+\+CONFIG\+\_\+\+DEB\+\_\+\+LOG\+\_\+\+PATH} = \char`\"{}Debug\+\_\+\+Log\+\_\+\+Output.\+txt\char`\"{}
+\item 
+list \textbf{ PEATC\+\_\+\+CONFIG\+\_\+\+SignaldB} = [30, 35, 40, 45, 50, 55, 60, 70]
+\item 
+list \textbf{ PEATC\+\_\+\+CONFIG\+\_\+\+Latency} = [100, 233, 120, 54]
+\item 
+list \textbf{ PEATC\+\_\+\+CONFIG\+\_\+\+Freq} = [50, 70, 100, 150]
+\item 
+dictionary \textbf{ PEATC\+\_\+\+Conf\+\_\+\+Diag\+\_\+\+Dict}
+\item 
+int \textbf{ PEATC\+\_\+\+CONFIG\+\_\+\+AMP\+\_\+\+THRESHOLD} = 10
+\item 
+int \textbf{ PEATC\+\_\+\+CONFIG\+\_\+\+TIME\+\_\+\+US\+\_\+\+PER\+\_\+\+SAMPLE} = 100
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\label{namespace_p_e_a_t_c___config_a6adc65a8169f17cffd89330456a5873c}} 
+\index{PEATC\_Config@{PEATC\_Config}!PEATC\_Conf\_Diag\_Dict@{PEATC\_Conf\_Diag\_Dict}}
+\index{PEATC\_Conf\_Diag\_Dict@{PEATC\_Conf\_Diag\_Dict}!PEATC\_Config@{PEATC\_Config}}
+\doxysubsubsection{PEATC\_Conf\_Diag\_Dict}
+{\footnotesize\ttfamily dictionary PEATC\+\_\+\+Config.\+PEATC\+\_\+\+Conf\+\_\+\+Diag\+\_\+\+Dict}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 =  \{}
+\DoxyCodeLine{2     \textcolor{stringliteral}{"{}Normal values"{}}: 0,}
+\DoxyCodeLine{3     \textcolor{stringliteral}{"{}Prolonged latency in Wave I"{}}: 1,}
+\DoxyCodeLine{4     \textcolor{stringliteral}{"{}Prolonged latency between peaks I-\/III"{}}: 2,}
+\DoxyCodeLine{5     \textcolor{stringliteral}{"{}Prolonged latency between peaks III-\/V"{}}: 3,}
+\DoxyCodeLine{6     \textcolor{stringliteral}{"{}Prolonged latency between peaks IV-\/V and III-\/V "{}}: 4,}
+\DoxyCodeLine{7     \textcolor{stringliteral}{"{}Wave III absent with presence of I and V"{}}: 5,}
+\DoxyCodeLine{8     \textcolor{stringliteral}{"{}Wave V absent with presence of I and III"{}}: 6,}
+\DoxyCodeLine{9     \textcolor{stringliteral}{"{}Wave V absent with normal of I and III"{}}: 7,}
+\DoxyCodeLine{10     \textcolor{stringliteral}{"{}Absence of waves"{}}: 8,}
+\DoxyCodeLine{11     \textcolor{stringliteral}{"{}Excess in amplitude radius V / I"{}}: 9,}
+\DoxyCodeLine{12     \textcolor{stringliteral}{"{}Absence of waves except I (and possibly II)"{}}: 10,}
+\DoxyCodeLine{13     \textcolor{stringliteral}{"{}No Diagnostic"{}}: 11}
+\DoxyCodeLine{14 \}}
+
+\end{DoxyCode}
+\mbox{\label{namespace_p_e_a_t_c___config_aa73cc7075396a1d329fb13b3ca55b0cd}} 
+\index{PEATC\_Config@{PEATC\_Config}!PEATC\_CONFIG\_AMP\_THRESHOLD@{PEATC\_CONFIG\_AMP\_THRESHOLD}}
+\index{PEATC\_CONFIG\_AMP\_THRESHOLD@{PEATC\_CONFIG\_AMP\_THRESHOLD}!PEATC\_Config@{PEATC\_Config}}
+\doxysubsubsection{PEATC\_CONFIG\_AMP\_THRESHOLD}
+{\footnotesize\ttfamily int PEATC\+\_\+\+Config.\+PEATC\+\_\+\+CONFIG\+\_\+\+AMP\+\_\+\+THRESHOLD = 10}
+
+\mbox{\label{namespace_p_e_a_t_c___config_a2b12503756867e862dce3914f74b5f31}} 
+\index{PEATC\_Config@{PEATC\_Config}!PEATC\_CONFIG\_DEB\_LOG\_PATH@{PEATC\_CONFIG\_DEB\_LOG\_PATH}}
+\index{PEATC\_CONFIG\_DEB\_LOG\_PATH@{PEATC\_CONFIG\_DEB\_LOG\_PATH}!PEATC\_Config@{PEATC\_Config}}
+\doxysubsubsection{PEATC\_CONFIG\_DEB\_LOG\_PATH}
+{\footnotesize\ttfamily string PEATC\+\_\+\+Config.\+PEATC\+\_\+\+CONFIG\+\_\+\+DEB\+\_\+\+LOG\+\_\+\+PATH = \char`\"{}Debug\+\_\+\+Log\+\_\+\+Output.\+txt\char`\"{}}
+
+\mbox{\label{namespace_p_e_a_t_c___config_a6f62d38759398dfd0567dc69c59c819b}} 
+\index{PEATC\_Config@{PEATC\_Config}!PEATC\_CONFIG\_Freq@{PEATC\_CONFIG\_Freq}}
+\index{PEATC\_CONFIG\_Freq@{PEATC\_CONFIG\_Freq}!PEATC\_Config@{PEATC\_Config}}
+\doxysubsubsection{PEATC\_CONFIG\_Freq}
+{\footnotesize\ttfamily list PEATC\+\_\+\+Config.\+PEATC\+\_\+\+CONFIG\+\_\+\+Freq = [50, 70, 100, 150]}
+
+\mbox{\label{namespace_p_e_a_t_c___config_aeb6e695c01511d5540c7db5f4de66da5}} 
+\index{PEATC\_Config@{PEATC\_Config}!PEATC\_CONFIG\_Latency@{PEATC\_CONFIG\_Latency}}
+\index{PEATC\_CONFIG\_Latency@{PEATC\_CONFIG\_Latency}!PEATC\_Config@{PEATC\_Config}}
+\doxysubsubsection{PEATC\_CONFIG\_Latency}
+{\footnotesize\ttfamily list PEATC\+\_\+\+Config.\+PEATC\+\_\+\+CONFIG\+\_\+\+Latency = [100, 233, 120, 54]}
+
+\mbox{\label{namespace_p_e_a_t_c___config_a59d11e09318db5a11a95a40a39c2fbd2}} 
+\index{PEATC\_Config@{PEATC\_Config}!PEATC\_CONFIG\_SignaldB@{PEATC\_CONFIG\_SignaldB}}
+\index{PEATC\_CONFIG\_SignaldB@{PEATC\_CONFIG\_SignaldB}!PEATC\_Config@{PEATC\_Config}}
+\doxysubsubsection{PEATC\_CONFIG\_SignaldB}
+{\footnotesize\ttfamily list PEATC\+\_\+\+Config.\+PEATC\+\_\+\+CONFIG\+\_\+\+SignaldB = [30, 35, 40, 45, 50, 55, 60, 70]}
+
+\mbox{\label{namespace_p_e_a_t_c___config_ae0b1c2e255851cd0c923b49371df19f3}} 
+\index{PEATC\_Config@{PEATC\_Config}!PEATC\_CONFIG\_TIME\_US\_PER\_SAMPLE@{PEATC\_CONFIG\_TIME\_US\_PER\_SAMPLE}}
+\index{PEATC\_CONFIG\_TIME\_US\_PER\_SAMPLE@{PEATC\_CONFIG\_TIME\_US\_PER\_SAMPLE}!PEATC\_Config@{PEATC\_Config}}
+\doxysubsubsection{PEATC\_CONFIG\_TIME\_US\_PER\_SAMPLE}
+{\footnotesize\ttfamily int PEATC\+\_\+\+Config.\+PEATC\+\_\+\+CONFIG\+\_\+\+TIME\+\_\+\+US\+\_\+\+PER\+\_\+\+SAMPLE = 100}
+

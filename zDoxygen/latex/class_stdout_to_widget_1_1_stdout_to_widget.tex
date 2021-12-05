@@ -1,0 +1,115 @@
+\doxysection{Stdout\+To\+Widget.\+Stdout\+To\+Widget Class Reference}
+\label{class_stdout_to_widget_1_1_stdout_to_widget}\index{StdoutToWidget.StdoutToWidget@{StdoutToWidget.StdoutToWidget}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{class_stdout_to_widget_1_1_stdout_to_widget_a58fcfa2e5d24713ee4573c4602e52871}} 
+def {\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, widget, height=\textquotesingle{}default\textquotesingle{}, width=\textquotesingle{}default\textquotesingle{})
+\item 
+def \textbf{ flush} (self)
+\item 
+def \textbf{ write} (self, string, end=None)
+\item 
+def \textbf{ start} (self)
+\item 
+def \textbf{ stop} (self)
+\item 
+\mbox{\label{class_stdout_to_widget_1_1_stdout_to_widget_a40c3a2c87ed1306fe3d86d58e63b8f51}} 
+def {\bfseries content} (self)
+\item 
+\mbox{\label{class_stdout_to_widget_1_1_stdout_to_widget_adf2baefe97c599b3dd504c389e75d468}} 
+def {\bfseries content} (self, string)
+\item 
+\mbox{\label{class_stdout_to_widget_1_1_stdout_to_widget_a14a910ef8f7938190a6c5232acae1c3d}} 
+def {\bfseries errors} (self)
+\item 
+\mbox{\label{class_stdout_to_widget_1_1_stdout_to_widget_a6143b7960a6ff2cae42723e18a9549db}} 
+def {\bfseries encoding} (self)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{class_stdout_to_widget_1_1_stdout_to_widget_aac84bfa6a3f371e7f4713a8be09132b5}} 
+{\bfseries defstdout}
+\item 
+\mbox{\label{class_stdout_to_widget_1_1_stdout_to_widget_ae79765aa48343307399ddcce301a8670}} 
+{\bfseries widget}
+\item 
+\mbox{\label{class_stdout_to_widget_1_1_stdout_to_widget_acc6cefe1a8d965150354c507bd31ebda}} 
+{\bfseries height}
+\item 
+\mbox{\label{class_stdout_to_widget_1_1_stdout_to_widget_aa6f4e4c6ff4e30f8052e1215f9b96a20}} 
+{\bfseries width}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Retrieves sys.stdout and show write calls also in a tkinter
+widget. It accepts widgets which have a "text" config and defines
+their width and height in characters. It also accepts Text widgets.
+Use stop() to stop retrieving.
+
+You can manage output height by using the keyword argument. By default
+the class tries to get widget\'s height configuration and use that. If
+that fails it sets self.height to None which you can also do manually.
+In this case the output will not be trimmed. However if you do not
+manage your widget, it can grow vertically hard by getting more and
+more inputs.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\label{class_stdout_to_widget_1_1_stdout_to_widget_a75daae917de8149a149aa7ac3586ac8f}} 
+\index{StdoutToWidget.StdoutToWidget@{StdoutToWidget.StdoutToWidget}!flush@{flush}}
+\index{flush@{flush}!StdoutToWidget.StdoutToWidget@{StdoutToWidget.StdoutToWidget}}
+\doxysubsubsection{flush()}
+{\footnotesize\ttfamily def Stdout\+To\+Widget.\+Stdout\+To\+Widget.\+flush (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Frame sys.stdout's flush method.
+\end{DoxyVerb}
+ Here is the call graph for this function\+:
+% FIG 0
+Here is the caller graph for this function\+:
+% FIG 1
+\mbox{\label{class_stdout_to_widget_1_1_stdout_to_widget_acbecd59790f39227c84fb7922d8b89ba}} 
+\index{StdoutToWidget.StdoutToWidget@{StdoutToWidget.StdoutToWidget}!start@{start}}
+\index{start@{start}!StdoutToWidget.StdoutToWidget@{StdoutToWidget.StdoutToWidget}}
+\doxysubsubsection{start()}
+{\footnotesize\ttfamily def Stdout\+To\+Widget.\+Stdout\+To\+Widget.\+start (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Starts retrieving.
+\end{DoxyVerb}
+ Here is the call graph for this function\+:
+% FIG 2
+Here is the caller graph for this function\+:
+% FIG 3
+\mbox{\label{class_stdout_to_widget_1_1_stdout_to_widget_afa2053b16770c678f88cc204830ade79}} 
+\index{StdoutToWidget.StdoutToWidget@{StdoutToWidget.StdoutToWidget}!stop@{stop}}
+\index{stop@{stop}!StdoutToWidget.StdoutToWidget@{StdoutToWidget.StdoutToWidget}}
+\doxysubsubsection{stop()}
+{\footnotesize\ttfamily def Stdout\+To\+Widget.\+Stdout\+To\+Widget.\+stop (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Stops retrieving.
+\end{DoxyVerb}
+ Here is the call graph for this function\+:
+% FIG 4
+Here is the caller graph for this function\+:
+% FIG 5
+\mbox{\label{class_stdout_to_widget_1_1_stdout_to_widget_a47060810b3b2186d6666c37010ae9dc7}} 
+\index{StdoutToWidget.StdoutToWidget@{StdoutToWidget.StdoutToWidget}!write@{write}}
+\index{write@{write}!StdoutToWidget.StdoutToWidget@{StdoutToWidget.StdoutToWidget}}
+\doxysubsubsection{write()}
+{\footnotesize\ttfamily def Stdout\+To\+Widget.\+Stdout\+To\+Widget.\+write (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{string,  }\item[{}]{end = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Frame sys.stdout's write method. This method puts the input
+strings to the widget.
+\end{DoxyVerb}
+ Here is the call graph for this function\+:
+% FIG 6
+Here is the caller graph for this function\+:
+% FIG 7
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Graphic\+\_\+\+App/\+\_\+\+Test/Stdout\+To\+Widget.\+py\end{DoxyCompactItemize}

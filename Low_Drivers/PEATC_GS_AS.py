@@ -4,23 +4,48 @@ import Xillybus
 import struct
 
 PEATC_GS_AS_PATH = os.path.dirname(os.path.realpath(__file__))
+CONFIG_DRIVE_PATH = PEATC_GS_AS_PATH + "\\..\\Config"
+sys.path.append(
+    CONFIG_DRIVE_PATH)
+
+from PEATC_Config import*
+
+'''!
+Ruta para el arvhivo para reiniciar la logica
+en el FPGA
+'''
+if PEATC_CONFIG_CURR_OS is "Linux":
+    if PEATC_CONFIG_TEST_MODE is False:
+        GS_FPGA_RESET_PATH = '/dev/xillybus_fpga_reset'
+    else:
+        GS_FPGA_RESET_PATH = PEATC_GS_AS_PATH + "/dev/xillybus_fpga_reset"
+else:
+    GS_FPGA_RESET_PATH = PEATC_GS_AS_PATH + "\\dev\\xillybus_fpga_reset"
 
 '''!
 Ruta para el arvhivo que transmite del host
 al sistema GS_AS
 '''
-# GS_START_PATH = '/dev/xillybus_gs_start_test'
-GS_START_PATH = PEATC_GS_AS_PATH + "\\dev\\xillybus_gs_start_test"
-# GS_START_PATH = 'dev\\xillybus_gs_start_test'
+if PEATC_CONFIG_CURR_OS is "Linux":
+    if PEATC_CONFIG_TEST_MODE is False:
+        GS_START_PATH = '/dev/xillybus_gs_start_test'
+    else:
+        GS_START_PATH = PEATC_GS_AS_PATH + "/dev/xillybus_gs_start_test"
+else:
+    GS_START_PATH = PEATC_GS_AS_PATH + "\\dev\\xillybus_gs_start_test"
 
 
 '''!
 Ruta para el arvhivo que contiene los datos
 crudos transmitido del sistema GS_AS al host
 '''
-# GS_RAW_PATH = '/dev/xillybus_gs_raw_signal'
-GS_RAW_PATH = PEATC_GS_AS_PATH + "\\dev\\xillybus_gs_raw_signal"
-# GS_RAW_PATH = 'dev\\xillybus_gs_raw_signal'
+if PEATC_CONFIG_CURR_OS is "Linux":
+    if PEATC_CONFIG_TEST_MODE is False:
+        GS_RAW_PATH = '/dev/xillybus_gs_raw_signal'
+    else:
+        GS_RAW_PATH = PEATC_GS_AS_PATH + "/dev/xillybus_gs_raw_signal"
+else:
+    GS_RAW_PATH = PEATC_GS_AS_PATH + "\\dev\\xillybus_gs_raw_signal"
 
 
 TestParamsLimits = {
@@ -62,6 +87,7 @@ class PEATC_Gs_As:
         Revisión de valores limite en parametros para la
         generación de la señal estimulo
         '''
+        Xillybus.memory_write(GS_FPGA_RESET_PATH, [0,0,0,0])
 
         for key in TestParamsLimits:
 

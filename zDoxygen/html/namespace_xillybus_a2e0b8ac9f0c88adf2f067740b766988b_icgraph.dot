@@ -1,0 +1,12 @@
+digraph "Xillybus.memory_read"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="Xillybus.memory_read",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="reads bytes from a rc2f memory file"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="PEATC_Diagnostic.PEATC\l_Diagnostic.GetDiagnostic",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_p_e_a_t_c___diagnostic_1_1_p_e_a_t_c___diagnostic.html#aeef29aada419d7f2c57cd44c5a00e61a",tooltip="Lee el archivo de Xillybus donde se encientra el diagnostico retornado por la red neuronal."];
+  Node2 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

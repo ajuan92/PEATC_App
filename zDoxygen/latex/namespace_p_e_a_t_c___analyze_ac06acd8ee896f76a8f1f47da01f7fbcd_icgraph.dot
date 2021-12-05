@@ -1,0 +1,12 @@
+digraph "PEATC_Analyze.AnalyzeSignal"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="PEATC_Analyze.AnalyzeSignal",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Analiza los datos crudos de la señal de PEATC."];
+  Node1 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="PEATC_Control.PEATC\l_Control.ControlHandler",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_p_e_a_t_c___control_1_1_p_e_a_t_c___control.html#ade21f620263f80994d238c43a3cb8c94",tooltip="Parte central de la tarea de control, maneja la maquina de estados para la realización de la prueba d..."];
+  Node2 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+}

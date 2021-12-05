@@ -1,0 +1,108 @@
+\doxysection{Xillybus Namespace Reference}
+\label{namespace_xillybus}\index{Xillybus@{Xillybus}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \textbf{ memory\+\_\+write} (str dev\+\_\+file, tuple data)
+\begin{DoxyCompactList}\small\item\em reads a byte from a rc2f memory file \end{DoxyCompactList}\item 
+int \textbf{ stream\+\_\+write} (str dev\+\_\+file, data)
+\begin{DoxyCompactList}\small\item\em stream data into the device \end{DoxyCompactList}\item 
+tuple \textbf{ memory\+\_\+read} (str dev\+\_\+file, length=1)
+\begin{DoxyCompactList}\small\item\em reads bytes from a rc2f memory file \end{DoxyCompactList}\item 
+def \textbf{ stream\+\_\+read} (str dev\+\_\+file, length=2 $\ast$$\ast$12, chunk\+\_\+size=2 $\ast$$\ast$12)
+\begin{DoxyCompactList}\small\item\em reads data from the device into an array of chuck\+\_\+size bytes and yields it \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+string \textbf{ \+\_\+\+\_\+author\+\_\+\+\_\+} = \textquotesingle{}Paul Genssler\textquotesingle{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\label{namespace_xillybus_a2e0b8ac9f0c88adf2f067740b766988b}} 
+\index{Xillybus@{Xillybus}!memory\_read@{memory\_read}}
+\index{memory\_read@{memory\_read}!Xillybus@{Xillybus}}
+\doxysubsubsection{memory\_read()}
+{\footnotesize\ttfamily  tuple Xillybus.\+memory\+\_\+read (\begin{DoxyParamCaption}\item[{str}]{dev\+\_\+file,  }\item[{}]{length = {\ttfamily 1} }\end{DoxyParamCaption})}
+
+
+
+reads bytes from a rc2f memory file 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dev\+\_\+file} & the memory to use \\
+\hline
+{\em length} & how many bytes to read \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\+: the read bytes as a tuple @rtype\+: tuple 
+\end{DoxyReturn}
+\mbox{\label{namespace_xillybus_a36bc846b679145e191b87d845f8339e5}} 
+\index{Xillybus@{Xillybus}!memory\_write@{memory\_write}}
+\index{memory\_write@{memory\_write}!Xillybus@{Xillybus}}
+\doxysubsubsection{memory\_write()}
+{\footnotesize\ttfamily def Xillybus.\+memory\+\_\+write (\begin{DoxyParamCaption}\item[{str}]{dev\+\_\+file,  }\item[{tuple}]{data }\end{DoxyParamCaption})}
+
+
+
+reads a byte from a rc2f memory file 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dev\+\_\+file} & the memory to use \\
+\hline
+{\em address} & which byte to read \\
+\hline
+{\em data} & a tuple of bytes to write \\
+\hline
+\end{DoxyParams}
+\mbox{\label{namespace_xillybus_a4a68dd6f37063bbea5e4597844a845df}} 
+\index{Xillybus@{Xillybus}!stream\_read@{stream\_read}}
+\index{stream\_read@{stream\_read}!Xillybus@{Xillybus}}
+\doxysubsubsection{stream\_read()}
+{\footnotesize\ttfamily def Xillybus.\+stream\+\_\+read (\begin{DoxyParamCaption}\item[{str}]{dev\+\_\+file,  }\item[{}]{length = {\ttfamily 2~$\ast$$\ast$~12},  }\item[{}]{chunk\+\_\+size = {\ttfamily 2~$\ast$$\ast$~12} }\end{DoxyParamCaption})}
+
+
+
+reads data from the device into an array of chuck\+\_\+size bytes and yields it 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dev\+\_\+file} & the target device \\
+\hline
+{\em length} & how many bytes to read, -\/1 until eof \\
+\hline
+{\em chunk\+\_\+size} & how much data per read, low values impact performance \\
+\hline
+\end{DoxyParams}
+\mbox{\label{namespace_xillybus_adb51710f3db2e1091f4ad36fb827143e}} 
+\index{Xillybus@{Xillybus}!stream\_write@{stream\_write}}
+\index{stream\_write@{stream\_write}!Xillybus@{Xillybus}}
+\doxysubsubsection{stream\_write()}
+{\footnotesize\ttfamily  int Xillybus.\+stream\+\_\+write (\begin{DoxyParamCaption}\item[{str}]{dev\+\_\+file,  }\item[{}]{data }\end{DoxyParamCaption})}
+
+
+
+stream data into the device 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dev\+\_\+file} & the target device \\
+\hline
+{\em data} & data to write, iterable and slicable container (like a list) with bytes objects \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\+: how many bytes were written @rtype\+: int 
+\end{DoxyReturn}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\label{namespace_xillybus_a0c670946404a35a83667ac05c2e5daec}} 
+\index{Xillybus@{Xillybus}!\_\_author\_\_@{\_\_author\_\_}}
+\index{\_\_author\_\_@{\_\_author\_\_}!Xillybus@{Xillybus}}
+\doxysubsubsection{\_\_author\_\_}
+{\footnotesize\ttfamily string Xillybus.\+\_\+\+\_\+author\+\_\+\+\_\+ = \textquotesingle{}Paul Genssler\textquotesingle{}\hspace{0.3cm}{\ttfamily [private]}}
+

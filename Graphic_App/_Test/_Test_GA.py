@@ -15,8 +15,20 @@ sys.path.append(
 TEST_LOW_DRIVE = BASE_PEATC_APP_PATH + \
     "\\Low_Drivers\\_Test"
 
+TEST_CONTROL = BASE_PEATC_APP_PATH + \
+    "\\Control_Block"
+
+TEST_CONFIG = BASE_PEATC_APP_PATH + \
+    "\\Config"
+
 sys.path.append(
     TEST_LOW_DRIVE)
+
+sys.path.append(
+    TEST_CONTROL)
+
+sys.path.append(
+    TEST_CONFIG)
 
 import _Test_RawVal_PEATC as Test_Vec
 import PEATC_Analyze as Analyze

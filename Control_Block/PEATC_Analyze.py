@@ -1,17 +1,13 @@
 import array
+import os
 import sys
+
+PEATC_ANALYZE_PATH = os.path.dirname(os.path.realpath(__file__))
+CONFIG_DRIVE_PATH = PEATC_ANALYZE_PATH + "\\..\\Config"
+sys.path.append(
+    CONFIG_DRIVE_PATH)
+
 from PEATC_Config import*
-
-
-FIRST_WAVE_MIN_ = 0
-FIRST_WAVE_MAX_ = 2000
-
-THIRD_WAVE_MIN_ = 3500
-THIRD_WAVE_MAX_ = 4500
-
-FIFTH_WAVE_MIN_ = 5500
-FIFTH_WAVE_MAX_ = 7000
-
 
 def TwoComplement(Value):
     '''!
@@ -93,8 +89,8 @@ def AnalyzeSignal(Signal_file: str):
                 SignalWaveIndex = RawWave[FilterIndex].index(
                     max(RawWave[FilterIndex]))
 
-                if ((FIRST_WAVE_MIN_ <= TimeWave[FilterIndex][SignalWaveIndex])
-                        and (TimeWave[FilterIndex][SignalWaveIndex] <= FIRST_WAVE_MAX_)):
+                if ((PEATC_CONFIG_FIRST_WAVE_MIN_ <= TimeWave[FilterIndex][SignalWaveIndex])
+                        and (TimeWave[FilterIndex][SignalWaveIndex] <= PEATC_CONFIG_FIRST_WAVE_MAX_)):
 
                     print(str(RawWave[FilterIndex]) + " 0-> " +
                           str(TimeWave[FilterIndex][SignalWaveIndex]))
@@ -107,8 +103,8 @@ def AnalyzeSignal(Signal_file: str):
                     InitFilterIndex = FilterIndex + 1
                     FilterIndex = len(RawWave)
 
-                elif ((FIRST_WAVE_MAX_ < TimeWave[FilterIndex][SignalWaveIndex])
-                      and (TimeWave[FilterIndex][SignalWaveIndex] < THIRD_WAVE_MIN_)):
+                elif ((PEATC_CONFIG_FIRST_WAVE_MAX_ < TimeWave[FilterIndex][SignalWaveIndex])
+                      and (TimeWave[FilterIndex][SignalWaveIndex] < PEATC_CONFIG_THIRD_WAVE_MIN_)):
 
                     print(str(RawWave[FilterIndex]) + " 1-> " +
                           str(TimeWave[FilterIndex][SignalWaveIndex]))
@@ -120,8 +116,8 @@ def AnalyzeSignal(Signal_file: str):
                     InitFilterIndex = FilterIndex + 1
                     FilterIndex = len(RawWave)
 
-                elif ((THIRD_WAVE_MIN_ <= TimeWave[FilterIndex][SignalWaveIndex])
-                      and (TimeWave[FilterIndex][SignalWaveIndex] <= THIRD_WAVE_MAX_)):
+                elif ((PEATC_CONFIG_THIRD_WAVE_MIN_ <= TimeWave[FilterIndex][SignalWaveIndex])
+                      and (TimeWave[FilterIndex][SignalWaveIndex] <= PEATC_CONFIG_THIRD_WAVE_MAX_)):
 
                     print(str(RawWave[FilterIndex]) + " 2-> " +
                           str(TimeWave[FilterIndex][SignalWaveIndex]))
@@ -133,8 +129,8 @@ def AnalyzeSignal(Signal_file: str):
                     InitFilterIndex = FilterIndex + 1
                     FilterIndex = len(RawWave)
 
-                elif ((THIRD_WAVE_MAX_ < TimeWave[FilterIndex][SignalWaveIndex])
-                      and (TimeWave[FilterIndex][SignalWaveIndex] < FIFTH_WAVE_MIN_)):
+                elif ((PEATC_CONFIG_THIRD_WAVE_MAX_ < TimeWave[FilterIndex][SignalWaveIndex])
+                      and (TimeWave[FilterIndex][SignalWaveIndex] < PEATC_CONFIG_FIFTH_WAVE_MIN_)):
 
                     print(str(RawWave[FilterIndex]) + " 3-> " +
                           str(TimeWave[FilterIndex][SignalWaveIndex]))
@@ -146,8 +142,8 @@ def AnalyzeSignal(Signal_file: str):
                     InitFilterIndex = FilterIndex + 1
                     FilterIndex = len(RawWave)
 
-                elif ((FIFTH_WAVE_MIN_ <= TimeWave[FilterIndex][SignalWaveIndex])
-                      and (TimeWave[FilterIndex][SignalWaveIndex] <= FIFTH_WAVE_MAX_)):
+                elif ((PEATC_CONFIG_FIFTH_WAVE_MIN_ <= TimeWave[FilterIndex][SignalWaveIndex])
+                      and (TimeWave[FilterIndex][SignalWaveIndex] <= PEATC_CONFIG_FIFTH_WAVE_MAX_)):
 
                     print(str(RawWave[FilterIndex]) + " 4-> " +
                           str(TimeWave[FilterIndex][SignalWaveIndex]))

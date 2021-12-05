@@ -1,0 +1,12 @@
+digraph "Graphical Class Hierarchy"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node0 [label="PEATC_Diagnostic.PEATC\l_Diagnostic",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_p_e_a_t_c___diagnostic_1_1_p_e_a_t_c___diagnostic.html",tooltip="Driver para el sistema donde se implementa la red neuronal."];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="PEATC_Control.PEATC\l_Control",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_p_e_a_t_c___control_1_1_p_e_a_t_c___control.html",tooltip="Controlador de la aplicación para obtener los datos crudos de las señales de PEATC,..."];
+  Node4 [label="PEATC_GS_AS.PEATC_Gs_As",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_p_e_a_t_c___g_s___a_s_1_1_p_e_a_t_c___gs___as.html",tooltip="Driver para el sistema Generate Signal, Analog Signal."];
+  Node4 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

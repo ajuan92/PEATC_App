@@ -229,7 +229,7 @@ class GUI_Control():
         Gui_Task.daemon = True
         Gui_Task.start()
 
-        print("Inicialización PEATC App finalizada")
+        print("Inicializacion PEATC App finalizada")
 
         self.InitGUI()
 
@@ -644,7 +644,7 @@ class GUI_Control():
             self.__Cmd_Template[3] = int(self.Entry_Polarity.get())
             self.__Cmd_Template[4] = int(self.Entry_Freq.get())
         else:
-            print("> Actualmente existe una operación en progreso")
+            print("> Actualmente existe una operacion en progreso")
 
     def __GenDiagBotton(self):
         '''!
@@ -669,7 +669,7 @@ class GUI_Control():
             for x in (range(len(LogString) - 1)):
                 self.__Cmd_LogName[x] = bytes(LogString[x], "utf-8")
         else:
-            print("> Actualmente existe una operación en progreso")
+            print("> Actualmente existe una operacion en progreso")
 
         sys.stdout.flush()
 
@@ -686,7 +686,7 @@ class GUI_Control():
             self.__Cmd_Reset[2] = 1
             self.__Cmd_Reset[3] = 1
         else:
-            print("> Actualmente existe una operación en progreso")
+            print("> Actualmente existe una operacion en progreso")
         sys.stdout.flush()
 
     def __StateVal2key(self, SearchVal, BaseDict):

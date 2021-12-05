@@ -1,0 +1,49 @@
+\doxysection{E\+:/\+ARCHIVOS\+\_\+\+Y\+\_\+\+DOCUMENTOS/01\+\_\+\+Tesis\+\_\+\+Local/\+PEATC\+\_\+\+App/\+Control\+\_\+\+Block/\+PEATC\+\_\+\+Control.py File Reference}
+\label{_p_e_a_t_c___control_8py}\index{E:/ARCHIVOS\_Y\_DOCUMENTOS/01\_Tesis\_Local/PEATC\_App/Control\_Block/PEATC\_Control.py@{E:/ARCHIVOS\_Y\_DOCUMENTOS/01\_Tesis\_Local/PEATC\_App/Control\_Block/PEATC\_Control.py}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \textbf{ PEATC\+\_\+\+Control.\+PEATC\+\_\+\+Control}
+\begin{DoxyCompactList}\small\item\em Controlador de la aplicación para obtener los datos crudos de las señales de PEATC, analizarlas y reportar los resultados de los análisis. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \textbf{ PEATC\+\_\+\+Control}
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ PEATC\+\_\+\+Control.\+CURR\+\_\+\+PATH} = os.\+path.\+dirname(os.\+path.\+realpath(\+\_\+\+\_\+file\+\_\+\+\_\+))
+\item 
+string \textbf{ PEATC\+\_\+\+Control.\+LOW\+\_\+\+DRIVE\+\_\+\+PATH} = CURR\+\_\+\+PATH + \char`\"{}\textbackslash{}\textbackslash{}..\textbackslash{}\textbackslash{}Low\+\_\+\+Drivers\char`\"{}
+\item 
+string \textbf{ PEATC\+\_\+\+Control.\+TEMP\+\_\+\+RAW\+\_\+\+DATA} = LOW\+\_\+\+DRIVE\+\_\+\+PATH + \char`\"{}\textbackslash{}\textbackslash{}Temp\+Raw\+Data.\+tmp\char`\"{}
+\item 
+int \textbf{ PEATC\+\_\+\+Control.\+PEATC\+\_\+\+CONFIG\+\_\+\+SAMPLE\+\_\+\+WAIT\+\_\+\+TIME} = 1
+\item 
+int \textbf{ PEATC\+\_\+\+Control.\+PEATC\+\_\+\+CONFIG\+\_\+\+DIAG\+\_\+\+WAIT\+\_\+\+TIME} = 1
+\item 
+int \textbf{ PEATC\+\_\+\+Control.\+PEATC\+\_\+\+CONTROL\+\_\+\+CMD\+\_\+\+START\+\_\+\+TEST} = 1
+\item 
+int \textbf{ PEATC\+\_\+\+Control.\+PEATC\+\_\+\+CONTROL\+\_\+\+CMD\+\_\+\+STOP\+\_\+\+TEST} = 0
+\item 
+dictionary \textbf{ PEATC\+\_\+\+Control.\+PEATC\+\_\+\+Ctrl\+\_\+\+Cmd\+\_\+\+Dict}
+\item 
+int \textbf{ PEATC\+\_\+\+Control.\+PEATC\+\_\+\+CONTROL\+\_\+\+STATE\+\_\+\+STAND\+\_\+\+BY} = 0
+\item 
+int \textbf{ PEATC\+\_\+\+Control.\+PEATC\+\_\+\+CONTROL\+\_\+\+STATE\+\_\+\+RESET} = 1
+\item 
+int \textbf{ PEATC\+\_\+\+Control.\+PEATC\+\_\+\+CONTROL\+\_\+\+STATE\+\_\+\+INIT\+\_\+\+TEST} = 2
+\item 
+int \textbf{ PEATC\+\_\+\+Control.\+PEATC\+\_\+\+CONTROL\+\_\+\+STATE\+\_\+\+WAIT\+\_\+\+RAW\+\_\+\+DATA} = 3
+\item 
+int \textbf{ PEATC\+\_\+\+Control.\+PEATC\+\_\+\+CONTROL\+\_\+\+STATE\+\_\+\+ANALYZE\+\_\+\+DATA} = 4
+\item 
+int \textbf{ PEATC\+\_\+\+Control.\+PEATC\+\_\+\+CONTROL\+\_\+\+STATE\+\_\+\+INIT\+\_\+\+DIAGNOSTIC} = 5
+\item 
+int \textbf{ PEATC\+\_\+\+Control.\+PEATC\+\_\+\+CONTROL\+\_\+\+STATE\+\_\+\+WAIT\+\_\+\+DIAGNOSTIC} = 6
+\item 
+int \textbf{ PEATC\+\_\+\+Control.\+PEATC\+\_\+\+CONTROL\+\_\+\+STATE\+\_\+\+SEND\+\_\+\+RESULT} = 7
+\item 
+dictionary \textbf{ PEATC\+\_\+\+Control.\+PEATC\+\_\+\+Ctrl\+\_\+\+State\+\_\+\+Dict}
+\end{DoxyCompactItemize}

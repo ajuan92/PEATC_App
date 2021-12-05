@@ -1,0 +1,174 @@
+\doxysection{PEATC\+\_\+\+Control Namespace Reference}
+\label{namespace_p_e_a_t_c___control}\index{PEATC\_Control@{PEATC\_Control}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \textbf{ PEATC\+\_\+\+Control}
+\begin{DoxyCompactList}\small\item\em Controlador de la aplicación para obtener los datos crudos de las señales de PEATC, analizarlas y reportar los resultados de los análisis. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ CURR\+\_\+\+PATH} = os.\+path.\+dirname(os.\+path.\+realpath(\+\_\+\+\_\+file\+\_\+\+\_\+))
+\item 
+string \textbf{ LOW\+\_\+\+DRIVE\+\_\+\+PATH} = \textbf{ CURR\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}..\textbackslash{}\textbackslash{}Low\+\_\+\+Drivers\char`\"{}
+\item 
+string \textbf{ TEMP\+\_\+\+RAW\+\_\+\+DATA} = \textbf{ LOW\+\_\+\+DRIVE\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}Temp\+Raw\+Data.\+tmp\char`\"{}
+\item 
+int \textbf{ PEATC\+\_\+\+CONFIG\+\_\+\+SAMPLE\+\_\+\+WAIT\+\_\+\+TIME} = 1
+\item 
+int \textbf{ PEATC\+\_\+\+CONFIG\+\_\+\+DIAG\+\_\+\+WAIT\+\_\+\+TIME} = 1
+\item 
+int \textbf{ PEATC\+\_\+\+CONTROL\+\_\+\+CMD\+\_\+\+START\+\_\+\+TEST} = 1
+\item 
+int \textbf{ PEATC\+\_\+\+CONTROL\+\_\+\+CMD\+\_\+\+STOP\+\_\+\+TEST} = 0
+\item 
+dictionary \textbf{ PEATC\+\_\+\+Ctrl\+\_\+\+Cmd\+\_\+\+Dict}
+\item 
+int \textbf{ PEATC\+\_\+\+CONTROL\+\_\+\+STATE\+\_\+\+STAND\+\_\+\+BY} = 0
+\item 
+int \textbf{ PEATC\+\_\+\+CONTROL\+\_\+\+STATE\+\_\+\+RESET} = 1
+\item 
+int \textbf{ PEATC\+\_\+\+CONTROL\+\_\+\+STATE\+\_\+\+INIT\+\_\+\+TEST} = 2
+\item 
+int \textbf{ PEATC\+\_\+\+CONTROL\+\_\+\+STATE\+\_\+\+WAIT\+\_\+\+RAW\+\_\+\+DATA} = 3
+\item 
+int \textbf{ PEATC\+\_\+\+CONTROL\+\_\+\+STATE\+\_\+\+ANALYZE\+\_\+\+DATA} = 4
+\item 
+int \textbf{ PEATC\+\_\+\+CONTROL\+\_\+\+STATE\+\_\+\+INIT\+\_\+\+DIAGNOSTIC} = 5
+\item 
+int \textbf{ PEATC\+\_\+\+CONTROL\+\_\+\+STATE\+\_\+\+WAIT\+\_\+\+DIAGNOSTIC} = 6
+\item 
+int \textbf{ PEATC\+\_\+\+CONTROL\+\_\+\+STATE\+\_\+\+SEND\+\_\+\+RESULT} = 7
+\item 
+dictionary \textbf{ PEATC\+\_\+\+Ctrl\+\_\+\+State\+\_\+\+Dict}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\label{namespace_p_e_a_t_c___control_a47645085268b645e875b5dc17bd9b1bc}} 
+\index{PEATC\_Control@{PEATC\_Control}!CURR\_PATH@{CURR\_PATH}}
+\index{CURR\_PATH@{CURR\_PATH}!PEATC\_Control@{PEATC\_Control}}
+\doxysubsubsection{CURR\_PATH}
+{\footnotesize\ttfamily PEATC\+\_\+\+Control.\+CURR\+\_\+\+PATH = os.\+path.\+dirname(os.\+path.\+realpath(\+\_\+\+\_\+file\+\_\+\+\_\+))}
+
+\mbox{\label{namespace_p_e_a_t_c___control_ab3b2e30ef82328a75a3d125cfb95ffed}} 
+\index{PEATC\_Control@{PEATC\_Control}!LOW\_DRIVE\_PATH@{LOW\_DRIVE\_PATH}}
+\index{LOW\_DRIVE\_PATH@{LOW\_DRIVE\_PATH}!PEATC\_Control@{PEATC\_Control}}
+\doxysubsubsection{LOW\_DRIVE\_PATH}
+{\footnotesize\ttfamily string PEATC\+\_\+\+Control.\+LOW\+\_\+\+DRIVE\+\_\+\+PATH = \textbf{ CURR\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}..\textbackslash{}\textbackslash{}Low\+\_\+\+Drivers\char`\"{}}
+
+\mbox{\label{namespace_p_e_a_t_c___control_a69cc0b7b381fdaa6750d0eb956b3e95e}} 
+\index{PEATC\_Control@{PEATC\_Control}!PEATC\_CONFIG\_DIAG\_WAIT\_TIME@{PEATC\_CONFIG\_DIAG\_WAIT\_TIME}}
+\index{PEATC\_CONFIG\_DIAG\_WAIT\_TIME@{PEATC\_CONFIG\_DIAG\_WAIT\_TIME}!PEATC\_Control@{PEATC\_Control}}
+\doxysubsubsection{PEATC\_CONFIG\_DIAG\_WAIT\_TIME}
+{\footnotesize\ttfamily int PEATC\+\_\+\+Control.\+PEATC\+\_\+\+CONFIG\+\_\+\+DIAG\+\_\+\+WAIT\+\_\+\+TIME = 1}
+
+\mbox{\label{namespace_p_e_a_t_c___control_a1cc56ad235e92c6be64d3d531154d8ee}} 
+\index{PEATC\_Control@{PEATC\_Control}!PEATC\_CONFIG\_SAMPLE\_WAIT\_TIME@{PEATC\_CONFIG\_SAMPLE\_WAIT\_TIME}}
+\index{PEATC\_CONFIG\_SAMPLE\_WAIT\_TIME@{PEATC\_CONFIG\_SAMPLE\_WAIT\_TIME}!PEATC\_Control@{PEATC\_Control}}
+\doxysubsubsection{PEATC\_CONFIG\_SAMPLE\_WAIT\_TIME}
+{\footnotesize\ttfamily int PEATC\+\_\+\+Control.\+PEATC\+\_\+\+CONFIG\+\_\+\+SAMPLE\+\_\+\+WAIT\+\_\+\+TIME = 1}
+
+\mbox{\label{namespace_p_e_a_t_c___control_aec6f691d8ddd88ff9aa45e839cd45f0d}} 
+\index{PEATC\_Control@{PEATC\_Control}!PEATC\_CONTROL\_CMD\_START\_TEST@{PEATC\_CONTROL\_CMD\_START\_TEST}}
+\index{PEATC\_CONTROL\_CMD\_START\_TEST@{PEATC\_CONTROL\_CMD\_START\_TEST}!PEATC\_Control@{PEATC\_Control}}
+\doxysubsubsection{PEATC\_CONTROL\_CMD\_START\_TEST}
+{\footnotesize\ttfamily int PEATC\+\_\+\+Control.\+PEATC\+\_\+\+CONTROL\+\_\+\+CMD\+\_\+\+START\+\_\+\+TEST = 1}
+
+\mbox{\label{namespace_p_e_a_t_c___control_a82a951842cd1c034b618c8bfaa6d3169}} 
+\index{PEATC\_Control@{PEATC\_Control}!PEATC\_CONTROL\_CMD\_STOP\_TEST@{PEATC\_CONTROL\_CMD\_STOP\_TEST}}
+\index{PEATC\_CONTROL\_CMD\_STOP\_TEST@{PEATC\_CONTROL\_CMD\_STOP\_TEST}!PEATC\_Control@{PEATC\_Control}}
+\doxysubsubsection{PEATC\_CONTROL\_CMD\_STOP\_TEST}
+{\footnotesize\ttfamily int PEATC\+\_\+\+Control.\+PEATC\+\_\+\+CONTROL\+\_\+\+CMD\+\_\+\+STOP\+\_\+\+TEST = 0}
+
+\mbox{\label{namespace_p_e_a_t_c___control_aa72a23917e52280b5dfdb9422c3acf81}} 
+\index{PEATC\_Control@{PEATC\_Control}!PEATC\_CONTROL\_STATE\_ANALYZE\_DATA@{PEATC\_CONTROL\_STATE\_ANALYZE\_DATA}}
+\index{PEATC\_CONTROL\_STATE\_ANALYZE\_DATA@{PEATC\_CONTROL\_STATE\_ANALYZE\_DATA}!PEATC\_Control@{PEATC\_Control}}
+\doxysubsubsection{PEATC\_CONTROL\_STATE\_ANALYZE\_DATA}
+{\footnotesize\ttfamily int PEATC\+\_\+\+Control.\+PEATC\+\_\+\+CONTROL\+\_\+\+STATE\+\_\+\+ANALYZE\+\_\+\+DATA = 4}
+
+\mbox{\label{namespace_p_e_a_t_c___control_a4e90c1f0237384d4dea31405d728624a}} 
+\index{PEATC\_Control@{PEATC\_Control}!PEATC\_CONTROL\_STATE\_INIT\_DIAGNOSTIC@{PEATC\_CONTROL\_STATE\_INIT\_DIAGNOSTIC}}
+\index{PEATC\_CONTROL\_STATE\_INIT\_DIAGNOSTIC@{PEATC\_CONTROL\_STATE\_INIT\_DIAGNOSTIC}!PEATC\_Control@{PEATC\_Control}}
+\doxysubsubsection{PEATC\_CONTROL\_STATE\_INIT\_DIAGNOSTIC}
+{\footnotesize\ttfamily int PEATC\+\_\+\+Control.\+PEATC\+\_\+\+CONTROL\+\_\+\+STATE\+\_\+\+INIT\+\_\+\+DIAGNOSTIC = 5}
+
+\mbox{\label{namespace_p_e_a_t_c___control_a4c930666b82aa6c7befb79b792c5fad4}} 
+\index{PEATC\_Control@{PEATC\_Control}!PEATC\_CONTROL\_STATE\_INIT\_TEST@{PEATC\_CONTROL\_STATE\_INIT\_TEST}}
+\index{PEATC\_CONTROL\_STATE\_INIT\_TEST@{PEATC\_CONTROL\_STATE\_INIT\_TEST}!PEATC\_Control@{PEATC\_Control}}
+\doxysubsubsection{PEATC\_CONTROL\_STATE\_INIT\_TEST}
+{\footnotesize\ttfamily int PEATC\+\_\+\+Control.\+PEATC\+\_\+\+CONTROL\+\_\+\+STATE\+\_\+\+INIT\+\_\+\+TEST = 2}
+
+\mbox{\label{namespace_p_e_a_t_c___control_af84fb1d668528dd2be83b8ff1312d607}} 
+\index{PEATC\_Control@{PEATC\_Control}!PEATC\_CONTROL\_STATE\_RESET@{PEATC\_CONTROL\_STATE\_RESET}}
+\index{PEATC\_CONTROL\_STATE\_RESET@{PEATC\_CONTROL\_STATE\_RESET}!PEATC\_Control@{PEATC\_Control}}
+\doxysubsubsection{PEATC\_CONTROL\_STATE\_RESET}
+{\footnotesize\ttfamily int PEATC\+\_\+\+Control.\+PEATC\+\_\+\+CONTROL\+\_\+\+STATE\+\_\+\+RESET = 1}
+
+\mbox{\label{namespace_p_e_a_t_c___control_a13b75d352cf8e34f918d1e1781201c73}} 
+\index{PEATC\_Control@{PEATC\_Control}!PEATC\_CONTROL\_STATE\_SEND\_RESULT@{PEATC\_CONTROL\_STATE\_SEND\_RESULT}}
+\index{PEATC\_CONTROL\_STATE\_SEND\_RESULT@{PEATC\_CONTROL\_STATE\_SEND\_RESULT}!PEATC\_Control@{PEATC\_Control}}
+\doxysubsubsection{PEATC\_CONTROL\_STATE\_SEND\_RESULT}
+{\footnotesize\ttfamily int PEATC\+\_\+\+Control.\+PEATC\+\_\+\+CONTROL\+\_\+\+STATE\+\_\+\+SEND\+\_\+\+RESULT = 7}
+
+\mbox{\label{namespace_p_e_a_t_c___control_a2b687c9abab9351b106bf14af4389898}} 
+\index{PEATC\_Control@{PEATC\_Control}!PEATC\_CONTROL\_STATE\_STAND\_BY@{PEATC\_CONTROL\_STATE\_STAND\_BY}}
+\index{PEATC\_CONTROL\_STATE\_STAND\_BY@{PEATC\_CONTROL\_STATE\_STAND\_BY}!PEATC\_Control@{PEATC\_Control}}
+\doxysubsubsection{PEATC\_CONTROL\_STATE\_STAND\_BY}
+{\footnotesize\ttfamily int PEATC\+\_\+\+Control.\+PEATC\+\_\+\+CONTROL\+\_\+\+STATE\+\_\+\+STAND\+\_\+\+BY = 0}
+
+\mbox{\label{namespace_p_e_a_t_c___control_a6a1184cbd589e88a4d771609de9e9082}} 
+\index{PEATC\_Control@{PEATC\_Control}!PEATC\_CONTROL\_STATE\_WAIT\_DIAGNOSTIC@{PEATC\_CONTROL\_STATE\_WAIT\_DIAGNOSTIC}}
+\index{PEATC\_CONTROL\_STATE\_WAIT\_DIAGNOSTIC@{PEATC\_CONTROL\_STATE\_WAIT\_DIAGNOSTIC}!PEATC\_Control@{PEATC\_Control}}
+\doxysubsubsection{PEATC\_CONTROL\_STATE\_WAIT\_DIAGNOSTIC}
+{\footnotesize\ttfamily int PEATC\+\_\+\+Control.\+PEATC\+\_\+\+CONTROL\+\_\+\+STATE\+\_\+\+WAIT\+\_\+\+DIAGNOSTIC = 6}
+
+\mbox{\label{namespace_p_e_a_t_c___control_a4a64b1c4694cecbd0a7b188c374f0ad1}} 
+\index{PEATC\_Control@{PEATC\_Control}!PEATC\_CONTROL\_STATE\_WAIT\_RAW\_DATA@{PEATC\_CONTROL\_STATE\_WAIT\_RAW\_DATA}}
+\index{PEATC\_CONTROL\_STATE\_WAIT\_RAW\_DATA@{PEATC\_CONTROL\_STATE\_WAIT\_RAW\_DATA}!PEATC\_Control@{PEATC\_Control}}
+\doxysubsubsection{PEATC\_CONTROL\_STATE\_WAIT\_RAW\_DATA}
+{\footnotesize\ttfamily int PEATC\+\_\+\+Control.\+PEATC\+\_\+\+CONTROL\+\_\+\+STATE\+\_\+\+WAIT\+\_\+\+RAW\+\_\+\+DATA = 3}
+
+\mbox{\label{namespace_p_e_a_t_c___control_ade8083b6141a97f70867a3a0e15de3e0}} 
+\index{PEATC\_Control@{PEATC\_Control}!PEATC\_Ctrl\_Cmd\_Dict@{PEATC\_Ctrl\_Cmd\_Dict}}
+\index{PEATC\_Ctrl\_Cmd\_Dict@{PEATC\_Ctrl\_Cmd\_Dict}!PEATC\_Control@{PEATC\_Control}}
+\doxysubsubsection{PEATC\_Ctrl\_Cmd\_Dict}
+{\footnotesize\ttfamily dictionary PEATC\+\_\+\+Control.\+PEATC\+\_\+\+Ctrl\+\_\+\+Cmd\+\_\+\+Dict}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 =  \{}
+\DoxyCodeLine{2     \textcolor{stringliteral}{"{}Cmd"{}}: 0,}
+\DoxyCodeLine{3     \textcolor{stringliteral}{"{}Gs\_SignaldB"{}}: 0,}
+\DoxyCodeLine{4     \textcolor{stringliteral}{"{}Gs\_Latency"{}}: 0,}
+\DoxyCodeLine{5     \textcolor{stringliteral}{"{}Gs\_Polarity"{}}: 0,}
+\DoxyCodeLine{6     \textcolor{stringliteral}{"{}Gs\_Freq"{}}: 0,}
+\DoxyCodeLine{7 \}}
+
+\end{DoxyCode}
+\mbox{\label{namespace_p_e_a_t_c___control_a41bdfe2725ff40316f4de29b4497809d}} 
+\index{PEATC\_Control@{PEATC\_Control}!PEATC\_Ctrl\_State\_Dict@{PEATC\_Ctrl\_State\_Dict}}
+\index{PEATC\_Ctrl\_State\_Dict@{PEATC\_Ctrl\_State\_Dict}!PEATC\_Control@{PEATC\_Control}}
+\doxysubsubsection{PEATC\_Ctrl\_State\_Dict}
+{\footnotesize\ttfamily dictionary PEATC\+\_\+\+Control.\+PEATC\+\_\+\+Ctrl\+\_\+\+State\+\_\+\+Dict}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 =  \{}
+\DoxyCodeLine{2     PEATC\_CONTROL\_STATE\_STAND\_BY: \textcolor{stringliteral}{"{}PEATC\_CONTROL\_STATE\_STAND\_BY"{}},}
+\DoxyCodeLine{3     PEATC\_CONTROL\_STATE\_RESET: \textcolor{stringliteral}{"{}PEATC\_CONTROL\_STATE\_RESET"{}},}
+\DoxyCodeLine{4     PEATC\_CONTROL\_STATE\_INIT\_TEST: \textcolor{stringliteral}{"{}PEATC\_CONTROL\_STATE\_INIT\_TEST"{}},}
+\DoxyCodeLine{5     PEATC\_CONTROL\_STATE\_WAIT\_RAW\_DATA: \textcolor{stringliteral}{"{}PEATC\_CONTROL\_STATE\_WAIT\_RAW\_DATA"{}},}
+\DoxyCodeLine{6     PEATC\_CONTROL\_STATE\_ANALYZE\_DATA: \textcolor{stringliteral}{"{}PEATC\_CONTROL\_STATE\_ANALYZE\_DATA"{}},}
+\DoxyCodeLine{7     PEATC\_CONTROL\_STATE\_INIT\_DIAGNOSTIC: \textcolor{stringliteral}{"{}PEATC\_CONTROL\_STATE\_INIT\_DIAGNOSTIC"{}},}
+\DoxyCodeLine{8     PEATC\_CONTROL\_STATE\_WAIT\_DIAGNOSTIC: \textcolor{stringliteral}{"{}PEATC\_CONTROL\_STATE\_WAIT\_DIAGNOSTIC"{}},}
+\DoxyCodeLine{9     PEATC\_CONTROL\_STATE\_SEND\_RESULT: \textcolor{stringliteral}{"{}PEATC\_CONTROL\_STATE\_SEND\_RESULT"{}}}
+\DoxyCodeLine{10 \}}
+
+\end{DoxyCode}
+\mbox{\label{namespace_p_e_a_t_c___control_a09327a6561c898cc06917c6708c3f665}} 
+\index{PEATC\_Control@{PEATC\_Control}!TEMP\_RAW\_DATA@{TEMP\_RAW\_DATA}}
+\index{TEMP\_RAW\_DATA@{TEMP\_RAW\_DATA}!PEATC\_Control@{PEATC\_Control}}
+\doxysubsubsection{TEMP\_RAW\_DATA}
+{\footnotesize\ttfamily string PEATC\+\_\+\+Control.\+TEMP\+\_\+\+RAW\+\_\+\+DATA = \textbf{ LOW\+\_\+\+DRIVE\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}Temp\+Raw\+Data.\+tmp\char`\"{}}
+
