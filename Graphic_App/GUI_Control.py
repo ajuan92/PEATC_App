@@ -621,7 +621,7 @@ class GUI_Control():
                                  (str(self.WaveData[i]['SignaldB'])))
                     ax.set_xlabel('Time ms')
                     ax.set_ylabel('Voltage uV')
-                    ax.plot(range(0, len(GrafData[i])), GrafData[i])
+                    ax.plot(range(0, len(GrafData[ReadyGraf-1])), GrafData[ReadyGraf-1])
 
                     GrafCanvasAgg = FigureCanvasTkAgg(fig, self.Graframe)
                     GrafCanvasAgg.get_tk_widget().grid(row=i, column=0)
