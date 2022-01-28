@@ -17,7 +17,7 @@ else:
 
 from PEATC_Config import*
 
-if PEATC_CONFIG_CURR_OS is "Linux":
+if PEATC_CONFIG_CURR_OS == "Linux":
     TEST_LOW_DRIVE = BASE_PEATC_APP_PATH + \
         "/Low_Drivers/_Test"
     sys.path.append(
@@ -37,7 +37,7 @@ sys.stdout = open(PEATC_CONFIG_DEB_LOG_PATH, 'a')
 if PEATC_CONFIG_TEST_MODE is True:
     import _Test_RawVal_PEATC as Test_Vec
 
-    if PEATC_CONFIG_CURR_OS is "Linux":
+    if PEATC_CONFIG_CURR_OS == "Linux":
         TEST_RAW_PATH_TEMP_6 = BASE_PEATC_APP_PATH + "/_Test/_TestTempFile_6.tmp"
         TEST_RAW_PATH_TEMP_12 = BASE_PEATC_APP_PATH + "/_Test/_TestTempFile_12.tmp"
         TEST_RAW_PATH_TEMP_20 = BASE_PEATC_APP_PATH + "/_Test/_TestTempFile_20.tmp"
