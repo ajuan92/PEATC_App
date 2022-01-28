@@ -497,7 +497,7 @@ class GUI_Control():
         log de la prueba)
         '''
 
-        LABEL_X_ORIGIN = 0.06125
+        LABEL_X_ORIGIN = 0.03125
         BOTTON_X_ORIGIN = LABEL_X_ORIGIN+0.015
 
         ## Etiqueta que indica el estado actual de la aplicación
@@ -537,7 +537,7 @@ class GUI_Control():
 
         self.Label_Diag = Label(self.DiagFrame, text="  No Diagnostic")
         self.Label_Diag.config(anchor=CENTER)
-        self.Label_Diag.place(x=int(0.06*self.WINDOW_WIDTH_X), y=int(0*self.WINDOW_HEIGHT_Y))
+        self.Label_Diag.place(x=int(0*self.WINDOW_WIDTH_X), y=int(0*self.WINDOW_HEIGHT_Y))
         self.Label_Diag.config(bg="white")
 
         self.Label_Diag.after(1000, self.__UpdateDiagLabel)

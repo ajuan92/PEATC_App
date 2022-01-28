@@ -14,7 +14,7 @@ else:
     CONFIG_DRIVE_PATH = BASE_PEATC_APP_PATH + "/../Config"
     sys.path.append(
         CONFIG_DRIVE_PATH)
-
+print(CONFIG_DRIVE_PATH)
 from PEATC_Config import*
 
 if PEATC_CONFIG_CURR_OS == "Linux":
