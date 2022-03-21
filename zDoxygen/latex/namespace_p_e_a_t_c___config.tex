@@ -1,23 +1,53 @@
 \doxysection{PEATC\+\_\+\+Config Namespace Reference}
 \label{namespace_p_e_a_t_c___config}\index{PEATC\_Config@{PEATC\_Config}}
+
+
+Configuración de la aplicación.  
+
+
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
+int \textbf{ PEATC\+\_\+\+CONFIG\+\_\+\+WINDOW\+\_\+\+WIDTH\+\_\+X} = 800
+\item 
+int \textbf{ PEATC\+\_\+\+CONFIG\+\_\+\+WINDOW\+\_\+\+HEIGHT\+\_\+Y} = 700
+\item 
 string \textbf{ PEATC\+\_\+\+CONFIG\+\_\+\+DEB\+\_\+\+LOG\+\_\+\+PATH} = \char`\"{}Debug\+\_\+\+Log\+\_\+\+Output.\+txt\char`\"{}
 \item 
-list \textbf{ PEATC\+\_\+\+CONFIG\+\_\+\+SignaldB} = [30, 35, 40, 45, 50, 55, 60, 70]
+string \textbf{ PEATC\+\_\+\+CONFIG\+\_\+\+CURR\+\_\+\+OS} = \char`\"{}Windows\char`\"{}
+\item 
+bool \textbf{ PEATC\+\_\+\+CONFIG\+\_\+\+TEST\+\_\+\+MODE} = True
+\item 
+list \textbf{ PEATC\+\_\+\+CONFIG\+\_\+\+SignaldB} = [30, 40, 50]
 \item 
 list \textbf{ PEATC\+\_\+\+CONFIG\+\_\+\+Latency} = [100, 233, 120, 54]
 \item 
 list \textbf{ PEATC\+\_\+\+CONFIG\+\_\+\+Freq} = [50, 70, 100, 150]
 \item 
-dictionary \textbf{ PEATC\+\_\+\+Conf\+\_\+\+Diag\+\_\+\+Dict}
+int \textbf{ PEATC\+\_\+\+CONFIG\+\_\+\+FIRST\+\_\+\+WAVE\+\_\+\+MIN\+\_\+} = 0
+\item 
+int \textbf{ PEATC\+\_\+\+CONFIG\+\_\+\+FIRST\+\_\+\+WAVE\+\_\+\+MAX\+\_\+} = 2000
+\item 
+int \textbf{ PEATC\+\_\+\+CONFIG\+\_\+\+THIRD\+\_\+\+WAVE\+\_\+\+MIN\+\_\+} = 3500
+\item 
+int \textbf{ PEATC\+\_\+\+CONFIG\+\_\+\+THIRD\+\_\+\+WAVE\+\_\+\+MAX\+\_\+} = 4500
+\item 
+int \textbf{ PEATC\+\_\+\+CONFIG\+\_\+\+FIFTH\+\_\+\+WAVE\+\_\+\+MIN\+\_\+} = 5500
+\item 
+int \textbf{ PEATC\+\_\+\+CONFIG\+\_\+\+FIFTH\+\_\+\+WAVE\+\_\+\+MAX\+\_\+} = 7000
 \item 
 int \textbf{ PEATC\+\_\+\+CONFIG\+\_\+\+AMP\+\_\+\+THRESHOLD} = 10
 \item 
 int \textbf{ PEATC\+\_\+\+CONFIG\+\_\+\+TIME\+\_\+\+US\+\_\+\+PER\+\_\+\+SAMPLE} = 100
+\item 
+int \textbf{ PEATC\+\_\+\+CONFIG\+\_\+\+EXPECTED\+\_\+\+SIGNAL\+\_\+\+SAMPLES} = 140
+\item 
+dictionary \textbf{ PEATC\+\_\+\+Conf\+\_\+\+Diag\+\_\+\+Dict}
 \end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+Configuración de la aplicación. 
 
 \doxysubsection{Variable Documentation}
 \mbox{\label{namespace_p_e_a_t_c___config_a6adc65a8169f17cffd89330456a5873c}} 
@@ -50,11 +80,47 @@ int \textbf{ PEATC\+\_\+\+CONFIG\+\_\+\+TIME\+\_\+\+US\+\_\+\+PER\+\_\+\+SAMPLE}
 \doxysubsubsection{PEATC\_CONFIG\_AMP\_THRESHOLD}
 {\footnotesize\ttfamily int PEATC\+\_\+\+Config.\+PEATC\+\_\+\+CONFIG\+\_\+\+AMP\+\_\+\+THRESHOLD = 10}
 
+\mbox{\label{namespace_p_e_a_t_c___config_afbe588771473ce531e4aad3e6508b604}} 
+\index{PEATC\_Config@{PEATC\_Config}!PEATC\_CONFIG\_CURR\_OS@{PEATC\_CONFIG\_CURR\_OS}}
+\index{PEATC\_CONFIG\_CURR\_OS@{PEATC\_CONFIG\_CURR\_OS}!PEATC\_Config@{PEATC\_Config}}
+\doxysubsubsection{PEATC\_CONFIG\_CURR\_OS}
+{\footnotesize\ttfamily string PEATC\+\_\+\+Config.\+PEATC\+\_\+\+CONFIG\+\_\+\+CURR\+\_\+\+OS = \char`\"{}Windows\char`\"{}}
+
 \mbox{\label{namespace_p_e_a_t_c___config_a2b12503756867e862dce3914f74b5f31}} 
 \index{PEATC\_Config@{PEATC\_Config}!PEATC\_CONFIG\_DEB\_LOG\_PATH@{PEATC\_CONFIG\_DEB\_LOG\_PATH}}
 \index{PEATC\_CONFIG\_DEB\_LOG\_PATH@{PEATC\_CONFIG\_DEB\_LOG\_PATH}!PEATC\_Config@{PEATC\_Config}}
 \doxysubsubsection{PEATC\_CONFIG\_DEB\_LOG\_PATH}
 {\footnotesize\ttfamily string PEATC\+\_\+\+Config.\+PEATC\+\_\+\+CONFIG\+\_\+\+DEB\+\_\+\+LOG\+\_\+\+PATH = \char`\"{}Debug\+\_\+\+Log\+\_\+\+Output.\+txt\char`\"{}}
+
+\mbox{\label{namespace_p_e_a_t_c___config_affc7f3e33c00fa025337f12de23b9a56}} 
+\index{PEATC\_Config@{PEATC\_Config}!PEATC\_CONFIG\_EXPECTED\_SIGNAL\_SAMPLES@{PEATC\_CONFIG\_EXPECTED\_SIGNAL\_SAMPLES}}
+\index{PEATC\_CONFIG\_EXPECTED\_SIGNAL\_SAMPLES@{PEATC\_CONFIG\_EXPECTED\_SIGNAL\_SAMPLES}!PEATC\_Config@{PEATC\_Config}}
+\doxysubsubsection{PEATC\_CONFIG\_EXPECTED\_SIGNAL\_SAMPLES}
+{\footnotesize\ttfamily int PEATC\+\_\+\+Config.\+PEATC\+\_\+\+CONFIG\+\_\+\+EXPECTED\+\_\+\+SIGNAL\+\_\+\+SAMPLES = 140}
+
+\mbox{\label{namespace_p_e_a_t_c___config_a5f3ec63a7fb3184240f1bb4806c00544}} 
+\index{PEATC\_Config@{PEATC\_Config}!PEATC\_CONFIG\_FIFTH\_WAVE\_MAX\_@{PEATC\_CONFIG\_FIFTH\_WAVE\_MAX\_}}
+\index{PEATC\_CONFIG\_FIFTH\_WAVE\_MAX\_@{PEATC\_CONFIG\_FIFTH\_WAVE\_MAX\_}!PEATC\_Config@{PEATC\_Config}}
+\doxysubsubsection{PEATC\_CONFIG\_FIFTH\_WAVE\_MAX\_}
+{\footnotesize\ttfamily int PEATC\+\_\+\+Config.\+PEATC\+\_\+\+CONFIG\+\_\+\+FIFTH\+\_\+\+WAVE\+\_\+\+MAX\+\_\+ = 7000}
+
+\mbox{\label{namespace_p_e_a_t_c___config_a661eb265006f26ee688eb5e797a3b3cb}} 
+\index{PEATC\_Config@{PEATC\_Config}!PEATC\_CONFIG\_FIFTH\_WAVE\_MIN\_@{PEATC\_CONFIG\_FIFTH\_WAVE\_MIN\_}}
+\index{PEATC\_CONFIG\_FIFTH\_WAVE\_MIN\_@{PEATC\_CONFIG\_FIFTH\_WAVE\_MIN\_}!PEATC\_Config@{PEATC\_Config}}
+\doxysubsubsection{PEATC\_CONFIG\_FIFTH\_WAVE\_MIN\_}
+{\footnotesize\ttfamily int PEATC\+\_\+\+Config.\+PEATC\+\_\+\+CONFIG\+\_\+\+FIFTH\+\_\+\+WAVE\+\_\+\+MIN\+\_\+ = 5500}
+
+\mbox{\label{namespace_p_e_a_t_c___config_ac7c99d50c0bedcfe89ecd571ee92a0bf}} 
+\index{PEATC\_Config@{PEATC\_Config}!PEATC\_CONFIG\_FIRST\_WAVE\_MAX\_@{PEATC\_CONFIG\_FIRST\_WAVE\_MAX\_}}
+\index{PEATC\_CONFIG\_FIRST\_WAVE\_MAX\_@{PEATC\_CONFIG\_FIRST\_WAVE\_MAX\_}!PEATC\_Config@{PEATC\_Config}}
+\doxysubsubsection{PEATC\_CONFIG\_FIRST\_WAVE\_MAX\_}
+{\footnotesize\ttfamily int PEATC\+\_\+\+Config.\+PEATC\+\_\+\+CONFIG\+\_\+\+FIRST\+\_\+\+WAVE\+\_\+\+MAX\+\_\+ = 2000}
+
+\mbox{\label{namespace_p_e_a_t_c___config_ad72633eb9288ce6c65c9684608e192e4}} 
+\index{PEATC\_Config@{PEATC\_Config}!PEATC\_CONFIG\_FIRST\_WAVE\_MIN\_@{PEATC\_CONFIG\_FIRST\_WAVE\_MIN\_}}
+\index{PEATC\_CONFIG\_FIRST\_WAVE\_MIN\_@{PEATC\_CONFIG\_FIRST\_WAVE\_MIN\_}!PEATC\_Config@{PEATC\_Config}}
+\doxysubsubsection{PEATC\_CONFIG\_FIRST\_WAVE\_MIN\_}
+{\footnotesize\ttfamily int PEATC\+\_\+\+Config.\+PEATC\+\_\+\+CONFIG\+\_\+\+FIRST\+\_\+\+WAVE\+\_\+\+MIN\+\_\+ = 0}
 
 \mbox{\label{namespace_p_e_a_t_c___config_a6f62d38759398dfd0567dc69c59c819b}} 
 \index{PEATC\_Config@{PEATC\_Config}!PEATC\_CONFIG\_Freq@{PEATC\_CONFIG\_Freq}}
@@ -72,11 +138,41 @@ int \textbf{ PEATC\+\_\+\+CONFIG\+\_\+\+TIME\+\_\+\+US\+\_\+\+PER\+\_\+\+SAMPLE}
 \index{PEATC\_Config@{PEATC\_Config}!PEATC\_CONFIG\_SignaldB@{PEATC\_CONFIG\_SignaldB}}
 \index{PEATC\_CONFIG\_SignaldB@{PEATC\_CONFIG\_SignaldB}!PEATC\_Config@{PEATC\_Config}}
 \doxysubsubsection{PEATC\_CONFIG\_SignaldB}
-{\footnotesize\ttfamily list PEATC\+\_\+\+Config.\+PEATC\+\_\+\+CONFIG\+\_\+\+SignaldB = [30, 35, 40, 45, 50, 55, 60, 70]}
+{\footnotesize\ttfamily list PEATC\+\_\+\+Config.\+PEATC\+\_\+\+CONFIG\+\_\+\+SignaldB = [30, 40, 50]}
+
+\mbox{\label{namespace_p_e_a_t_c___config_ab7b4e902baa6714a260c997286320297}} 
+\index{PEATC\_Config@{PEATC\_Config}!PEATC\_CONFIG\_TEST\_MODE@{PEATC\_CONFIG\_TEST\_MODE}}
+\index{PEATC\_CONFIG\_TEST\_MODE@{PEATC\_CONFIG\_TEST\_MODE}!PEATC\_Config@{PEATC\_Config}}
+\doxysubsubsection{PEATC\_CONFIG\_TEST\_MODE}
+{\footnotesize\ttfamily bool PEATC\+\_\+\+Config.\+PEATC\+\_\+\+CONFIG\+\_\+\+TEST\+\_\+\+MODE = True}
+
+\mbox{\label{namespace_p_e_a_t_c___config_aba45518030d709a048ad16c66c932b2e}} 
+\index{PEATC\_Config@{PEATC\_Config}!PEATC\_CONFIG\_THIRD\_WAVE\_MAX\_@{PEATC\_CONFIG\_THIRD\_WAVE\_MAX\_}}
+\index{PEATC\_CONFIG\_THIRD\_WAVE\_MAX\_@{PEATC\_CONFIG\_THIRD\_WAVE\_MAX\_}!PEATC\_Config@{PEATC\_Config}}
+\doxysubsubsection{PEATC\_CONFIG\_THIRD\_WAVE\_MAX\_}
+{\footnotesize\ttfamily int PEATC\+\_\+\+Config.\+PEATC\+\_\+\+CONFIG\+\_\+\+THIRD\+\_\+\+WAVE\+\_\+\+MAX\+\_\+ = 4500}
+
+\mbox{\label{namespace_p_e_a_t_c___config_a61d7e15bcc9a272b7c36d4d79ff66ca0}} 
+\index{PEATC\_Config@{PEATC\_Config}!PEATC\_CONFIG\_THIRD\_WAVE\_MIN\_@{PEATC\_CONFIG\_THIRD\_WAVE\_MIN\_}}
+\index{PEATC\_CONFIG\_THIRD\_WAVE\_MIN\_@{PEATC\_CONFIG\_THIRD\_WAVE\_MIN\_}!PEATC\_Config@{PEATC\_Config}}
+\doxysubsubsection{PEATC\_CONFIG\_THIRD\_WAVE\_MIN\_}
+{\footnotesize\ttfamily int PEATC\+\_\+\+Config.\+PEATC\+\_\+\+CONFIG\+\_\+\+THIRD\+\_\+\+WAVE\+\_\+\+MIN\+\_\+ = 3500}
 
 \mbox{\label{namespace_p_e_a_t_c___config_ae0b1c2e255851cd0c923b49371df19f3}} 
 \index{PEATC\_Config@{PEATC\_Config}!PEATC\_CONFIG\_TIME\_US\_PER\_SAMPLE@{PEATC\_CONFIG\_TIME\_US\_PER\_SAMPLE}}
 \index{PEATC\_CONFIG\_TIME\_US\_PER\_SAMPLE@{PEATC\_CONFIG\_TIME\_US\_PER\_SAMPLE}!PEATC\_Config@{PEATC\_Config}}
 \doxysubsubsection{PEATC\_CONFIG\_TIME\_US\_PER\_SAMPLE}
 {\footnotesize\ttfamily int PEATC\+\_\+\+Config.\+PEATC\+\_\+\+CONFIG\+\_\+\+TIME\+\_\+\+US\+\_\+\+PER\+\_\+\+SAMPLE = 100}
+
+\mbox{\label{namespace_p_e_a_t_c___config_ab3a048cdd563c32c6bbfb77883e733bf}} 
+\index{PEATC\_Config@{PEATC\_Config}!PEATC\_CONFIG\_WINDOW\_HEIGHT\_Y@{PEATC\_CONFIG\_WINDOW\_HEIGHT\_Y}}
+\index{PEATC\_CONFIG\_WINDOW\_HEIGHT\_Y@{PEATC\_CONFIG\_WINDOW\_HEIGHT\_Y}!PEATC\_Config@{PEATC\_Config}}
+\doxysubsubsection{PEATC\_CONFIG\_WINDOW\_HEIGHT\_Y}
+{\footnotesize\ttfamily int PEATC\+\_\+\+Config.\+PEATC\+\_\+\+CONFIG\+\_\+\+WINDOW\+\_\+\+HEIGHT\+\_\+Y = 700}
+
+\mbox{\label{namespace_p_e_a_t_c___config_ac597f4662eeb8436ce017ea529bd4808}} 
+\index{PEATC\_Config@{PEATC\_Config}!PEATC\_CONFIG\_WINDOW\_WIDTH\_X@{PEATC\_CONFIG\_WINDOW\_WIDTH\_X}}
+\index{PEATC\_CONFIG\_WINDOW\_WIDTH\_X@{PEATC\_CONFIG\_WINDOW\_WIDTH\_X}!PEATC\_Config@{PEATC\_Config}}
+\doxysubsubsection{PEATC\_CONFIG\_WINDOW\_WIDTH\_X}
+{\footnotesize\ttfamily int PEATC\+\_\+\+Config.\+PEATC\+\_\+\+CONFIG\+\_\+\+WINDOW\+\_\+\+WIDTH\+\_\+X = 800}
 

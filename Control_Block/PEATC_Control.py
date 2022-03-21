@@ -89,20 +89,6 @@ class PEATC_Control(PEATC_Gs_As, PEATC_Diagnostic):
         print("Inicializacion del modulo PEATC_Control")
         sys.stdout.flush()
 
-    def __ReportState(self, Arg_State, CurrState):
-        '''!
-        Reporta códigos de estado del driver que captura la señal de PEATC
-        '''
-
-        if Arg_State.empty() is True:
-            if Arg_State.full() is True:
-                Arg_State.get(block=True, timeout=1)
-
-        else:
-            if Arg_State.full() is False:
-                Arg_State.get(block=True, timeout=1)
-            Arg_State.put(CurrState, block=True, timeout=1)
-
     def ControlHandler(self, Arg_Cmd, Arg_Results, Arg_State):
         '''!
         Maneja la maquina de estados para la realización de la

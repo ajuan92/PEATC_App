@@ -22,11 +22,6 @@ def \textbf{ Control\+Handler} (self, Arg\+\_\+\+Cmd, Arg\+\_\+\+Results, Arg\+\
 \begin{DoxyCompactList}\small\item\em Maneja la maquina de estados para la realización de la prueba de PEATC, así como la captura de la señal de PEATC. \end{DoxyCompactList}\item 
 def \textbf{ Diag\+Handler} (self, Arg\+\_\+\+Peatc\+Table, Arg\+\_\+\+Diag\+Results, Arg\+\_\+\+State)
 \begin{DoxyCompactList}\small\item\em Maneja la maquina de estados para la realización del diagnostico de las señales de PEATC. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Private Member Functions}
-\begin{DoxyCompactItemize}
-\item 
-def \textbf{ \+\_\+\+\_\+\+Report\+State} (self, Arg\+\_\+\+State, Curr\+State)
-\begin{DoxyCompactList}\small\item\em Reporta códigos de estado del driver que captura la señal de PEATC. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
 
@@ -52,16 +47,6 @@ Inicializa la maquina de estados para realizar la prueba de PEATC.
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\label{class_p_e_a_t_c___control_1_1_p_e_a_t_c___control_a3fe61173a0c21a437d1ea99e597a71bc}} 
-\index{PEATC\_Control.PEATC\_Control@{PEATC\_Control.PEATC\_Control}!\_\_ReportState@{\_\_ReportState}}
-\index{\_\_ReportState@{\_\_ReportState}!PEATC\_Control.PEATC\_Control@{PEATC\_Control.PEATC\_Control}}
-\doxysubsubsection{\_\_ReportState()}
-{\footnotesize\ttfamily def PEATC\+\_\+\+Control.\+PEATC\+\_\+\+Control.\+\_\+\+\_\+\+Report\+State (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{Arg\+\_\+\+State,  }\item[{}]{Curr\+State }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
-
-
-
-Reporta códigos de estado del driver que captura la señal de PEATC. 
-
 \mbox{\label{class_p_e_a_t_c___control_1_1_p_e_a_t_c___control_ade21f620263f80994d238c43a3cb8c94}} 
 \index{PEATC\_Control.PEATC\_Control@{PEATC\_Control.PEATC\_Control}!ControlHandler@{ControlHandler}}
 \index{ControlHandler@{ControlHandler}!PEATC\_Control.PEATC\_Control@{PEATC\_Control.PEATC\_Control}}

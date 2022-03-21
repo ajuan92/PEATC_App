@@ -15,9 +15,11 @@ namespace \textbf{ PEATC\+\_\+\+Control}
 \item 
 \textbf{ PEATC\+\_\+\+Control.\+CURR\+\_\+\+PATH} = os.\+path.\+dirname(os.\+path.\+realpath(\+\_\+\+\_\+file\+\_\+\+\_\+))
 \item 
-string \textbf{ PEATC\+\_\+\+Control.\+LOW\+\_\+\+DRIVE\+\_\+\+PATH} = CURR\+\_\+\+PATH + \char`\"{}\textbackslash{}\textbackslash{}..\textbackslash{}\textbackslash{}Low\+\_\+\+Drivers\char`\"{}
+string \textbf{ PEATC\+\_\+\+Control.\+CONFIG\+\_\+\+DRIVE\+\_\+\+PATH} = CURR\+\_\+\+PATH + \char`\"{}\textbackslash{}\textbackslash{}..\textbackslash{}\textbackslash{}Config\char`\"{}
 \item 
-string \textbf{ PEATC\+\_\+\+Control.\+TEMP\+\_\+\+RAW\+\_\+\+DATA} = LOW\+\_\+\+DRIVE\+\_\+\+PATH + \char`\"{}\textbackslash{}\textbackslash{}Temp\+Raw\+Data.\+tmp\char`\"{}
+string \textbf{ PEATC\+\_\+\+Control.\+LOW\+\_\+\+DRIVE\+\_\+\+PATH} = CURR\+\_\+\+PATH + \char`\"{}/../Low\+\_\+\+Drivers\char`\"{}
+\item 
+string \textbf{ PEATC\+\_\+\+Control.\+TEMP\+\_\+\+RAW\+\_\+\+DATA} = LOW\+\_\+\+DRIVE\+\_\+\+PATH + \char`\"{}/Temp\+Raw\+Data.\+tmp\char`\"{}
 \item 
 int \textbf{ PEATC\+\_\+\+Control.\+PEATC\+\_\+\+CONFIG\+\_\+\+SAMPLE\+\_\+\+WAIT\+\_\+\+TIME} = 1
 \item 

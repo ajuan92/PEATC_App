@@ -10,17 +10,9 @@ def \textbf{ Analyze\+Signal} (str Signal\+\_\+file)
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-int \textbf{ FIRST\+\_\+\+WAVE\+\_\+\+MIN\+\_\+} = 0
+\textbf{ PEATC\+\_\+\+ANALYZE\+\_\+\+PATH} = os.\+path.\+dirname(os.\+path.\+realpath(\+\_\+\+\_\+file\+\_\+\+\_\+))
 \item 
-int \textbf{ FIRST\+\_\+\+WAVE\+\_\+\+MAX\+\_\+} = 2000
-\item 
-int \textbf{ THIRD\+\_\+\+WAVE\+\_\+\+MIN\+\_\+} = 3500
-\item 
-int \textbf{ THIRD\+\_\+\+WAVE\+\_\+\+MAX\+\_\+} = 4500
-\item 
-int \textbf{ FIFTH\+\_\+\+WAVE\+\_\+\+MIN\+\_\+} = 5500
-\item 
-int \textbf{ FIFTH\+\_\+\+WAVE\+\_\+\+MAX\+\_\+} = 7000
+string \textbf{ CONFIG\+\_\+\+DRIVE\+\_\+\+PATH} = \textbf{ PEATC\+\_\+\+ANALYZE\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}..\textbackslash{}\textbackslash{}Config\char`\"{}
 \end{DoxyCompactItemize}
 
 
@@ -58,39 +50,15 @@ Convierte un valor de 16 bits a su representación en entero con complemento a 2
 
 
 \doxysubsection{Variable Documentation}
-\mbox{\label{namespace_p_e_a_t_c___analyze_a212b7d5b45c79bc4ce6f6f709a2a8045}} 
-\index{PEATC\_Analyze@{PEATC\_Analyze}!FIFTH\_WAVE\_MAX\_@{FIFTH\_WAVE\_MAX\_}}
-\index{FIFTH\_WAVE\_MAX\_@{FIFTH\_WAVE\_MAX\_}!PEATC\_Analyze@{PEATC\_Analyze}}
-\doxysubsubsection{FIFTH\_WAVE\_MAX\_}
-{\footnotesize\ttfamily int PEATC\+\_\+\+Analyze.\+FIFTH\+\_\+\+WAVE\+\_\+\+MAX\+\_\+ = 7000}
+\mbox{\label{namespace_p_e_a_t_c___analyze_a342a0c6733525a58f7287d947d0a57c2}} 
+\index{PEATC\_Analyze@{PEATC\_Analyze}!CONFIG\_DRIVE\_PATH@{CONFIG\_DRIVE\_PATH}}
+\index{CONFIG\_DRIVE\_PATH@{CONFIG\_DRIVE\_PATH}!PEATC\_Analyze@{PEATC\_Analyze}}
+\doxysubsubsection{CONFIG\_DRIVE\_PATH}
+{\footnotesize\ttfamily string PEATC\+\_\+\+Analyze.\+CONFIG\+\_\+\+DRIVE\+\_\+\+PATH = \textbf{ PEATC\+\_\+\+ANALYZE\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}..\textbackslash{}\textbackslash{}Config\char`\"{}}
 
-\mbox{\label{namespace_p_e_a_t_c___analyze_a4e0bfc64f455ccd503228f854ce8143e}} 
-\index{PEATC\_Analyze@{PEATC\_Analyze}!FIFTH\_WAVE\_MIN\_@{FIFTH\_WAVE\_MIN\_}}
-\index{FIFTH\_WAVE\_MIN\_@{FIFTH\_WAVE\_MIN\_}!PEATC\_Analyze@{PEATC\_Analyze}}
-\doxysubsubsection{FIFTH\_WAVE\_MIN\_}
-{\footnotesize\ttfamily int PEATC\+\_\+\+Analyze.\+FIFTH\+\_\+\+WAVE\+\_\+\+MIN\+\_\+ = 5500}
-
-\mbox{\label{namespace_p_e_a_t_c___analyze_a4b30970e30191aef64f9b564a8c2e72a}} 
-\index{PEATC\_Analyze@{PEATC\_Analyze}!FIRST\_WAVE\_MAX\_@{FIRST\_WAVE\_MAX\_}}
-\index{FIRST\_WAVE\_MAX\_@{FIRST\_WAVE\_MAX\_}!PEATC\_Analyze@{PEATC\_Analyze}}
-\doxysubsubsection{FIRST\_WAVE\_MAX\_}
-{\footnotesize\ttfamily int PEATC\+\_\+\+Analyze.\+FIRST\+\_\+\+WAVE\+\_\+\+MAX\+\_\+ = 2000}
-
-\mbox{\label{namespace_p_e_a_t_c___analyze_a1ee69c449dfb44ebfea586021e97971b}} 
-\index{PEATC\_Analyze@{PEATC\_Analyze}!FIRST\_WAVE\_MIN\_@{FIRST\_WAVE\_MIN\_}}
-\index{FIRST\_WAVE\_MIN\_@{FIRST\_WAVE\_MIN\_}!PEATC\_Analyze@{PEATC\_Analyze}}
-\doxysubsubsection{FIRST\_WAVE\_MIN\_}
-{\footnotesize\ttfamily int PEATC\+\_\+\+Analyze.\+FIRST\+\_\+\+WAVE\+\_\+\+MIN\+\_\+ = 0}
-
-\mbox{\label{namespace_p_e_a_t_c___analyze_a21c288374a517b903bc34db6530bfd1d}} 
-\index{PEATC\_Analyze@{PEATC\_Analyze}!THIRD\_WAVE\_MAX\_@{THIRD\_WAVE\_MAX\_}}
-\index{THIRD\_WAVE\_MAX\_@{THIRD\_WAVE\_MAX\_}!PEATC\_Analyze@{PEATC\_Analyze}}
-\doxysubsubsection{THIRD\_WAVE\_MAX\_}
-{\footnotesize\ttfamily int PEATC\+\_\+\+Analyze.\+THIRD\+\_\+\+WAVE\+\_\+\+MAX\+\_\+ = 4500}
-
-\mbox{\label{namespace_p_e_a_t_c___analyze_aedc5fddacfce6507176baac27a5010c3}} 
-\index{PEATC\_Analyze@{PEATC\_Analyze}!THIRD\_WAVE\_MIN\_@{THIRD\_WAVE\_MIN\_}}
-\index{THIRD\_WAVE\_MIN\_@{THIRD\_WAVE\_MIN\_}!PEATC\_Analyze@{PEATC\_Analyze}}
-\doxysubsubsection{THIRD\_WAVE\_MIN\_}
-{\footnotesize\ttfamily int PEATC\+\_\+\+Analyze.\+THIRD\+\_\+\+WAVE\+\_\+\+MIN\+\_\+ = 3500}
+\mbox{\label{namespace_p_e_a_t_c___analyze_ac2b2e81027b40200f4dc74b94adcbef9}} 
+\index{PEATC\_Analyze@{PEATC\_Analyze}!PEATC\_ANALYZE\_PATH@{PEATC\_ANALYZE\_PATH}}
+\index{PEATC\_ANALYZE\_PATH@{PEATC\_ANALYZE\_PATH}!PEATC\_Analyze@{PEATC\_Analyze}}
+\doxysubsubsection{PEATC\_ANALYZE\_PATH}
+{\footnotesize\ttfamily PEATC\+\_\+\+Analyze.\+PEATC\+\_\+\+ANALYZE\+\_\+\+PATH = os.\+path.\+dirname(os.\+path.\+realpath(\+\_\+\+\_\+file\+\_\+\+\_\+))}
 

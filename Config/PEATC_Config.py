@@ -6,8 +6,8 @@ PEATC_CONFIG_WINDOW_HEIGHT_Y = 700
 
 PEATC_CONFIG_DEB_LOG_PATH = "Debug_Log_Output.txt"
 
-PEATC_CONFIG_CURR_OS = "Linux"  # "Linux"
-PEATC_CONFIG_TEST_MODE = False #True
+PEATC_CONFIG_CURR_OS = "Windows"  # "Linux"
+PEATC_CONFIG_TEST_MODE = True #True
 
 '''!
 Configuración parametros de la prueba de PEATC

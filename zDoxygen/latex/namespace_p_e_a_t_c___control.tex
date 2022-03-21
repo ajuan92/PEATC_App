@@ -10,9 +10,11 @@ class \textbf{ PEATC\+\_\+\+Control}
 \item 
 \textbf{ CURR\+\_\+\+PATH} = os.\+path.\+dirname(os.\+path.\+realpath(\+\_\+\+\_\+file\+\_\+\+\_\+))
 \item 
-string \textbf{ LOW\+\_\+\+DRIVE\+\_\+\+PATH} = \textbf{ CURR\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}..\textbackslash{}\textbackslash{}Low\+\_\+\+Drivers\char`\"{}
+string \textbf{ CONFIG\+\_\+\+DRIVE\+\_\+\+PATH} = \textbf{ CURR\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}..\textbackslash{}\textbackslash{}Config\char`\"{}
 \item 
-string \textbf{ TEMP\+\_\+\+RAW\+\_\+\+DATA} = \textbf{ LOW\+\_\+\+DRIVE\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}Temp\+Raw\+Data.\+tmp\char`\"{}
+string \textbf{ LOW\+\_\+\+DRIVE\+\_\+\+PATH} = \textbf{ CURR\+\_\+\+PATH} + \char`\"{}/../Low\+\_\+\+Drivers\char`\"{}
+\item 
+string \textbf{ TEMP\+\_\+\+RAW\+\_\+\+DATA} = \textbf{ LOW\+\_\+\+DRIVE\+\_\+\+PATH} + \char`\"{}/Temp\+Raw\+Data.\+tmp\char`\"{}
 \item 
 int \textbf{ PEATC\+\_\+\+CONFIG\+\_\+\+SAMPLE\+\_\+\+WAIT\+\_\+\+TIME} = 1
 \item 
@@ -45,17 +47,23 @@ dictionary \textbf{ PEATC\+\_\+\+Ctrl\+\_\+\+State\+\_\+\+Dict}
 
 
 \doxysubsection{Variable Documentation}
+\mbox{\label{namespace_p_e_a_t_c___control_aa37be15240ab271889f6a491137baf32}} 
+\index{PEATC\_Control@{PEATC\_Control}!CONFIG\_DRIVE\_PATH@{CONFIG\_DRIVE\_PATH}}
+\index{CONFIG\_DRIVE\_PATH@{CONFIG\_DRIVE\_PATH}!PEATC\_Control@{PEATC\_Control}}
+\doxysubsubsection{CONFIG\_DRIVE\_PATH}
+{\footnotesize\ttfamily string PEATC\+\_\+\+Control.\+CONFIG\+\_\+\+DRIVE\+\_\+\+PATH = \textbf{ CURR\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}..\textbackslash{}\textbackslash{}Config\char`\"{}}
+
 \mbox{\label{namespace_p_e_a_t_c___control_a47645085268b645e875b5dc17bd9b1bc}} 
 \index{PEATC\_Control@{PEATC\_Control}!CURR\_PATH@{CURR\_PATH}}
 \index{CURR\_PATH@{CURR\_PATH}!PEATC\_Control@{PEATC\_Control}}
 \doxysubsubsection{CURR\_PATH}
 {\footnotesize\ttfamily PEATC\+\_\+\+Control.\+CURR\+\_\+\+PATH = os.\+path.\+dirname(os.\+path.\+realpath(\+\_\+\+\_\+file\+\_\+\+\_\+))}
 
-\mbox{\label{namespace_p_e_a_t_c___control_ab3b2e30ef82328a75a3d125cfb95ffed}} 
+\mbox{\label{namespace_p_e_a_t_c___control_a1b9f27af9853095f9805e11b3deb8860}} 
 \index{PEATC\_Control@{PEATC\_Control}!LOW\_DRIVE\_PATH@{LOW\_DRIVE\_PATH}}
 \index{LOW\_DRIVE\_PATH@{LOW\_DRIVE\_PATH}!PEATC\_Control@{PEATC\_Control}}
 \doxysubsubsection{LOW\_DRIVE\_PATH}
-{\footnotesize\ttfamily string PEATC\+\_\+\+Control.\+LOW\+\_\+\+DRIVE\+\_\+\+PATH = \textbf{ CURR\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}..\textbackslash{}\textbackslash{}Low\+\_\+\+Drivers\char`\"{}}
+{\footnotesize\ttfamily string PEATC\+\_\+\+Control.\+LOW\+\_\+\+DRIVE\+\_\+\+PATH = \textbf{ CURR\+\_\+\+PATH} + \char`\"{}/../Low\+\_\+\+Drivers\char`\"{}}
 
 \mbox{\label{namespace_p_e_a_t_c___control_a69cc0b7b381fdaa6750d0eb956b3e95e}} 
 \index{PEATC\_Control@{PEATC\_Control}!PEATC\_CONFIG\_DIAG\_WAIT\_TIME@{PEATC\_CONFIG\_DIAG\_WAIT\_TIME}}
@@ -166,9 +174,9 @@ dictionary \textbf{ PEATC\+\_\+\+Ctrl\+\_\+\+State\+\_\+\+Dict}
 \DoxyCodeLine{10 \}}
 
 \end{DoxyCode}
-\mbox{\label{namespace_p_e_a_t_c___control_a09327a6561c898cc06917c6708c3f665}} 
+\mbox{\label{namespace_p_e_a_t_c___control_a32dd09355612a6aa0f60428e030f1a1d}} 
 \index{PEATC\_Control@{PEATC\_Control}!TEMP\_RAW\_DATA@{TEMP\_RAW\_DATA}}
 \index{TEMP\_RAW\_DATA@{TEMP\_RAW\_DATA}!PEATC\_Control@{PEATC\_Control}}
 \doxysubsubsection{TEMP\_RAW\_DATA}
-{\footnotesize\ttfamily string PEATC\+\_\+\+Control.\+TEMP\+\_\+\+RAW\+\_\+\+DATA = \textbf{ LOW\+\_\+\+DRIVE\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}Temp\+Raw\+Data.\+tmp\char`\"{}}
+{\footnotesize\ttfamily string PEATC\+\_\+\+Control.\+TEMP\+\_\+\+RAW\+\_\+\+DATA = \textbf{ LOW\+\_\+\+DRIVE\+\_\+\+PATH} + \char`\"{}/Temp\+Raw\+Data.\+tmp\char`\"{}}
 

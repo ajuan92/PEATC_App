@@ -35,6 +35,7 @@ var class_g_u_i___control_1_1_g_u_i___control =
     [ "Diag_State", "class_g_u_i___control_1_1_g_u_i___control.html#a5fad661e972cde5872765ef3998c57d7", null ],
     [ "Diag_Table_input", "class_g_u_i___control_1_1_g_u_i___control.html#a2bf0b3e2ea7408ba5a30bb0cb5173622", null ],
     [ "Diag_Table_output", "class_g_u_i___control_1_1_g_u_i___control.html#aec8b5793809b7c5988df61ddefe84172", null ],
+    [ "DiagFrame", "class_g_u_i___control_1_1_g_u_i___control.html#a6be1f880e08df898764ae84255e0f7e9", null ],
     [ "Entry_Age", "class_g_u_i___control_1_1_g_u_i___control.html#acd3a207bacf5a34d2c9c67e9c2703748", null ],
     [ "Entry_Freq", "class_g_u_i___control_1_1_g_u_i___control.html#a8e0322da507f295f5e6783f5cfa73443", null ],
     [ "Entry_Latency", "class_g_u_i___control_1_1_g_u_i___control.html#adc976fe98c3ed4da5be6e1b8ddc93b82", null ],
@@ -58,5 +59,7 @@ var class_g_u_i___control_1_1_g_u_i___control =
     [ "WaveTab", "class_g_u_i___control_1_1_g_u_i___control.html#a5d4eb81671cfd2105cb50670fced695a", null ],
     [ "WaveTable", "class_g_u_i___control_1_1_g_u_i___control.html#ab780c217b07d640f4caf31c097571f6c", null ],
     [ "Window", "class_g_u_i___control_1_1_g_u_i___control.html#ac6c344bc47a484bb281f2c16a342401f", null ],
+    [ "WINDOW_HEIGHT_Y", "class_g_u_i___control_1_1_g_u_i___control.html#a8f7917d754c8f2233cccb1a1bb802b9b", null ],
+    [ "WINDOW_WIDTH_X", "class_g_u_i___control_1_1_g_u_i___control.html#a6c81e37add941d78e8db815d1641a3cd", null ],
     [ "yScrollbar", "class_g_u_i___control_1_1_g_u_i___control.html#a95cc191ba21d55fbd860cc8c503f54ef", null ]
 ];

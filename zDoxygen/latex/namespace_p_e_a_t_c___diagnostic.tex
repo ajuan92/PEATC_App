@@ -10,28 +10,44 @@ class \textbf{ PEATC\+\_\+\+Diagnostic}
 \item 
 \textbf{ PEATC\+\_\+\+DIAGNOSTIC\+\_\+\+PATH} = os.\+path.\+dirname(os.\+path.\+realpath(\+\_\+\+\_\+file\+\_\+\+\_\+))
 \item 
-string \textbf{ RN\+\_\+\+PARAM\+\_\+\+PATH} = \textbf{ PEATC\+\_\+\+DIAGNOSTIC\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}dev\textbackslash{}\textbackslash{}xillybus\+\_\+rn\+\_\+diag\+\_\+param\char`\"{}
+string \textbf{ CONFIG\+\_\+\+DRIVE\+\_\+\+PATH} = \textbf{ PEATC\+\_\+\+DIAGNOSTIC\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}..\textbackslash{}\textbackslash{}Config\char`\"{}
 \item 
-string \textbf{ RN\+\_\+\+RESULT\+\_\+\+PATH} = \textbf{ PEATC\+\_\+\+DIAGNOSTIC\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}dev\textbackslash{}\textbackslash{}xillybus\+\_\+rn\+\_\+diag\+\_\+result\char`\"{}
+string \textbf{ RN\+\_\+\+FPGA\+\_\+\+RESET\+\_\+\+PATH} = \textquotesingle{}/dev/xillybus\+\_\+fpga\+\_\+reset\textquotesingle{}
+\item 
+string \textbf{ RN\+\_\+\+PARAM\+\_\+\+PATH} = \textquotesingle{}/dev/xillybus\+\_\+rn\+\_\+diag\+\_\+param\textquotesingle{}
+\item 
+string \textbf{ RN\+\_\+\+RESULT\+\_\+\+PATH} = \textquotesingle{}/dev/xillybus\+\_\+rn\+\_\+diag\+\_\+result\textquotesingle{}
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Variable Documentation}
+\mbox{\label{namespace_p_e_a_t_c___diagnostic_a8f3e4268f0b34255215a99e4002a0d73}} 
+\index{PEATC\_Diagnostic@{PEATC\_Diagnostic}!CONFIG\_DRIVE\_PATH@{CONFIG\_DRIVE\_PATH}}
+\index{CONFIG\_DRIVE\_PATH@{CONFIG\_DRIVE\_PATH}!PEATC\_Diagnostic@{PEATC\_Diagnostic}}
+\doxysubsubsection{CONFIG\_DRIVE\_PATH}
+{\footnotesize\ttfamily string PEATC\+\_\+\+Diagnostic.\+CONFIG\+\_\+\+DRIVE\+\_\+\+PATH = \textbf{ PEATC\+\_\+\+DIAGNOSTIC\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}..\textbackslash{}\textbackslash{}Config\char`\"{}}
+
 \mbox{\label{namespace_p_e_a_t_c___diagnostic_ac69c93b8733da29bcd19fbb3a8c7d303}} 
 \index{PEATC\_Diagnostic@{PEATC\_Diagnostic}!PEATC\_DIAGNOSTIC\_PATH@{PEATC\_DIAGNOSTIC\_PATH}}
 \index{PEATC\_DIAGNOSTIC\_PATH@{PEATC\_DIAGNOSTIC\_PATH}!PEATC\_Diagnostic@{PEATC\_Diagnostic}}
 \doxysubsubsection{PEATC\_DIAGNOSTIC\_PATH}
 {\footnotesize\ttfamily PEATC\+\_\+\+Diagnostic.\+PEATC\+\_\+\+DIAGNOSTIC\+\_\+\+PATH = os.\+path.\+dirname(os.\+path.\+realpath(\+\_\+\+\_\+file\+\_\+\+\_\+))}
 
-\mbox{\label{namespace_p_e_a_t_c___diagnostic_acfa34d551365981b584b975074880cc3}} 
+\mbox{\label{namespace_p_e_a_t_c___diagnostic_a525445051b5fb8acf98246fc6293eeb7}} 
+\index{PEATC\_Diagnostic@{PEATC\_Diagnostic}!RN\_FPGA\_RESET\_PATH@{RN\_FPGA\_RESET\_PATH}}
+\index{RN\_FPGA\_RESET\_PATH@{RN\_FPGA\_RESET\_PATH}!PEATC\_Diagnostic@{PEATC\_Diagnostic}}
+\doxysubsubsection{RN\_FPGA\_RESET\_PATH}
+{\footnotesize\ttfamily string PEATC\+\_\+\+Diagnostic.\+RN\+\_\+\+FPGA\+\_\+\+RESET\+\_\+\+PATH = \textquotesingle{}/dev/xillybus\+\_\+fpga\+\_\+reset\textquotesingle{}}
+
+\mbox{\label{namespace_p_e_a_t_c___diagnostic_a6f480a695fd2b40f8460eb1a07a9ac2c}} 
 \index{PEATC\_Diagnostic@{PEATC\_Diagnostic}!RN\_PARAM\_PATH@{RN\_PARAM\_PATH}}
 \index{RN\_PARAM\_PATH@{RN\_PARAM\_PATH}!PEATC\_Diagnostic@{PEATC\_Diagnostic}}
 \doxysubsubsection{RN\_PARAM\_PATH}
-{\footnotesize\ttfamily string PEATC\+\_\+\+Diagnostic.\+RN\+\_\+\+PARAM\+\_\+\+PATH = \textbf{ PEATC\+\_\+\+DIAGNOSTIC\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}dev\textbackslash{}\textbackslash{}xillybus\+\_\+rn\+\_\+diag\+\_\+param\char`\"{}}
+{\footnotesize\ttfamily string PEATC\+\_\+\+Diagnostic.\+RN\+\_\+\+PARAM\+\_\+\+PATH = \textquotesingle{}/dev/xillybus\+\_\+rn\+\_\+diag\+\_\+param\textquotesingle{}}
 
-\mbox{\label{namespace_p_e_a_t_c___diagnostic_a2d6668e4740d64c9b530a37aacd5b652}} 
+\mbox{\label{namespace_p_e_a_t_c___diagnostic_a2677cdccb44bd94d20e2e69688059470}} 
 \index{PEATC\_Diagnostic@{PEATC\_Diagnostic}!RN\_RESULT\_PATH@{RN\_RESULT\_PATH}}
 \index{RN\_RESULT\_PATH@{RN\_RESULT\_PATH}!PEATC\_Diagnostic@{PEATC\_Diagnostic}}
 \doxysubsubsection{RN\_RESULT\_PATH}
-{\footnotesize\ttfamily string PEATC\+\_\+\+Diagnostic.\+RN\+\_\+\+RESULT\+\_\+\+PATH = \textbf{ PEATC\+\_\+\+DIAGNOSTIC\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}dev\textbackslash{}\textbackslash{}xillybus\+\_\+rn\+\_\+diag\+\_\+result\char`\"{}}
+{\footnotesize\ttfamily string PEATC\+\_\+\+Diagnostic.\+RN\+\_\+\+RESULT\+\_\+\+PATH = \textquotesingle{}/dev/xillybus\+\_\+rn\+\_\+diag\+\_\+result\textquotesingle{}}
 

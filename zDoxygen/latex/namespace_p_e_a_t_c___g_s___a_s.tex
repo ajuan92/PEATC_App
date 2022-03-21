@@ -10,26 +10,42 @@ class \textbf{ PEATC\+\_\+\+Gs\+\_\+\+As}
 \item 
 \textbf{ PEATC\+\_\+\+GS\+\_\+\+AS\+\_\+\+PATH} = os.\+path.\+dirname(os.\+path.\+realpath(\+\_\+\+\_\+file\+\_\+\+\_\+))
 \item 
-string \textbf{ GS\+\_\+\+START\+\_\+\+PATH} = \textbf{ PEATC\+\_\+\+GS\+\_\+\+AS\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}dev\textbackslash{}\textbackslash{}xillybus\+\_\+gs\+\_\+start\+\_\+test\char`\"{}
+string \textbf{ CONFIG\+\_\+\+DRIVE\+\_\+\+PATH} = \textbf{ PEATC\+\_\+\+GS\+\_\+\+AS\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}..\textbackslash{}\textbackslash{}Config\char`\"{}
 \item 
-string \textbf{ GS\+\_\+\+RAW\+\_\+\+PATH} = \textbf{ PEATC\+\_\+\+GS\+\_\+\+AS\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}dev\textbackslash{}\textbackslash{}xillybus\+\_\+gs\+\_\+raw\+\_\+signal\char`\"{}
+string \textbf{ GS\+\_\+\+FPGA\+\_\+\+RESET\+\_\+\+PATH} = \textquotesingle{}/dev/xillybus\+\_\+fpga\+\_\+reset\textquotesingle{}
+\item 
+string \textbf{ GS\+\_\+\+START\+\_\+\+PATH} = \textquotesingle{}/dev/xillybus\+\_\+gs\+\_\+start\+\_\+test\textquotesingle{}
+\item 
+string \textbf{ GS\+\_\+\+RAW\+\_\+\+PATH} = \textquotesingle{}/dev/xillybus\+\_\+gs\+\_\+raw\+\_\+signal\textquotesingle{}
 \item 
 dictionary \textbf{ Test\+Params\+Limits}
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Variable Documentation}
-\mbox{\label{namespace_p_e_a_t_c___g_s___a_s_a0869b11fa2a4e0a019d6a390c34d8bc5}} 
+\mbox{\label{namespace_p_e_a_t_c___g_s___a_s_aaadd0a1708bb4d88fa650ac12a113ec8}} 
+\index{PEATC\_GS\_AS@{PEATC\_GS\_AS}!CONFIG\_DRIVE\_PATH@{CONFIG\_DRIVE\_PATH}}
+\index{CONFIG\_DRIVE\_PATH@{CONFIG\_DRIVE\_PATH}!PEATC\_GS\_AS@{PEATC\_GS\_AS}}
+\doxysubsubsection{CONFIG\_DRIVE\_PATH}
+{\footnotesize\ttfamily string PEATC\+\_\+\+GS\+\_\+\+AS.\+CONFIG\+\_\+\+DRIVE\+\_\+\+PATH = \textbf{ PEATC\+\_\+\+GS\+\_\+\+AS\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}..\textbackslash{}\textbackslash{}Config\char`\"{}}
+
+\mbox{\label{namespace_p_e_a_t_c___g_s___a_s_a22d4e6b4ae1cda0ce85a09660bc3cc6a}} 
+\index{PEATC\_GS\_AS@{PEATC\_GS\_AS}!GS\_FPGA\_RESET\_PATH@{GS\_FPGA\_RESET\_PATH}}
+\index{GS\_FPGA\_RESET\_PATH@{GS\_FPGA\_RESET\_PATH}!PEATC\_GS\_AS@{PEATC\_GS\_AS}}
+\doxysubsubsection{GS\_FPGA\_RESET\_PATH}
+{\footnotesize\ttfamily string PEATC\+\_\+\+GS\+\_\+\+AS.\+GS\+\_\+\+FPGA\+\_\+\+RESET\+\_\+\+PATH = \textquotesingle{}/dev/xillybus\+\_\+fpga\+\_\+reset\textquotesingle{}}
+
+\mbox{\label{namespace_p_e_a_t_c___g_s___a_s_a6455fb0ba487224fc96689cbfbc59fa8}} 
 \index{PEATC\_GS\_AS@{PEATC\_GS\_AS}!GS\_RAW\_PATH@{GS\_RAW\_PATH}}
 \index{GS\_RAW\_PATH@{GS\_RAW\_PATH}!PEATC\_GS\_AS@{PEATC\_GS\_AS}}
 \doxysubsubsection{GS\_RAW\_PATH}
-{\footnotesize\ttfamily string PEATC\+\_\+\+GS\+\_\+\+AS.\+GS\+\_\+\+RAW\+\_\+\+PATH = \textbf{ PEATC\+\_\+\+GS\+\_\+\+AS\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}dev\textbackslash{}\textbackslash{}xillybus\+\_\+gs\+\_\+raw\+\_\+signal\char`\"{}}
+{\footnotesize\ttfamily string PEATC\+\_\+\+GS\+\_\+\+AS.\+GS\+\_\+\+RAW\+\_\+\+PATH = \textquotesingle{}/dev/xillybus\+\_\+gs\+\_\+raw\+\_\+signal\textquotesingle{}}
 
-\mbox{\label{namespace_p_e_a_t_c___g_s___a_s_a163c241cc20246f9a911642e06c8ae1b}} 
+\mbox{\label{namespace_p_e_a_t_c___g_s___a_s_a08c532ca1ab6572b0c6f94d976383673}} 
 \index{PEATC\_GS\_AS@{PEATC\_GS\_AS}!GS\_START\_PATH@{GS\_START\_PATH}}
 \index{GS\_START\_PATH@{GS\_START\_PATH}!PEATC\_GS\_AS@{PEATC\_GS\_AS}}
 \doxysubsubsection{GS\_START\_PATH}
-{\footnotesize\ttfamily string PEATC\+\_\+\+GS\+\_\+\+AS.\+GS\+\_\+\+START\+\_\+\+PATH = \textbf{ PEATC\+\_\+\+GS\+\_\+\+AS\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}dev\textbackslash{}\textbackslash{}xillybus\+\_\+gs\+\_\+start\+\_\+test\char`\"{}}
+{\footnotesize\ttfamily string PEATC\+\_\+\+GS\+\_\+\+AS.\+GS\+\_\+\+START\+\_\+\+PATH = \textquotesingle{}/dev/xillybus\+\_\+gs\+\_\+start\+\_\+test\textquotesingle{}}
 
 \mbox{\label{namespace_p_e_a_t_c___g_s___a_s_ac85ce9befa74d7b4e038db6cf571400d}} 
 \index{PEATC\_GS\_AS@{PEATC\_GS\_AS}!PEATC\_GS\_AS\_PATH@{PEATC\_GS\_AS\_PATH}}

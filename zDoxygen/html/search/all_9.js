@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['label_5fdiag_0',['Label_Diag',['../class_g_u_i___control_1_1_g_u_i___control.html#a3dc96b5bb545d85e9eb716cd0625295b',1,'GUI_Control::GUI_Control']]],
-  ['label_5fstate_1',['Label_State',['../class_g_u_i___control_1_1_g_u_i___control.html#a5824fc7c337bdf9c514f04b75a1512a7',1,'GUI_Control::GUI_Control']]],
-  ['low_5fdrive_5fpath_2',['LOW_DRIVE_PATH',['../namespace_p_e_a_t_c___control.html#ab3b2e30ef82328a75a3d125cfb95ffed',1,'PEATC_Control.LOW_DRIVE_PATH()'],['../namespace_g_u_i___control.html#a7c01a3ca5d87cb87647b91549f16514d',1,'GUI_Control.LOW_DRIVE_PATH()']]]
+  ['memory_5fread_0',['memory_read',['../namespace_xillybus.html#a2e0b8ac9f0c88adf2f067740b766988b',1,'Xillybus']]],
+  ['memory_5fwrite_1',['memory_write',['../namespace_xillybus.html#a36bc846b679145e191b87d845f8339e5',1,'Xillybus']]],
+  ['middlewindow_2',['MiddleWindow',['../class_g_u_i___control_1_1_g_u_i___control.html#a4ef2b6bbded3b6d0cf8d9b127b6c6cb5',1,'GUI_Control::GUI_Control']]]
 ];

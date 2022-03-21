@@ -52,7 +52,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_g_u_i___control_8py.html",
-"namespace_g_u_i___control.html#a96fc571fa3a3efabefcf2c75ea87688e"
+"dir_e4c68421e8627230478a307d7d64343b.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

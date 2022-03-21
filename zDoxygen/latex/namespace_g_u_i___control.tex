@@ -10,11 +10,11 @@ class \textbf{ GUI\+\_\+\+Control}
 \item 
 \textbf{ CURR\+\_\+\+PATH} = os.\+path.\+dirname(os.\+path.\+realpath(\+\_\+\+\_\+file\+\_\+\+\_\+))
 \item 
-string \textbf{ APP\+\_\+\+LOGS\+\_\+\+PATH} = \textbf{ CURR\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}..\textbackslash{}\textbackslash{}\+\_\+\+Logs\textbackslash{}\textbackslash{}\char`\"{}
-\item 
-string \textbf{ LOW\+\_\+\+DRIVE\+\_\+\+PATH} = \textbf{ CURR\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}..\textbackslash{}\textbackslash{}Control\+\_\+\+Block\char`\"{}
-\item 
 string \textbf{ CONFIG\+\_\+\+DRIVE\+\_\+\+PATH} = \textbf{ CURR\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}..\textbackslash{}\textbackslash{}Config\char`\"{}
+\item 
+string \textbf{ APP\+\_\+\+LOGS\+\_\+\+PATH} = \textbf{ CURR\+\_\+\+PATH} + \char`\"{}/../\+\_\+\+Logs/\char`\"{}
+\item 
+string \textbf{ LOW\+\_\+\+DRIVE\+\_\+\+PATH} = \textbf{ CURR\+\_\+\+PATH} + \char`\"{}/../Control\+\_\+\+Block\char`\"{}
 \item 
 int \textbf{ STATE\+\_\+\+STAND\+\_\+\+BY} = 0
 \begin{DoxyCompactList}\small\item\em Estado Stand by\+: La aplicación está a la espera de un comando del usuario. \end{DoxyCompactList}\item 
@@ -39,13 +39,13 @@ dictionary \textbf{ State\+\_\+\+Dict}
 
 
 \doxysubsection{Variable Documentation}
-\mbox{\label{namespace_g_u_i___control_a448b661f776c2a9124c0cff9b750340e}} 
+\mbox{\label{namespace_g_u_i___control_a3e52f057ce51d7224d654d63195facfb}} 
 \index{GUI\_Control@{GUI\_Control}!APP\_LOGS\_PATH@{APP\_LOGS\_PATH}}
 \index{APP\_LOGS\_PATH@{APP\_LOGS\_PATH}!GUI\_Control@{GUI\_Control}}
 \doxysubsubsection{APP\_LOGS\_PATH}
-{\footnotesize\ttfamily string GUI\+\_\+\+Control.\+APP\+\_\+\+LOGS\+\_\+\+PATH = \textbf{ CURR\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}..\textbackslash{}\textbackslash{}\+\_\+\+Logs\textbackslash{}\textbackslash{}\char`\"{}}
+{\footnotesize\ttfamily string GUI\+\_\+\+Control.\+APP\+\_\+\+LOGS\+\_\+\+PATH = \textbf{ CURR\+\_\+\+PATH} + \char`\"{}/../\+\_\+\+Logs/\char`\"{}}
 
-\mbox{\label{namespace_g_u_i___control_a96fc571fa3a3efabefcf2c75ea87688e}} 
+\mbox{\label{namespace_g_u_i___control_a23de106575b405e6a249b4f6df8ee5d7}} 
 \index{GUI\_Control@{GUI\_Control}!CONFIG\_DRIVE\_PATH@{CONFIG\_DRIVE\_PATH}}
 \index{CONFIG\_DRIVE\_PATH@{CONFIG\_DRIVE\_PATH}!GUI\_Control@{GUI\_Control}}
 \doxysubsubsection{CONFIG\_DRIVE\_PATH}
@@ -57,11 +57,11 @@ dictionary \textbf{ State\+\_\+\+Dict}
 \doxysubsubsection{CURR\_PATH}
 {\footnotesize\ttfamily GUI\+\_\+\+Control.\+CURR\+\_\+\+PATH = os.\+path.\+dirname(os.\+path.\+realpath(\+\_\+\+\_\+file\+\_\+\+\_\+))}
 
-\mbox{\label{namespace_g_u_i___control_a7c01a3ca5d87cb87647b91549f16514d}} 
+\mbox{\label{namespace_g_u_i___control_a4570418e08b1da7ffbbd7eeaf8ff7610}} 
 \index{GUI\_Control@{GUI\_Control}!LOW\_DRIVE\_PATH@{LOW\_DRIVE\_PATH}}
 \index{LOW\_DRIVE\_PATH@{LOW\_DRIVE\_PATH}!GUI\_Control@{GUI\_Control}}
 \doxysubsubsection{LOW\_DRIVE\_PATH}
-{\footnotesize\ttfamily string GUI\+\_\+\+Control.\+LOW\+\_\+\+DRIVE\+\_\+\+PATH = \textbf{ CURR\+\_\+\+PATH} + \char`\"{}\textbackslash{}\textbackslash{}..\textbackslash{}\textbackslash{}Control\+\_\+\+Block\char`\"{}}
+{\footnotesize\ttfamily string GUI\+\_\+\+Control.\+LOW\+\_\+\+DRIVE\+\_\+\+PATH = \textbf{ CURR\+\_\+\+PATH} + \char`\"{}/../Control\+\_\+\+Block\char`\"{}}
 
 \mbox{\label{namespace_g_u_i___control_a9771606d4dc064ab6df0c9f60934ecf4}} 
 \index{GUI\_Control@{GUI\_Control}!STATE\_ANALYZE\_DATA@{STATE\_ANALYZE\_DATA}}
