@@ -1,6 +1,15 @@
-Inicializacion PEATC App
-Inicializacion del modulo PEATC_Control
 > Inicio Modulo PEATC_Control Tarea ControlHandler
-> Inicio Modulo PEATC_Control Tarea DiagHandler
 > Inicio Modulo PEATC GUI
 Inicializacion PEATC App finalizada
+> Comando inicio de prueba de PEATC
+> Read PEATC
+Envio Cmd a PEATC_Ctrl
+Waiting Result...
+Waiting Result PEATC_Ctrl in state PEATC_CONTROL_STATE_STAND_BY
+
+===Control_Block===
+Se recibe Cmd en PEATC_Ctrl
+{'Cmd': 1, 'Gs_SignaldB': 30, 'Gs_Latency': 100, 'Gs_Polarity': 1, 'Gs_Freq': 50}
+====================
+
+{'Gs_SignaldB': 30, 'Gs_Latency': 100, 'Gs_Polarity': 1, 'Gs_Freq': 50}

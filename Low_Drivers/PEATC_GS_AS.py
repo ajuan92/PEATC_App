@@ -112,6 +112,9 @@ class PEATC_Gs_As:
                       int(TestProfile["Gs_Polarity"]),
                       int(TestProfile["Gs_Freq"]),
 		      int(TestProfile["Gs_SignaldB"]))
+
+        print("===" + "PEATC_GS_AS" + "===")
+        print("Cmd")
         print(TestParams)
         Xillybus.memory_write(GS_START_PATH, TestParams)
 

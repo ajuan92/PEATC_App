@@ -841,7 +841,7 @@ class GUI_Control():
 
                 DiagCurrState = self.Diag_State.value
 
-                if DiagCurrState == 0:
+                if DiagCurrState == PEATC_CONTROL_STATE_STAND_BY:
                     for i, dic in enumerate(self.WaveData):
                         if dic['NewData'] == 1:
                             self.WaveTable.append(self.WaveData[i]['Wave'])
@@ -866,7 +866,7 @@ class GUI_Control():
 
                 DiagCurrState = self.Diag_State.value
 
-                if DiagCurrState is 0:
+                if DiagCurrState is PEATC_CONTROL_STATE_STAND_BY:
                     self.GuiCurrState = STATE_SEND_RESULT
 
             elif self.GuiCurrState is STATE_SEND_RESULT:
